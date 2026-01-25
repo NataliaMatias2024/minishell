@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 15:04:26 by mkitano           #+#    #+#             */
-/*   Updated: 2025/11/29 17:27:27 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/01/25 17:50:49 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "ft_printf.h"
+# include "linked_list.h"
 
 int		ft_atoi(const char *nptr);
 int		ft_isalpha(int c);
