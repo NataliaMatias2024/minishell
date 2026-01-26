@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/01/21 18:00:22 by namatias         ###   ########.fr        #
+#    Updated: 2026/01/26 18:15:35 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,10 @@ EXEC_DIR =		./execution/
 
 PARSING_FILES = teste_parsing.c \
 
-EXEC_FILES = teste_exec.c \
+EXEC_FILES = builtin/pwd.c \
+			 builtin/exit.c \
+			 builtin/cd.c \
+			 ft_is_valid.c	\
 
 SRC_FILES = main.c \
 			$(addprefix $(PARSING_DIR), $(PARSING_FILES)) \

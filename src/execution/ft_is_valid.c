@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_is_valid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/26 18:14:30 by namatias         ###   ########.fr       */
+/*   Created: 2026/01/26 13:21:09 by namatias          #+#    #+#             */
+/*   Updated: 2026/01/26 17:39:14 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+int	ft_is_valid(char *string)
 {
-	if (argc >= 2)
+	int	i;
+
+	i = 0;
+	if (string[i] == '-' || string[i] == '+')
+		i++;
+	if (!string[i])
+		return (0);
+	while (string[i])
 	{
-		if (!ft_strcmp(argv[1], "pwd"))
-			builtin_pwd();
-		else if (!ft_strcmp(argv[1], "exit"))
-			builtin_exit(argv);
-		else if (!ft_strcmp(argv[1], "cd"))
-			builtin_cd();
-		else
-			printf("Comando nao encontrado\n");
+		if (!ft_isdigit(string[i]))
+			return (0);
+		i++;
 	}
+	return (1);
 }

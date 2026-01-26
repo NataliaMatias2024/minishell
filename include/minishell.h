@@ -6,15 +6,14 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/21 17:42:35 by namatias         ###   ########.fr       */
+/*   Updated: 2026/01/25 15:02:26 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
-# include <stdio.h>
+# include <execution.h>
 
 /**
  * @brief Tipos de nós da AST
@@ -32,7 +31,7 @@ typedef enum e_redir_type
 	REDIR_IN,      // <
 	REDIR_OUT,     // >
 	HEREDOC,       // <<
-	APPEND         // >>
+	APPEND	       // >>
 } t_redir_type;
 
 typedef struct s_redir
@@ -45,7 +44,7 @@ typedef struct s_redir
 typedef enum e_node_type
 {
 	NT_CMD,        // (WORD) ex: ls, grep, txt
-	NT_WORD        // "oi mundo"
+	NT_WORD,        // "oi mundo"
 	NT_PIPE        // |
 } t_node_type;
 

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   teste_exec.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/21 17:39:58 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/21 17:48:40 by namatias         ###   ########.fr       */
+/*   Created: 2026/01/24 11:50:32 by namatias          #+#    #+#             */
+/*   Updated: 2026/01/26 18:06:05 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	teste_valida(char *string)
+int	builtin_pwd(void)
 {
-	int	i = 0;
+	char	pwd[SIZE_PATH];
 
-	while (string[i])
-		i++;
-
-	return (i);
+	if (getcwd(pwd, SIZE_PATH))
+	{
+		ft_putendl_fd(pwd, STDOUT_FILENO);
+		return (0);
+	}
+	ft_putendl_fd("pwd: error retrieving current directory", STDERR_FILENO);
+	return (1);
 }
