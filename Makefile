@@ -25,14 +25,18 @@ LIB_DIR =		./lib/libftx/
 INCLUDE_DIR =	./include/
 PARSING_DIR =	./parsing/
 EXEC_DIR =		./execution/
+TOKEN_DIR =		./tokenize/
 
 PARSING_FILES = teste_parsing.c \
 
 EXEC_FILES = teste_exec.c \
 
+TOKEN_FILES = token.c \
+
 SRC_FILES = main.c \
 			$(addprefix $(PARSING_DIR), $(PARSING_FILES)) \
-            $(addprefix $(EXEC_DIR), $(EXEC_FILES))
+            $(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
+			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES))
 
 FILES_O = $(SRC_FILES:.c=.o)
 

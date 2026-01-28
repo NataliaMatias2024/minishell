@@ -14,7 +14,6 @@
 # define LINKED_LIST_H
 
 # include "libft.h"
-# include <stdbool.h>
 
 typedef struct s_node
 {
