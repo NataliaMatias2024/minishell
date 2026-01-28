@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/01/26 18:15:35 by namatias         ###   ########.fr        #
+#    Updated: 2026/01/28 14:12:48 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,21 @@ SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 #                                    LIBRRIES                                  #
 ################################################################################
 
-LIBFT = $(LIB_DIR)libft.a
-IFLAGS = -I$(LIB_DIR)include
-LDFLAGS = -L $(LIB_DIR) -lft -lreadline
+# Caminho do Homebrew no WSL/Linux
+READLINE_PATH = /home/linuxbrew/.linuxbrew
 
-INCLUDES = -I $(INCLUDE_DIR) -I $(LIB_DIR)include
+LIBFT = $(LIB_DIR)libft.a
+IFLAGS = -I$(LIB_DIR)include -I$(READLINE_PATH)/include
+LDFLAGS = -L$(LIB_DIR) -lft -L$(READLINE_PATH)/lib -lreadline
+
+# Atualizando os INCLUDES para encontrar o readline/readline.h
+INCLUDES = -I$(INCLUDE_DIR) -I$(LIB_DIR)include -I$(READLINE_PATH)/include
+
+#LIBFT = $(LIB_DIR)libft.a
+#IFLAGS = -I$(LIB_DIR)include
+#LDFLAGS = -L $(LIB_DIR) -lft -lreadline
+
+#INCLUDES = -I $(INCLUDE_DIR) -I $(LIB_DIR)include
 
 ################################################################################
 #                                   Colors                                     #

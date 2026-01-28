@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 14:54:45 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/26 17:59:48 by namatias         ###   ########.fr       */
+/*   Updated: 2026/01/28 14:11:56 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	teste_print(char *string);
 int		teste_valida(char *string);
 int		ft_is_valid(char *string);
 int		builtin_pwd(void);
+int		builtin_cd(char **args);
 int		builtin_exit(char **args);
 
 #endif
