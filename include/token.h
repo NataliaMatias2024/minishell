@@ -13,13 +13,20 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
-# include "minishell.h"
+/**
+ * @brief Tipos tokens
+ *
+ * TK_WORD → palavras normais (ls, echo, oi)
+ * TK_PIPE → operador |
+ * TK_EOF → fim da lista de tokens
+ * 
+ */
 
 typedef enum e_tk_kind
 {
 	TK_WORD,
 	TK_PIPE,
-	TK_EOF
+	TK_EOF  // end of file
 }	t_tk_kind;
 
 typedef struct s_token

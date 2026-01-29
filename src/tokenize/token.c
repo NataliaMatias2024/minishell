@@ -39,12 +39,12 @@ static void	init_disp_table(t_token_handler table[])
 t_dlist	*tokenize(const char *input, int i)
 {
 	t_token_handler	table[256];
-	t_dlist			*tokens;
+	t_dlist			*tk_lst;
 	t_token			*token;
 
 	init_disp_table(table);
-	tokens = ft_dlist_initi();
-	if (!tokens)
+	tk_lst = ft_dlist_initi();
+	if (!tk_lst)
 		return (NULL);
 	while (input[i])
 	{
@@ -55,11 +55,11 @@ t_dlist	*tokenize(const char *input, int i)
 		if (table[(int) input[i]] != NULL)
 			token = table[(int) input[i]](input, &i);
 		else
-			token = &handler_word(input, &i); //TODO
-		if (add_token(tokens, token))
+			token = handler_word(input, &i); //TODO
+		if (add_token(tk_lst, token))
 			return (NULL);
 	}
-	if (add_token(tokens, new_token(TK_EOF, ft_strdup(""))))
+	if (add_token(tk_lst, new_token(TK_EOF, ft_strdup(""))))
 		return (NULL);
-	return (tokens);
+	return (tk_lst);
 }

@@ -15,13 +15,22 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <stdbool.h>
+
 # include "../lib/libftx/include/libft.h"
+
+# include "token.h"
 
 /**
  * @brief Tipos de nós da AST
  *
- * NK_COMMAND  -> comando simples (ex: ls, echo, cd, etc)
- * NK_PIPE     -> operador |   (conecta stdout -> stdin)
+ * COMMAND  -> comando simples (ex: ls, echo, cd, etc)
+ * PIPE     -> operador |   (conecta stdout -> stdin)
+ * 
+ * REDIR_IN		<
+ * REDIR_OUT	>
+ * HEREDOC		<<
+ * APPEND		>>
  */
 
 typedef enum e_redir_type
@@ -51,6 +60,7 @@ typedef struct s_node
 	struct s_node	*left;
 	struct s_node	*right;
 	char			**arg;
+	//t_dlist		*args;
 	t_redir			redir_kind;
 }					t_node;
 
