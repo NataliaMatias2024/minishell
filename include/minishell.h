@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/25 18:02:33 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/01/30 10:56:45 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ typedef struct s_node
 	t_redir			redir_kind;
 }					t_node;
 
-void				teste_print(char *string);
-int					teste_valida(char *string);
+typedef struct s_environment
+{
+	char					*variable;
+	char					*value;
+	struct s_environment	*next;
+}							t_environment;
 
 #endif
