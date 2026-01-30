@@ -3,50 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/25 15:02:26 by namatias         ###   ########.fr       */
+/*   Updated: 2026/01/25 18:02:33 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <execution.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdbool.h>
+
+# include "../lib/libftx/include/libft.h"
+
+# include "token.h"
 
 /**
  * @brief Tipos de nós da AST
  *
- * NK_COMMAND  -> comando simples (ex: ls, echo, cd, etc)
- * NK_PIPE     -> operador |   (conecta stdout -> stdin)
- * NK_LIST     -> operador ;   (executa comandos em sequência)
- * NK_AND      -> operador &&  (executa o próximo se o anterior teve sucesso)
- * NK_OR       -> operador ||  (executa o próximo se o anterior falhar)
- * NK_SUBSHELL -> comandos entre parênteses
+ * COMMAND  -> comando simples (ex: ls, echo, cd, etc)
+ * PIPE     -> operador |   (conecta stdout -> stdin)
+ * 
+ * REDIR_IN		<
+ * REDIR_OUT	>
+ * HEREDOC		<<
+ * APPEND		>>
  */
 
 typedef enum e_redir_type
 {
-	REDIR_IN,      // <
-	REDIR_OUT,     // >
-	HEREDOC,       // <<
-	APPEND	       // >>
-} t_redir_type;
+	REDIR_IN,
+	REDIR_OUT,
+	HEREDOC,
+	APPEND
+}	t_redir_type;
 
 typedef struct s_redir
 {
 	t_redir_type	kind;
 	int				fd;
 	char			*filename;
-} t_redir;
+}	t_redir;
 
 typedef enum e_node_type
 {
-	NT_CMD,        // (WORD) ex: ls, grep, txt
-	NT_WORD,        // "oi mundo"
-	NT_PIPE        // |
-} t_node_type;
+	NT_WORD,
+	NT_PIPE
+}	t_node_type;
 
 typedef struct s_node
 {
@@ -54,10 +60,11 @@ typedef struct s_node
 	struct s_node	*left;
 	struct s_node	*right;
 	char			**arg;
+	//t_dlist		*args;
 	t_redir			redir_kind;
-} t_node;
+}					t_node;
 
-void	teste_print(char *string);
-int		teste_valida(char *string);
+void				teste_print(char *string);
+int					teste_valida(char *string);
 
 #endif
