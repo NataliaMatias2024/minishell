@@ -20,6 +20,7 @@
  * TK_PIPE → operador |
  * TK_EOF → fim da lista de tokens
  * 
+  * t_token_handler → é um ponteiro para função que cria tokens, “endereço de uma função que retorna t_token *
  */
 
 typedef enum e_tk_kind

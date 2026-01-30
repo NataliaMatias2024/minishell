@@ -52,14 +52,15 @@ t_dlist	*tokenize(const char *input, int i)
 			i++;
 		if (input[i] == '\0')
 			break ;
-		if (table[(int) input[i]] != NULL)
-			token = table[(int) input[i]](input, &i);
+		if (table[(unsigned char) input[i]] != NULL)
+			token = table[(unsigned char) input[i]](input, &i);
 		else
 			token = handler_word(input, &i); //TODO
-		if (add_token(tk_lst, token))
+		if (!add_token(tk_lst, token))
 			return (NULL);
 	}
-	if (add_token(tk_lst, new_token(TK_EOF, ft_strdup(""))))
+	token = new_token(TK_EOF, ft_strdup(""));
+	if (!add_token(tk_lst, token))
 		return (NULL);
 	return (tk_lst);
 }
