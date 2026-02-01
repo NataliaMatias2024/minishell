@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/25 18:02:33 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/02/01 19:53:54 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef enum e_node_type
 	NT_PIPE
 }	t_node_type;
 
-typedef struct s_node
+typedef struct s_nodem
 {
 	t_node_type		kind;
 	struct s_node	*left;
@@ -62,7 +62,7 @@ typedef struct s_node
 	char			**arg;
 	//t_dlist		*args;
 	t_redir			redir_kind;
-}					t_node;
+}					t_nodem;
 
 void				teste_print(char *string);
 int					teste_valida(char *string);

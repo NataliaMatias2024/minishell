@@ -6,11 +6,11 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 17:26:02 by mkitano           #+#    #+#             */
-/*   Updated: 2026/01/25 18:37:31 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/02/01 17:40:23 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "minishell.h"
 
 static int	add_token(t_dlist *tks, t_token *token)
 {
@@ -31,7 +31,7 @@ static int	add_token(t_dlist *tks, t_token *token)
 static void	init_disp_table(t_token_handler table[])
 {
 	ft_bzero(table, sizeof(t_token_handler) * 256);
-	table['|'] = &handler_pipe; //TODO
+	table['|'] = &handler_pipe;
 	table['>'] = &handler_redir; //TODO
 	table['<'] = &handler_redir;
 }
