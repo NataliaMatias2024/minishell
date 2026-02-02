@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/01/28 14:12:48 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/02 18:44:07 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,14 @@ INCLUDE_DIR =	./include/
 PARSING_DIR =	./parsing/
 EXEC_DIR =		./execution/
 
-PARSING_FILES = teste_parsing.c \
+PARSING_FILES =
 
 EXEC_FILES = builtin/pwd.c \
 			 builtin/exit.c \
 			 builtin/cd.c \
-			 ft_is_valid.c	\
+			 builtin/builtin_utils.c \
+			 init_environment_list.c \
+			 linked_list.c
 
 SRC_FILES = main.c \
 			$(addprefix $(PARSING_DIR), $(PARSING_FILES)) \

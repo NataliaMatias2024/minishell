@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/30 10:56:45 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/02 18:21:45 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 # include "../lib/libftx/include/libft.h"
 
-# include "token.h"
+//# include "token.h"
+# include "execution.h" 
 
 /**
  * @brief Tipos de nós da AST
@@ -70,5 +71,11 @@ typedef struct s_environment
 	char					*value;
 	struct s_environment	*next;
 }							t_environment;
+
+t_environment	*init_environment(char **envp);
+void			create_environment_array(t_environment	**head, char *envp);
+t_environment	*create_environment_node(char *var, char *var_info);
+void			create_list_env(t_environment **head, char *var, char *var_info);
+void			print_list_teste(t_environment *head);
 
 #endif

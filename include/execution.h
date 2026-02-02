@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 14:54:45 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/28 14:11:56 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/02 18:52:20 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@
 //grep -r "PATH_MAX" /usr/include/linux/limits.h -> Ve o do seu sistema
 # define SIZE_PATH 4096
 
-typedef struct s_comandos_testes
-{
-	char	**args;
-}	t_cmd_testes;
-
-void	teste_print(char *string);
-int		teste_valida(char *string);
 int		ft_is_valid(char *string);
 int		builtin_pwd(void);
 int		builtin_cd(char **args);
