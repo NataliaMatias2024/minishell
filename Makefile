@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+         #
+#    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/02 18:44:07 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/03 16:48:33 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ EXEC_FILES = builtin/pwd.c \
 			 builtin/exit.c \
 			 builtin/cd.c \
 			 builtin/builtin_utils.c \
-			 init_environment_list.c \
+			 environment_list.c  \
 			 linked_list.c
 
 SRC_FILES = main.c \

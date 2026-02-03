@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_environment_list.c                            :+:      :+:    :+:   */
+/*   environment_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/02 18:42:56 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/03 17:19:55 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,16 @@ void	create_environment_array(t_environment	**head, char *envp)
 		free(variable);
 	if (variable_info)
 		free(variable_info);
+}
+
+char	*get_env_path(t_environment *env, char *name)
+{
+	if (!env)
+		return (NULL);
+	if (ft_strcmp(env->variable, name) == 0)
+	{
+		printf("%s\n",	env->value);
+		return (env->value);
+	}
+	return (NULL);
 }
