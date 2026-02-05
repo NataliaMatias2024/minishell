@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 14:41:57 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/01 19:26:27 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/02/05 19:44:16 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,9 @@ t_token	*handler_redir(const char *input, int *i)
 		return (NULL);
 	*i += ft_strlen(token->lexeme);
 	return (token);
+}
+
+t_token	*handler_word(const char *input, int *i)
+{
+	
 }
