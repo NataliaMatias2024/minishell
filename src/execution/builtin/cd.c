@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:18:15 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/05 14:22:25 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/05 20:06:25 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,19 @@ int	builtin_cd(t_environment *env, char **args)
 	}
 
 	//verificar o local atual e salvar(caminho antigo)
-	getcwd(pwd, SIZE_PATH);
-	old_pwd = ft_strdup(pwd);
-	(void)old_pwd;
+	if(getcwd(pwd, SIZE_PATH))
+		old_pwd = ft_strdup(pwd);
+
 	//verificar se recebemos cd + nome de onde ir
-	//se receber apenas cd mudar para home (getenv("HOME"))
+	//se receber apenas cd OU  cd ~ mudar para home (getenv("HOME"))
 	if (!args[1] || ft_strchr(args[1], '~') != NULL)
-	{
 		target = get_env_path(env, "HOME");
+	else if (ft_strchr(args[1], '-'))
+	{
+		target = get_env_path(env, "OLDPWD");  //se receber cd - , mudar para OLDPWD
+		ft_printf("%s\n", old_pwd);
 	}
+
 	//"chamar chdir(objetivo), pois ele procura o nome no ambiente retornando 0 no sucesso e -1 no erro
 	if (chdir(target) != 0)
 			perror("Error");
