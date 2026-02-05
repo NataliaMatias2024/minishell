@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/03 18:42:22 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/05 14:05:38 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,5 @@ typedef struct s_node
 	//t_dlist		*args;
 	t_redir			redir_kind;
 }					t_node;
-
-typedef struct s_environment
-{
-	char					*variable;
-	char					*value;
-	struct s_environment	*next;
-}							t_environment;
 
 #endif
