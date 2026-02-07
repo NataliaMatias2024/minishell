@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/02 18:21:48 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/07 01:51:30 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,31 @@ t_environment	*create_environment_node(char *var, char *var_info)
 	return (new_node);
 }
 
-void	create_list_env(t_environment **head, char *var, char *var_info)
+void	create_update_list_env(t_environment **head, char *var, char *var_info)
 {
-	t_environment	*current_node;
 	t_environment	*temp;
 
-	current_node = create_environment_node(var, var_info);
+	if (!head || !var)
+		return ;
 	if (!*head)
 	{
-		*head = current_node;
+		*head = create_environment_node(var, var_info);
 		return ;
 	}
 	temp = *head;
-	while (temp->next != NULL)
+	while (temp)
+	{
+		if (ft_strcmp(temp->variable, var) == 0)
+		{
+			free(temp->value);
+			temp->value = ft_strdup(var_info);
+			return ;
+		}
+		if (temp->next == NULL)
+			break ;
 		temp = temp->next;
-	temp->next = current_node;
+	}
+	temp->next = create_environment_node(var, var_info);
 }
 //TODO: apagar após os testes
 void	print_list_teste(t_environment *head)

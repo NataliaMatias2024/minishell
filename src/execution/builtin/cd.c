@@ -6,27 +6,20 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:18:15 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/05 20:06:25 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/07 02:00:37 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static	char *target_path(t_environment *env, char **args);
+
 int	builtin_cd(t_environment *env, char **args)
 {
-	int		status;
 	char	pwd[SIZE_PATH];
 	char	*old_pwd;
+	char	*new_pwd;
 	char	*target;
-
-	status = 0;
-	//TODO: mostra oq foi recebido (debug), retirar depois
-	int i = 0;
-	while (args[i])
-	{
-		printf("Arg[%d] = %s\n", i,args[i]);
-		i++;
-	}
 
 	//se receber info a + retornar erro de muitos argumentos
 	if (args[1] && args[2])
@@ -38,22 +31,60 @@ int	builtin_cd(t_environment *env, char **args)
 	//verificar o local atual e salvar(caminho antigo)
 	if(getcwd(pwd, SIZE_PATH))
 		old_pwd = ft_strdup(pwd);
+	else
+		old_pwd = ft_strdup("");
+	target = target_path(env, args);
+	if (!target)
+		return (1);
 
-	//verificar se recebemos cd + nome de onde ir
-	//se receber apenas cd OU  cd ~ mudar para home (getenv("HOME"))
-	if (!args[1] || ft_strchr(args[1], '~') != NULL)
-		target = get_env_path(env, "HOME");
-	else if (ft_strchr(args[1], '-'))
-	{
-		target = get_env_path(env, "OLDPWD");  //se receber cd - , mudar para OLDPWD
-		ft_printf("%s\n", old_pwd);
-	}
-
-	//"chamar chdir(objetivo), pois ele procura o nome no ambiente retornando 0 no sucesso e -1 no erro
+	//chamar chdir(objetivo), pois ele procura o nome no ambiente retornando 0 no sucesso e -1 no erro
 	if (chdir(target) != 0)
-			perror("Error");
-	//atualizar ambiente, manter o caminho antigo pego antes do chdir e o novo caminho pwd
+	{
+			perror("minishell:  cd");
+			return (1);
+	}
+	if (args[1] && ft_strcmp(args[1], "-") == 0)
+		ft_printf("%s\n", old_pwd);
 
-	return (status);
+	if (getcwd(pwd, SIZE_PATH))
+		new_pwd = ft_strdup(pwd);
+	else
+		new_pwd = ft_strdup("");
+
+	//atualizar ambiente, manter o caminho antigo pego antes do chdir e o novo caminho pwd
+	create_update_list_env(&env, "OLDPWD", old_pwd);
+	free(old_pwd);
+	create_update_list_env(&env, "PWD", new_pwd);
+	free(new_pwd);
+	return (0);
 }
 
+static	char *target_path(t_environment *env, char **args)
+{
+	//verificar se recebemos cd + nome de onde ir
+	//se receber apenas cd OU  cd ~ mudar para home (getenv("HOME"))
+	//se receber cd - , mudar para OLDPWD
+	char	*target;
+	
+	if (!args[1] ||  ft_strcmp(args[1], "~") == 0)
+	{
+		target = get_env_path(env, "HOME");
+		if (target == NULL)
+		{
+			ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
+			return (NULL);
+		}
+	}
+	else if (args[1] && ft_strcmp(args[1], "-") == 0)
+	{
+		target = get_env_path(env, "OLDPWD");
+		if (target == NULL)
+		{
+			ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
+			return (NULL);
+		}
+	}
+	else
+		target = args[1];
+	return (target);
+}

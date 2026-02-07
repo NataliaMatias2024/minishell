@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/05 20:06:27 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/07 01:47:32 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	create_environment_array(t_environment	**head, char *envp)
 	variable_info = ft_strdup(envp + index + 1);
 
 	if (variable && variable_info)
-		create_list_env(head, variable, variable_info);
+		create_update_list_env(head, variable, variable_info);
 
 	//TODO: Ambas as funções possuem malloc internamente, entao precisa dar free
 	if (variable)
@@ -56,7 +56,7 @@ char	*get_env_path(t_environment *env, char *name)
 {
 	if (!env)
 		return (NULL);
-	while (env->next != NULL)
+	while (env)
 	{
 		if (ft_strcmp(env->variable, name) == 0)
 			return (env->value);

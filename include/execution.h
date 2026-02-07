@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 14:54:45 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/05 18:29:55 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/06 22:45:56 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_environment
 t_environment	*init_environment(char **envp);
 void			create_environment_array(t_environment	**head, char *envp);
 t_environment	*create_environment_node(char *var, char *var_info);
-void			create_list_env(t_environment **head, char *var, char *var_info);
+void			create_update_list_env(t_environment **head, char *var, char *var_info);
 void			print_list_teste(t_environment *head);
 char			*get_env_path(t_environment *env, char *name);
 
