@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/05 14:06:52 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:42:21 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(int argc, char **argv, char **envp)
 				builtin_exit(argv);
 			else if (ft_strcmp(argv[0], "cd") == 0)
 				builtin_cd(environment_list, argv);
+			else if (ft_strcmp(argv[0], "echo") == 0)
+				builtin_echo(argv);
 			else
 			{
 				printf("Comando nao encontrado\n");

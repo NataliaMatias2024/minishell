@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 14:54:45 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/06 22:45:56 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:31:50 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				ft_is_valid(char *string);
 int				builtin_pwd(char **args);
 int				builtin_cd(t_environment *env, char **args);
 int				builtin_exit(char **args);
+int				builtin_echo(char **args);
 
 #endif
 
