@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 17:26:02 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/05 16:16:02 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/02/01 17:40:23 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_dlist	*tokenize(const char *input, int i)
 		if (table[(unsigned char) input[i]] != NULL)
 			token = table[(unsigned char) input[i]](input, &i);
 		else
-			token = handler_word(input, &i); //TODO
+			token = handler_word(input, &i);
 		if (!add_token(tk_lst, token))
 			return (NULL);
 	}

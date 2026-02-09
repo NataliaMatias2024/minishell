@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 14:41:57 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/05 19:44:16 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/02/01 19:26:27 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,40 @@ t_token	*handler_redir(const char *input, int *i)
 	*i += ft_strlen(token->lexeme);
 	return (token);
 }
+static int	check_quotes(const char *input, int *i, char quote)
+{
+	(*i)++;
+	while (input[*i] && input[*i] != quote)
+		(*i)++;
+	if (input[*i] != quote)
+		return(0);
+	(*i)++;
+	return (1);
+}
 
 t_token	*handler_word(const char *input, int *i)
 {
-	
+	t_token	*token;
+	int		start;
+	char	quote;
+
+	start = *i;
+	while (input[*i] && !ft_isspace(input[*i]) && !ft_strchr("|<>", input[*i]))
+	{
+		if (input[*i] == '\'' || input[*i] == '"')
+		{
+			quote = input[*i];
+			if (!check_quotes(input, i, quote))
+			{
+				ft_putendl_fd("minishell: syntax error: unclosed quote", 2);
+				return (NULL);
+			}
+		}
+		else
+			(*i)++;
+	}
+	token = new_token(TK_WORD, ft_substr(input,start, *i - start));
+	if (!token)
+		return (NULL);
+	return (token);
 }
