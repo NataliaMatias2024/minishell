@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/07 15:41:50 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:27:40 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ void	create_update_list_env(t_environment **head, char *var, char *var_info)
 	}
 	temp->next = create_environment_node(var, var_info);
 }
-//TODO: apagar após os testes
-void	print_list_teste(t_environment *head)
+
+void	print_list(t_environment *head)
 {
 	t_environment	*current_node;
 
 	current_node = head;
 	while (current_node != NULL)
 	{
-		printf("%s = %s\n", current_node->variable, current_node->value);
+		printf("%s=%s\n", current_node->variable, current_node->value);
 		current_node = current_node->next;
 	}
 }

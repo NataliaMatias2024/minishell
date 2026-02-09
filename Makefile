@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/07 20:32:13 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/09 11:11:54 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ EXEC_FILES = builtin/pwd.c \
 			 builtin/exit.c \
 			 builtin/cd.c \
 			 builtin/echo.c \
+			 builtin/env.c \
 			 builtin/builtin_utils.c \
 			 environment_list.c  \
 			 linked_list.c

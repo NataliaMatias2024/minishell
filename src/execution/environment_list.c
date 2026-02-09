@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/07 15:37:46 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:10:36 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_environment	*init_environment(char **envp)
 		i++;
 	}
 	// TODO: Debug, printa lista de ambiente criada, uma variavel e value por linha
-	//print_list_teste(head);
+	//print_list(head);
 	return (head);
 }
 
