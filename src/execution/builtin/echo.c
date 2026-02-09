@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 15:44:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/09 10:35:47 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/09 10:50:38 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@
 int	builtin_echo(char **args)
 {
 	int	i;
-	if (ft_strcmp(args[1], "-n") == 0)
+	if (!args[1])
+	{
+		printf("\n");
+		return (1);
+	}
+	else if (ft_strcmp(args[1], "-n") == 0)
 	{
 		i = 2;
 		while (args[i])
