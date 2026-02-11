@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/09 11:11:54 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/11 14:50:48 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,11 @@ EXEC_FILES = builtin/pwd.c \
 			 builtin/cd.c \
 			 builtin/echo.c \
 			 builtin/env.c \
+			 builtin/unset.c \
 			 builtin/builtin_utils.c \
 			 environment_list.c  \
-			 linked_list.c
+			 linked_list.c \
+			 deleting_list_node.c
 
 SRC_FILES = main.c \
 			$(addprefix $(PARSING_DIR), $(PARSING_FILES)) \
