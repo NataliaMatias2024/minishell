@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 15:44:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/09 10:50:38 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/09 10:58:29 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 //echo basicamente imprime uma string na tela 
 //para o subject a unica flag q devemos implementar é echo -n
 //echo -n -> nao mostra no output com a quebra de linha no final
+//apenas echo -> imprime uma nova linha vazia
 //TODO: SE houver aspas duplas hello $USER expande e aparece hello valor de $USER
 //TODO: SE houver aspas simples hello $USER aparece exatamente assim
 int	builtin_echo(char **args)

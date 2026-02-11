@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:18:15 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/07 15:32:32 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/11 17:54:55 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ int	builtin_cd(t_environment *env, char **args)
 	//verificar se diretorio indicado existe e salvar seu caminho
 	target = target_path(env, args, old_pwd);
 	if (!target)
+	{
+		free(old_pwd);
 		return (1);
+	}
 	//chamar chdir(objetivo), pois ele procura o nome ou caminho no ambiente retornando 0 ou -1 (erro)
 	if (execute_chdir(target, old_pwd) != 0)
 		return (1);
@@ -83,7 +86,7 @@ static	int	execute_chdir(char *target, char *old_pwd)
 	//se retornar qualquer coisa q nao 0 é pq deu erro, imprimir erro na tela, dar free e finalizar
 	if (chdir(target) != 0)
 	{
-		perror("minishell:  cd");
+		perror("minishell: cd");
 		free(old_pwd);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 16:00:38 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/03 14:13:37 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/11 17:25:44 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //EXIT + ARGUMENTO QUE NAO NUMERICO = erro interno porem sai do shell
 //exit + numero = saida
 //exit = considerado flag = 0, sai sem erros.
-int	builtin_exit(char **args)
+int	builtin_exit(t_environment **env, char **args)
 {
 	int	exit_flag;
 
@@ -34,6 +34,7 @@ int	builtin_exit(char **args)
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
 			ft_putendl_fd("exit: numeric argument required.", STDERR_FILENO);
+			deleting_list(env);
 			exit(2);
 		}
 		else if (args[2])
@@ -44,6 +45,7 @@ int	builtin_exit(char **args)
 		exit_flag = ft_atoi(args[1]);
 	}
 	ft_putendl_fd("exit", STDOUT_FILENO);
+	deleting_list(env);
 	exit(exit_flag);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 13:21:09 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/03 17:25:13 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/11 15:11:29 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,17 @@ int	ft_is_space(char *line)
 		i++;
 	}
 	return (0);
+}
+
+void free_split(char **splited)
+{
+	int	i;
+
+	i = 0;
+	while(splited[i])
+	{
+		free(splited[i]);
+		i++;
+	}
+	free(splited);
 }
