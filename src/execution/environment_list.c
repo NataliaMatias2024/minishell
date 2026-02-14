@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/11 15:39:29 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/14 04:07:13 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_environment	*init_environment(char **envp)
 	head = NULL;
 	while (envp[i])
 	{
-		create_environment_array(&head, envp[i]);
+		create_environment(&head, envp[i]);
 		i++;
 	}
 	// TODO: Debug, printa lista de ambiente criada, uma variavel e value por linha
@@ -29,20 +29,25 @@ t_environment	*init_environment(char **envp)
 	return (head);
 }
 
-void	create_environment_array(t_environment	**head, char *envp)
+void	create_environment(t_environment	**head, char *envp)
 {
-	int				index;
+	size_t			index;
 	char			*variable;
 	char			*variable_info;
+	char			*postion_equal;
 
 	index = 0;
 	while (envp[index] && envp[index] != '=')
 		index++;
+	postion_equal = ft_strchr(envp, '=');
 
 	variable = ft_substr(envp, 0, index);
-	variable_info = ft_strdup(envp + index + 1);
+	if (postion_equal != NULL)
+		variable_info = ft_strdup(postion_equal + 1);
+	else
+		variable_info = NULL;
 
-	if (variable && variable_info)
+	if (variable)
 		create_update_list_env(head, variable, variable_info);
 
 	//TODO: Ambas as funções possuem malloc internamente, entao precisa dar free

@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/11 14:50:48 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/14 04:09:49 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ EXEC_FILES = builtin/pwd.c \
 			 builtin/echo.c \
 			 builtin/env.c \
 			 builtin/unset.c \
+			 builtin/export.c \
 			 builtin/builtin_utils.c \
 			 environment_list.c  \
 			 linked_list.c \
@@ -102,5 +103,8 @@ fclean: clean
 	@$(MAKE) fclean -C $(LIB_DIR) --silent
 
 re: fclean all
+
+val: all
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 .PHONY: all clean fclean re
