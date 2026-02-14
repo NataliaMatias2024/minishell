@@ -22,7 +22,7 @@ t_token	*handler_pipe(const char *input, int *i)
 		(*i)++;
 		return (NULL);
 	}
-	token = new_token(TK_PIPE, ft_strdup("|")); //TODO new_token
+	token = new_token(TK_PIPE, ft_strdup("|"));
 	if (!token)
 		return (NULL);
 	*i += 1;
@@ -39,7 +39,7 @@ t_token	*handler_redir(const char *input, int *i)
 		token = new_token(TK_HEREDOC, ft_strdup("<<"));
 	else if (input[*i] == '>')
 		token = new_token(TK_OUT, ft_strdup(">"));
-	else if (input[*i] == '<')
+	else
 		token = new_token(TK_IN, ft_strdup("<"));
 	if (!token)
 		return (NULL);

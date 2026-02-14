@@ -32,6 +32,8 @@ PARSING_FILES = teste_parsing.c \
 EXEC_FILES = teste_exec.c \
 
 TOKEN_FILES = token.c \
+	handlers.c \
+	token_utils.c \
 
 SRC_FILES = main.c \
 			$(addprefix $(PARSING_DIR), $(PARSING_FILES)) \

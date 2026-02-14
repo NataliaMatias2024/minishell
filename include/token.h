@@ -43,5 +43,12 @@ typedef struct s_token
 
 typedef t_token	*(*t_token_handler)(const char *input, int *i);
 
+t_token	*handler_pipe(const char *input, int *i);
+t_token	*handler_redir(const char *input, int *i);
+t_token	*handler_word(const char *input, int *i);
+
+t_token	*new_token(t_tk_kind kind, char *lexeme);
+void	free_tks(void *data);
+
 #endif
 

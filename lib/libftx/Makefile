@@ -81,7 +81,9 @@ LK_LST = get_node_at.c \
 	node_detach.c \
 	node_new.c \
 	node_push_back.c \
-	node_push_front.c
+	node_push_front.c \
+	lst_push_back.c \
+	lst_push_front.c \
 
 CORE_SRCS = $(addprefix $(SRC_DIR)/core/, $(CORE))
 GNL_SRCS = $(addprefix $(SRC_DIR)/gnl/, $(GNL))

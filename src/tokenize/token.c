@@ -19,9 +19,9 @@ static int	add_token(t_dlist *tks, t_token *token)
 		ft_destroy_dlst(&tks, free_tks);
 		return (1);
 	}
-	if (!ft_push_node_back(tks, token))
+	if (!ft_lst_push_back(tks, token))
 	{
-		free_tks(token); //TODO
+		free_tks(token);
 		ft_destroy_dlst(&tks, free_tks);
 		return (1);
 	}
