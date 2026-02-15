@@ -43,6 +43,8 @@ typedef struct s_token
 
 typedef t_token	*(*t_token_handler)(const char *input, int *i);
 
+t_dlist	*tokenize(const char *input, int i);
+
 t_token	*handler_pipe(const char *input, int *i);
 t_token	*handler_redir(const char *input, int *i);
 t_token	*handler_word(const char *input, int *i);

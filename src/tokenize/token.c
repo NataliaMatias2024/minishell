@@ -17,15 +17,15 @@ static int	add_token(t_dlist *tks, t_token *token)
 	if (!token)
 	{
 		ft_destroy_dlst(&tks, free_tks);
-		return (1);
+		return (0);
 	}
 	if (!ft_lst_push_back(tks, token))
 	{
 		free_tks(token);
 		ft_destroy_dlst(&tks, free_tks);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 static void	init_disp_table(t_token_handler table[])
