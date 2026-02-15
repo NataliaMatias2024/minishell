@@ -6,17 +6,19 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:50:36 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/11 15:05:54 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/15 02:50:05 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static t_environment	*get_and_detach_node(t_environment **head, char *args);
+static t_environment	*detach_node(t_environment **previus, t_environment *target_node);
 
+//TODO: verificar se unset tbm reage igual ao export para variaveis com nomes invalidos ou inexistentes
 //Apaga uma variável do ambiente
 //retorna sucess a menos q uma opçao invalida seja dada ou seja um NAME read-only
-int builtin_unset(t_environment **head, char **args)
+int	builtin_unset(t_environment **head, char **args)
 {
 	int				i;
 	t_environment	*target_node;
@@ -27,11 +29,9 @@ int builtin_unset(t_environment **head, char **args)
 	while (args[i])
 	{
 		target_node = get_and_detach_node(head, args[i]);
-		if (!target_node)
-			return (0);
-		print_list(target_node);
+		if (target_node)
+			deleting_node(target_node);
 		i++;
-		deleting_node(target_node);
 	}
 	return (0);
 }
@@ -54,4 +54,31 @@ static t_environment	*get_and_detach_node(t_environment **head, char *args)
 	//as outras informaçoes nao sejam perdidas
 	target_node = detach_node(head, temp);
 	return (target_node);
+}
+
+static t_environment	*detach_node(t_environment **head, t_environment *target)
+{
+	t_environment	*temp_prev;
+	t_environment	*temp;
+
+	if (!*head || !head || !target)
+		return (NULL);
+	temp = *head;
+	temp_prev = NULL;
+	while (temp)
+	{
+		if (temp == target)
+		{
+			//se o targe for o primeiro item da lista
+			if (temp_prev == NULL)
+				*head = temp->next;
+			else
+				temp_prev->next = temp->next; //o next do prev será igual ao next do nosso target
+			temp->next = NULL;
+			return (temp);
+		}
+		temp_prev = temp;
+		temp = temp->next;
+	}
+	return (NULL);
 }

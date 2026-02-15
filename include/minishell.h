@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/05 14:05:38 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/15 05:06:54 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,18 @@
 
 # include "../lib/libftx/include/libft.h"
 
+/**
+ * @brief Organização Modular dos Headers
+ *
+ * ENVIRONMENT.H -> Definição da struct t_environment e gestão de memória.
+ * BUILTIN.H     -> Protótipos dos comandos internos (depende do environment).
+ *
+ * NOTA: O minishell.h concentra esses includes para servir como hub global.
+ */
+# include "environment.h"
+# include "builtin.h"
+
 //# include "token.h"
-# include "execution.h"
 
 /**
  * @brief Tipos de nós da AST

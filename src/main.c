@@ -6,13 +6,14 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/12 15:13:53 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/15 04:04:31 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_space(char *line);
+static int		ft_is_space(char *line);
+static void		free_split(char **splited);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -27,22 +28,9 @@ int	main(int argc, char **argv, char **envp)
 		if (line && *line && ft_is_space(line) != 0)
 		{
 			argv = ft_split(line, 32);
-			//TODO: printf("line = %s\n", line);
 			add_history(line);
-			if (ft_strcmp(argv[0], "pwd") == 0)
-				builtin_pwd(argv);
-			else if (ft_strcmp(argv[0], "exit") == 0)
-				builtin_exit(&environment_list, argv);
-			else if (ft_strcmp(argv[0], "cd") == 0)
-				builtin_cd(environment_list, argv);
-			else if (ft_strcmp(argv[0], "echo") == 0)
-				builtin_echo(argv);
-			else if (ft_strcmp(argv[0], "env") == 0)
-				builtin_env(environment_list, argv);
-			else if (ft_strcmp(argv[0], "unset") == 0)
-				builtin_unset(&environment_list, argv);
-			else if (ft_strcmp(argv[0], "export") == 0)
-				builtin_export(&environment_list, argv);
+			if (is_builtin_command(&environment_list, argv))
+				exec_builtin(environment_list, argv);
 			else
 			{
 				printf("Comando nao encontrado\n");
@@ -63,3 +51,31 @@ int	main(int argc, char **argv, char **envp)
 	printf("Ctrl + D Acionado\n");
 }
 
+//TODO: Feito apenas para conseguir testar os builtins com uma main temporaria, deletar!
+
+static int	ft_is_space(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != 32)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static void	free_split(char **splited)
+{
+	int	i;
+
+	i = 0;
+	while (splited[i])
+	{
+		free(splited[i]);
+		i++;
+	}
+	free(splited);
+}

@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/14 04:09:49 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/15 04:09:59 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,16 +28,15 @@ EXEC_DIR =		./execution/
 
 PARSING_FILES =
 
-EXEC_FILES = builtin/pwd.c \
-			 builtin/exit.c \
-			 builtin/cd.c \
-			 builtin/echo.c \
+EXEC_FILES = builtin/cd.c \
 			 builtin/env.c \
+			 builtin/pwd.c \
+			 builtin/exit.c \
+			 builtin/echo.c \
 			 builtin/unset.c \
 			 builtin/export.c \
-			 builtin/builtin_utils.c \
-			 environment_list.c  \
-			 linked_list.c \
+			 builtin/builtin.c \
+			 environment_list.c \
 			 deleting_list_node.c
 
 SRC_FILES = main.c \

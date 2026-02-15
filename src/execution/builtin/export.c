@@ -6,16 +6,16 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 19:15:09 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/14 14:37:10 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/14 19:37:34 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void print_sorted_environment(t_environment *env);
-static void sorted_env(t_environment **to_sort, int size);
+static void	print_sorted_environment(t_environment *env);
+static void	sorted_env(t_environment **to_sort, int size);
 static void	print_env(t_environment **sorted, int size);
-static int is_valid_name(char *args);
+static int	is_valid_name(char *args);
 
 int	builtin_export(t_environment **head, char **args)
 {
@@ -26,12 +26,12 @@ int	builtin_export(t_environment **head, char **args)
 	exit_code = 0;
 	//SE apenas export for digitado retornar lista de env 
 	//EM ORDEM ALFABETICA no formato "declare -x VARIAVEL"
-	if(!args[i])
+	if (!args[i])
 		print_sorted_environment(*head);
 	else
 	{
 		//Funciona para mais de uma variavel por vez (EX: export VAR1=val1 VAR2=val2 VAR3) deve funcionar
-		while(args[i])
+		while (args[i])
 		{
 			if (is_valid_name(args[i]))
 				exit_code = 1;
@@ -50,7 +50,7 @@ int	builtin_export(t_environment **head, char **args)
 	return (exit_code);
 }
 
-static void print_sorted_environment(t_environment *env)
+static void	print_sorted_environment(t_environment *env)
 {
 	t_environment	**to_sort;
 	t_environment	*current;
@@ -75,7 +75,7 @@ static void print_sorted_environment(t_environment *env)
 	free(to_sort);
 }
 
-static void sorted_env(t_environment **to_sort, int size)
+static void	sorted_env(t_environment **to_sort, int size)
 {
 //Bubble sort, ordena da forma mais simples, do ultimo espaço para o primeiro
 	int				i;
@@ -122,23 +122,23 @@ static void	print_env(t_environment **sorted, int size)
 	}
 }
 
-static int is_valid_name(char *str)
+static int	is_valid_name(char *str)
 {
 	//Sao validos nomes que comecem com uma letra ou um _ (ex: 1var, var-name -> retornam erro)
 	//SE name nao for valido retorna status = 1 e erro: not a valid identifier
 	int	i;
 
 	i = 0;
-	if(!ft_isalpha(str[0]) && str[0] != '_')
+	if (!ft_isalpha(str[0]) && str[0] != '_')
 	{
 		ft_putstr_fd("minishell: export: '", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
 		return (1);
 	}
-	while(str[i] && str[i] != '=')
+	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalnum(str[i]) &&  str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
 			ft_putstr_fd("minishell: export: '", STDERR_FILENO);
 			ft_putstr_fd(str, STDERR_FILENO);

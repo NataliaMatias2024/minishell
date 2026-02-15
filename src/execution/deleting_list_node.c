@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 14:41:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/11 17:07:33 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:53:01 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	deleting_node(t_environment *to_delete)
 {
 	if (!to_delete)
 		return ;
-	if(to_delete->value)
+	if (to_delete->value)
 	{
 		free(to_delete->value);
 		to_delete->value = NULL;
@@ -36,7 +36,7 @@ static void	deleteting_all_nodes(t_environment **head)
 	t_environment	*current_node;
 	t_environment	*temp;
 
-	if(!head || !*head)
+	if (!head || !*head)
 		return ;
 	current_node = (*head);
 	while (current_node)
@@ -47,9 +47,9 @@ static void	deleteting_all_nodes(t_environment **head)
 	}
 }
 
-void deleting_list(t_environment **head)
+void	deleting_list(t_environment **head)
 {
-	if(!head || !*head)
+	if (!head || !*head)
 		return ;
 	deleteting_all_nodes(head);
 	*head = NULL;

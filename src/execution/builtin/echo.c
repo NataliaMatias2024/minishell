@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 15:44:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/09 10:58:29 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/15 03:02:22 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,62 @@
 
 //echo basicamente imprime uma string na tela 
 //para o subject a unica flag q devemos implementar é echo -n
-//echo -n -> nao mostra no output com a quebra de linha no final
-//apenas echo -> imprime uma nova linha vazia
 //TODO: SE houver aspas duplas hello $USER expande e aparece hello valor de $USER
 //TODO: SE houver aspas simples hello $USER aparece exatamente assim
-int	builtin_echo(char **args)
+
+static int	exist_flag(t_environment **head, char *str);
+
+int	builtin_echo(t_environment **head, char **args)
 {
 	int	i;
-	if (!args[1])
+	int	flag_n;
+
+	flag_n = 0;
+	if (!args[1]) //apenas echo -> imprime uma nova linha vazia
 	{
 		printf("\n");
-		return (1);
+		return (0);
 	}
-	else if (ft_strcmp(args[1], "-n") == 0)
+	i = 1;
+	//verificamos se existe uma flag -n e salvamos flag_n =1 caso exista
+	while (args[i] && exist_flag(head, args[i]))
 	{
-		i = 2;
-		while (args[i])
-		{
-			printf("%s", args[i]);
-			if (args[i + 1])
-				printf(" ");
-			i++;
-		}
+		flag_n = 1;
+		i++;
 	}
-	else
+	//printamos o conteudo na tela acrescentando um espaço entre as palavras
+	//exceto na ultima posiçao (args[i +1])
+	while (args[i])
 	{
-		i = 1;
-		while (args[i])
-		{
-			printf("%s", args[i]);
-			if (args[i + 1])
-				printf(" ");
-			i++;
-		}
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		i++;
+	}
+	//echo -n -> nao mostra no output com a quebra de linha no final
+	if (flag_n != 1)
 		printf("\n");
-	}
 	return (0);
+}
+
+static int	exist_flag(t_environment **head, char *str)
+{
+	int	i;
+
+	(void)*head;
+//se logo de cara não houver -n nao é a flag q queremos, entao apenas retornamos 0 para a func principal
+	if (!str || str[0] != '-')
+		return (0);
+	if (str[1] != 'n')
+		return (0);
+//echo acheita multiplos -n e -nnnnnn... por isso é necessario o looping
+//se ja temos o -n verificado, agora vemos se ele é precedido de outros n, pois nesse caso conta como uma unica flag
+	i = 2;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
