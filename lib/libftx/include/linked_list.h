@@ -41,6 +41,6 @@ int		ft_insert_node_at(t_dlist *lst, t_node *node, size_t index);
 
 void	ft_destroy_dlst(t_dlist **lst, void (*del)(void*));
 
-int	ft_lst_push_back(t_dlist *lst, void *content);
-int	ft_lst_push_front(t_dlist *lst, void *content);
+int		ft_lst_push_back(t_dlist *lst, void *content);
+int		ft_lst_push_front(t_dlist *lst, void *content);
 #endif

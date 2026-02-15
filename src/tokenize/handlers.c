@@ -46,6 +46,7 @@ t_token	*handler_redir(const char *input, int *i)
 	*i += ft_strlen(token->lexeme);
 	return (token);
 }
+
 static int	check_quotes(const char *input, int *i, char quote)
 {
 	(*i)++;
