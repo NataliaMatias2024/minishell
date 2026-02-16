@@ -6,10 +6,9 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 15:04:26 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/15 21:30:50 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/15 21:43:38 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef LIBFT_H
 # define LIBFT_H

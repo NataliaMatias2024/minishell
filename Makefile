@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/15 04:09:59 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/15 21:53:08 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ LDFLAGS = -L$(LIB_DIR) -lft -L$(READLINE_PATH)/lib -lreadline
 # Atualizando os INCLUDES para encontrar o readline/readline.h
 INCLUDES = -I$(INCLUDE_DIR) -I$(LIB_DIR)include -I$(READLINE_PATH)/include
 
+# Caminho ORIGINAL
 #LIBFT = $(LIB_DIR)libft.a
 #IFLAGS = -I$(LIB_DIR)include
 #LDFLAGS = -L $(LIB_DIR) -lft -lreadline

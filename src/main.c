@@ -6,34 +6,110 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/15 04:04:31 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/15 22:44:53 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-<<<<<<< HEAD
-/*função para teste do tokenize*/
-static char *kind_to_str(t_tk_kind kind)
+static int		ft_is_space(char *line);
+static void		free_split(char **splited);
+char 			**tokens_to_argv(t_dlist *tklst);
+
+/*Integraçao da MAIN para teste*/
+int main(int argc, char **argv, char **envp)
 {
-	if (kind == TK_WORD)
-		return ("WORD");
-	if (kind == TK_PIPE)
-		return ("PIPE");
-	if (kind == TK_IN)
-		return ("IN");
-	if (kind == TK_OUT)
-		return ("OUT");
-	if (kind == TK_HEREDOC)
-		return ("HEREDOC");
-	if (kind == TK_APPEND)
-		return ("APPEND");
-	if (kind == TK_EOF)
-		return ("EOF");
-	return ("UNKNOWN");
+    t_dlist         *tklst;
+    t_environment   *env_list;
+    char            *line;
+    char            **cmd_args;
+
+	(void)argv;
+	(void)argc;
+    env_list = init_environment(envp);
+    while (1)
+    {
+        line = readline("minishell> ");
+        if (!line) // Trata o Ctrl+D (EOF)
+            break ;
+        if (*line && ft_is_space(line) != 0)
+        {
+            add_history(line);
+			//TOKEN alimenta a tklst
+            tklst = tokenize(line, 0);
+            if (tklst)
+            {
+                // CONVERSÃO (Transforma a lista de tokens em char ** para os built-ins)
+                cmd_args = tokens_to_argv(tklst); //TODO
+
+                //EXECUÇÃO DE BUILT-INS
+                if (is_builtin_command(&env_list, cmd_args))
+                    exec_builtin(env_list, cmd_args);
+                else
+                    printf("Comando nao encontrado: %s\n", line);
+
+				//LIMPEZA libera as structs
+                ft_destroy_dlst(&tklst, free_tks);
+                free_split(cmd_args);
+            }
+			else
+				return (1);
+        }
+        free(line);
+    }
+    rl_clear_history();
+    deleting_list(&env_list);
+    printf("Exiting Minishell... (Ctrl + D)\n");
+    return (0);
 }
+
+char **tokens_to_argv(t_dlist *tklst)
+{
+    t_node  *node;
+    t_token *token;
+    char    **args;
+    int     i;
+
+    // Conta tokens do tipo WORD para dar o malloc
+    args = ft_calloc(tklst->size + 1, sizeof(char *));
+    
+    node = tklst->head;
+    i = 0;
+    while (node)
+    {
+        token = (t_token *)node->data;
+        // Só adicionamos ao args o que for palavra (ignora pipes/redirs por enquanto)
+        if (token->kind == TK_WORD) 
+        {
+            args[i] = ft_strdup(token->lexeme);
+            i++;
+        }
+        node = node->next;
+    }
+    return (args);
+}
+
+/*função para teste do tokenize*/
+// static char *kind_to_str(t_tk_kind kind)
+// {
+// 	if (kind == TK_WORD)
+// 		return ("WORD");
+// 	if (kind == TK_PIPE)
+// 		return ("PIPE");
+// 	if (kind == TK_IN)
+// 		return ("IN");
+// 	if (kind == TK_OUT)
+// 		return ("OUT");
+// 	if (kind == TK_HEREDOC)
+// 		return ("HEREDOC");
+// 	if (kind == TK_APPEND)
+// 		return ("APPEND");
+// 	if (kind == TK_EOF)
+// 		return ("EOF");
+// 	return ("UNKNOWN");
+// }
 /*main para teste do tokenize*/
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	//teste
 	t_dlist	*tklst;
@@ -60,9 +136,7 @@ int	main(int argc, char **argv)
 	ft_destroy_dlst(&tklst, free_tks);
 	printf("exec frees\n");
 	return (0);
-//	if (argc > 1 && teste_valida(argv[1]))
-//		teste_print(argv[1]);
-}
+}*/
 
 /*
 int main(int argc, char **argv)
@@ -95,10 +169,8 @@ CONCEITO DE MAIN REALOFICIAL
 		execute(ast);
 		free_all();
 	}*/
-=======
-static int		ft_is_space(char *line);
-static void		free_split(char **splited);
 
+	/*TESTES BUILTIN
 int	main(int argc, char **argv, char **envp)
 {
 	t_environment	*environment_list;
@@ -133,7 +205,7 @@ int	main(int argc, char **argv, char **envp)
 	rl_clear_history();
 	deleting_list(&environment_list);
 	printf("Ctrl + D Acionado\n");
-}
+}*/
 
 //TODO: Feito apenas para conseguir testar os builtins com uma main temporaria, deletar!
 
@@ -163,4 +235,3 @@ static void	free_split(char **splited)
 	}
 	free(splited);
 }
->>>>>>> origin/feat/builtin
