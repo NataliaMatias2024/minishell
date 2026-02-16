@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/01/21 18:00:22 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/15 04:09:59 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,18 @@ PARSING_DIR =	./parsing/
 EXEC_DIR =		./execution/
 TOKEN_DIR =		./tokenize/
 
-PARSING_FILES = teste_parsing.c \
+PARSING_FILES =
 
-EXEC_FILES = teste_exec.c \
+EXEC_FILES = builtin/cd.c \
+			 builtin/env.c \
+			 builtin/pwd.c \
+			 builtin/exit.c \
+			 builtin/echo.c \
+			 builtin/unset.c \
+			 builtin/export.c \
+			 builtin/builtin.c \
+			 environment_list.c \
+			 deleting_list_node.c
 
 TOKEN_FILES = token.c \
 	handlers.c \
@@ -49,11 +58,21 @@ SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 #                                    LIBRRIES                                  #
 ################################################################################
 
-LIBFT = $(LIB_DIR)libft.a
-IFLAGS = -I$(LIB_DIR)include
-LDFLAGS = -L $(LIB_DIR) -lft -lreadline
+# Caminho do Homebrew no WSL/Linux
+READLINE_PATH = /home/linuxbrew/.linuxbrew
 
-INCLUDES = -I $(INCLUDE_DIR) -I $(LIB_DIR)include
+LIBFT = $(LIB_DIR)libft.a
+IFLAGS = -I$(LIB_DIR)include -I$(READLINE_PATH)/include
+LDFLAGS = -L$(LIB_DIR) -lft -L$(READLINE_PATH)/lib -lreadline
+
+# Atualizando os INCLUDES para encontrar o readline/readline.h
+INCLUDES = -I$(INCLUDE_DIR) -I$(LIB_DIR)include -I$(READLINE_PATH)/include
+
+#LIBFT = $(LIB_DIR)libft.a
+#IFLAGS = -I$(LIB_DIR)include
+#LDFLAGS = -L $(LIB_DIR) -lft -lreadline
+
+#INCLUDES = -I $(INCLUDE_DIR) -I $(LIB_DIR)include
 
 ################################################################################
 #                                   Colors                                     #
@@ -89,5 +108,8 @@ fclean: clean
 	@$(MAKE) fclean -C $(LIB_DIR) --silent
 
 re: fclean all
+
+val: all
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 .PHONY: all clean fclean re

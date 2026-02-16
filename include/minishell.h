@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/01 19:53:54 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/02/15 21:38:32 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@
 # include <stdbool.h>
 
 # include "../lib/libftx/include/libft.h"
+
+/**
+ * @brief Organização Modular dos Headers
+ *
+ * ENVIRONMENT.H -> Definição da struct t_environment e gestão de memória.
+ * BUILTIN.H     -> Protótipos dos comandos internos (depende do environment).
+ *
+ * NOTA: O minishell.h concentra esses includes para servir como hub global.
+ */
+# include "environment.h"
+# include "builtin.h"
 
 # include "token.h"
 
