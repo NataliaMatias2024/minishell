@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/15 21:53:08 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/19 03:24:54 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,10 @@ EXEC_FILES = builtin/cd.c \
 			 builtin/export.c \
 			 builtin/builtin.c \
 			 environment_list.c \
-			 deleting_list_node.c
+			 executions_utils.c \
+			 deleting_list_node.c \
+			 expansion/expansion.c \
+			 expansion/expansion_utils.c \
 
 TOKEN_FILES = token.c \
 	handlers.c \

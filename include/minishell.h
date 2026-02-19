@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/15 21:45:43 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/19 03:20:25 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 /**
  * @brief Organização Modular dos Headers
  *
- * ENVIRONMENT.H -> Definição da struct t_environment e gestão de memória.
- * BUILTIN.H     -> Protótipos dos comandos internos (depende do environment).
- *
- * NOTA: O minishell.h concentra esses includes para servir como hub global.
+ * EXECUTION.H -> Hub principal da execução, consolidando:
+ * - ENVIRONMENT.H: Definição da t_environment e gestão de memória da env.
+ * - BUILTIN.H:     Protótipos dos comandos internos (echo, cd, pwd, etc).
+ * - EXPANSION.H:   Lógica de expansão de variáveis ($) e tratamento de aspas.
+ * 
  */
-# include "environment.h"
-# include "builtin.h"
+# include "execution.h"
 
 # include "token.h"
 
