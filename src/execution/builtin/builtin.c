@@ -6,13 +6,13 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 03:35:08 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/15 05:07:59 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/19 02:55:43 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_builtin_command(t_environment **head, char **argv) //TODO: Ver qual struct sera passada
+int	is_builtin_command(t_env **head, char **argv)
 {
 	if (!head || !*head)
 		return (0);
@@ -24,7 +24,7 @@ int	is_builtin_command(t_environment **head, char **argv) //TODO: Ver qual struc
 	return (0);
 }
 
-int	exec_builtin(t_environment *environment_list, char **argv) //TODO: Ver qual struct sera passada
+int	exec_builtin(t_env *environment_list, char **argv)
 {
 	int	status;
 

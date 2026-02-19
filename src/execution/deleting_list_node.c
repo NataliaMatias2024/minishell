@@ -6,15 +6,15 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 14:41:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/14 14:53:01 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/19 02:55:43 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	deleteting_all_nodes(t_environment **head);
+static void	deleteting_all_nodes(t_env **head);
 
-void	deleting_node(t_environment *to_delete)
+void	deleting_node(t_env *to_delete)
 {
 	if (!to_delete)
 		return ;
@@ -31,10 +31,10 @@ void	deleting_node(t_environment *to_delete)
 	free(to_delete);
 }
 
-static void	deleteting_all_nodes(t_environment **head)
+static void	deleteting_all_nodes(t_env **head)
 {
-	t_environment	*current_node;
-	t_environment	*temp;
+	t_env	*current_node;
+	t_env	*temp;
 
 	if (!head || !*head)
 		return ;
@@ -47,7 +47,7 @@ static void	deleteting_all_nodes(t_environment **head)
 	}
 }
 
-void	deleting_list(t_environment **head)
+void	deleting_list(t_env **head)
 {
 	if (!head || !*head)
 		return ;

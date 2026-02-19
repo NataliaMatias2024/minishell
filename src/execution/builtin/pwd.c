@@ -6,13 +6,13 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:50:32 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/15 02:57:05 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/19 02:55:43 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_pwd(t_environment **head, char **args)
+int	builtin_pwd(t_env **head, char **args)
 {
 	char	pwd[SIZE_PATH];
 

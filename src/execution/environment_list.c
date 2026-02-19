@@ -6,16 +6,16 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/15 04:55:31 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/19 03:22:15 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_environment	*init_environment(char **envp)
+t_env	*init_environment(char **envp)
 {
-	int				i;
-	t_environment	*head;
+	int		i;
+	t_env	*head;
 
 	i = 0;
 	head = NULL;
@@ -27,12 +27,12 @@ t_environment	*init_environment(char **envp)
 	return (head);
 }
 
-void	create_environment(t_environment	**head, char *envp)
+void	create_environment(t_env **head, char *envp)
 {
-	size_t			index;
-	char			*variable;
-	char			*variable_info;
-	char			*postion_equal;
+	size_t	index;
+	char	*variable;
+	char	*variable_info;
+	char	*postion_equal;
 
 	index = 0;
 	while (envp[index] && envp[index] != '=')
@@ -51,9 +51,9 @@ void	create_environment(t_environment	**head, char *envp)
 		free(variable_info);
 }
 
-void	create_update_list_env(t_environment **head, char *var, char *var_info)
+void	create_update_list_env(t_env **head, char *var, char *var_info)
 {
-	t_environment	*temp;
+	t_env	*temp;
 
 	if (!head || !var)
 		return ;
@@ -77,11 +77,11 @@ void	create_update_list_env(t_environment **head, char *var, char *var_info)
 		temp->next = create_environment_node(var, var_info);
 }
 
-t_environment	*create_environment_node(char *var, char *var_info)
+t_env	*create_environment_node(char *var, char *var_info)
 {
-	t_environment	*new_node;
+	t_env	*new_node;
 
-	new_node = (t_environment *) malloc (sizeof(t_environment));
+	new_node = (t_env *) malloc (sizeof(t_env));
 	if (new_node == NULL)
 		return (NULL);
 	new_node->variable = ft_strdup(var);
@@ -93,10 +93,10 @@ t_environment	*create_environment_node(char *var, char *var_info)
 	return (new_node);
 }
 
-int	list_size(t_environment *head)
+int	list_size(t_env *head)
 {
-	t_environment	*temp;
-	int				size;
+	t_env	*temp;
+	int		size;
 
 	size = 0;
 	temp = head;

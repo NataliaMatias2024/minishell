@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 17:28:16 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/01 19:54:24 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/02/19 03:11:36 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ t_token	*new_token(t_tk_kind kind, char *lexeme);
 void	free_tks(void *data);
 
 #endif
-
