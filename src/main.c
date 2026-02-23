@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 21:25:24 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/23 00:02:34 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,8 @@ int	main(int argc, char **argv, char **envp)
 					if (is_builtin_command(&env_list, cmd_args))
 						exec_builtin(env_list, cmd_args);
 					else
-					{
-						//EXECUÇÃO COMANDOS EXTERNOS
-						if (exec_commands(env_list, cmd_args) == -1)
-						{
-							ft_putstr_fd("minishell: ", 2);
-							ft_putstr_fd(cmd_args[0], 2);
-							ft_putstr_fd(": command not found\n", 2);
-							// g_exit_status = 127; //TODO
-						}
-					}
+					//EXECUÇÃO COMANDOS EXTERNOS
+						exec_external_command(env_list, cmd_args);
 				}
 				//LIMPEZA libera as structs
 				ft_destroy_dlst(&tklst, free_tks);
