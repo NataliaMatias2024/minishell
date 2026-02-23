@@ -15,6 +15,7 @@
 int pipe_check(t_node *node)
 {
 	t_token	*token;
+	t_token	*next;
 
 	if (!node || !node->data)
 		return (0);
@@ -26,12 +27,13 @@ int pipe_check(t_node *node)
 	}
 	if (!node->next || ((t_token *)node->next->data)->kind == TK_EOF)
 	{
-		err_msg("newline")
+		err_msg("newline");
 	}
+	next = (t_token *)node->next->data;
 	if (((t_token *)node->prev->data)->kind != TK_WORD
 		|| ((t_token *)node->next->data)->kind != TK_WORD)
 	{
-		err_msg((t_token *)node->next->data)->lexeme);
+		err_msg(next->lexeme);
 		return (0);
 	}
 	return (1);
@@ -43,13 +45,13 @@ int redir_check(t_node *node)
 
 	if (!node || !node->next)
 	{
-		err_msg("newline")
+		err_msg("newline");
 		return (0);
 	}
 	next = (t_token *)node->next->data;
 	if (!next || next->kind == TK_EOF)
 	{
-		err_msg("newline")
+		err_msg("newline");
 		return (0);
 	}
 	if (next->kind != TK_WORD)
