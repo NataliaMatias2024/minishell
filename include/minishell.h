@@ -67,4 +67,10 @@ typedef struct s_nodem
 void				teste_print(char *string);
 int					teste_valida(char *string);
 
+//para teste main
+int	syntax_check(t_dlist *tk_lst);
+int pipe_check(t_node *node);
+int redir_check(t_node *node);
+void err_msg(char *lex);
+
 #endif

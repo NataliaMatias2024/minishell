@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell"
+#include "minishell.h"
 
 int pipe_check(t_node *node)
 {
@@ -19,15 +19,19 @@ int pipe_check(t_node *node)
 	if (!node || !node->data)
 		return (0);
 	token = (t_token *)node->data;
-	if (!node->prev || !node->next)
+	if (!node->prev)
 	{
-		ft_putendl_fd("minishell: syntax error near unexpected token `|`", 2);
+		err_msg(token->lexeme);
 		return (0);
 	}
-	else if (((t_token *)node->prev->data)->kind == TK_PIPE
+	if (!node->next || ((t_token *)node->next->data)->kind == TK_EOF)
+	{
+		err_msg("newline")
+	}
+	if (((t_token *)node->prev->data)->kind != TK_WORD
 		|| ((t_token *)node->next->data)->kind != TK_WORD)
 	{
-		ft_putendl_fd("minishell: syntax error near unexpected token `|`", 2); //TODO checar mensagem de erro
+		err_msg((t_token *)node->next->data)->lexeme);
 		return (0);
 	}
 	return (1);
@@ -35,14 +39,22 @@ int pipe_check(t_node *node)
 
 int redir_check(t_node *node)
 {
-	if (!node || !node->next || ((t_token *)node->next->data)->kind == TK_EOF)
+	t_token	*next;
+
+	if (!node || !node->next)
 	{
-		ft_putendl_fd("minishell: syntax error near unexpected token `newline`", 2);
+		err_msg("newline")
 		return (0);
 	}
-	else if (((t_token *)node->next->data)->kind != TK_WORD)
+	next = (t_token *)node->next->data;
+	if (!next || next->kind == TK_EOF)
 	{
-		ft_putendl_fd("minishell: syntax error near unexpected token", 2); //TODO checar mensagem de erro
+		err_msg("newline")
+		return (0);
+	}
+	if (next->kind != TK_WORD)
+	{
+		err_msg(next->lexeme);
 		return (0);
 	}
 	return (1);

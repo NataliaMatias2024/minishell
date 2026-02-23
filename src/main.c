@@ -55,9 +55,14 @@ int	main(int argc, char **argv)
 		printf("Lexeme: %s\n\n", token->lexeme);
 		node = node->next;
 	}
-	printf("Chegou ao fim\n");
+	if (!syntax_check(tklst))
+	{
+		ft_destroy_dlst(&tklst, free_tks);
+		printf("syntax achou erro, exec frees\n");
+		return(1);
+	}
 	ft_destroy_dlst(&tklst, free_tks);
-	printf("exec frees\n");
+	printf("Deu tudo certo, exec frees\n");
 	return (0);
 //	if (argc > 1 && teste_valida(argv[1]))
 //		teste_print(argv[1]);
