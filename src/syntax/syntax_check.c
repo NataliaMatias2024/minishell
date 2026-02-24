@@ -28,6 +28,7 @@ int pipe_check(t_node *node)
 	if (!node->next || ((t_token *)node->next->data)->kind == TK_EOF)
 	{
 		err_msg("newline");
+		return (0);
 	}
 	next = (t_token *)node->next->data;
 	if (((t_token *)node->prev->data)->kind != TK_WORD

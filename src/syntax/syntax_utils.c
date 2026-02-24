@@ -8,6 +8,6 @@ void err_msg(char *lex)
 	if (!lex)
 		return ;
 	ft_putstr_fd(msg, STDERR_FILENO);
-	ft_putendl_fd(lex, 2);
+	write(2, lex, ft_strlen(lex));
 	ft_putstr_fd("' \n", STDERR_FILENO);
 }

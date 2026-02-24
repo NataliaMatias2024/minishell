@@ -27,8 +27,7 @@ EXEC_DIR =		./execution/
 TOKEN_DIR =		./tokenize/
 SYNTAX_DIR =	./syntax/
 
-SYNTAX_FILES = teste_parsing.c \
-	syntax_check.c \
+SYNTAX_FILES = 	syntax_check.c \
 	syntax_utils.c \
 
 EXEC_FILES = teste_exec.c \
