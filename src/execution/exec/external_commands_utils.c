@@ -1,43 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   external_commands_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 22:46:12 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/23 00:02:15 by namatias         ###   ########.fr       */
+/*   Created: 2026/02/24 15:03:40 by namatias          #+#    #+#             */
+/*   Updated: 2026/02/24 19:49:28 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static char		*check_slash(char *cmd_args);
 static t_env	*find_path_node(t_env *head, char *args);
-static char		**transform_env_list(t_env *env_list);
 static char		*create_env_array(char *variable, char *value);
-static char		*create_path_array(t_env *env_list, char **cmd_args);
 
-int	exec_external_command(t_env *env_list, char **cmd_args)
-{
-	char	*pathname;
-	char	**envp;
-
-	pathname = create_path_array(env_list, cmd_args);
-	if (!pathname) //comando n existe ou n tem permissao de execuçao 
-	{
-		ft_putstr_fd("minishell: Command '", STDERR_FILENO);
-		ft_putstr_fd(cmd_args[0], STDERR_FILENO);
-		ft_putendl_fd("' not found", STDERR_FILENO);
-		// g_exit_status = 127; //TODO: 127 é o codigo padrao do linux para comando n encontrado
-		return (-1);
-	}
-	envp = transform_env_list(env_list);
-	execve(pathname, cmd_args, envp);
-	free(pathname);
-	return (0);
-}
-
-static char	*create_path_array(t_env *env_list, char **cmd_args)
+char	*create_path_array(t_env *env_list, char **cmd_args)
 {
 	t_env	*path_node;
 	char	**paths;
@@ -45,13 +24,13 @@ static char	*create_path_array(t_env *env_list, char **cmd_args)
 	char	*full_path;
 	int		i;
 
+	exec_path = check_slash(cmd_args[0]);
 	path_node = find_path_node(env_list, "PATH");
-	//caso o usuario tenha dado unset no path
-	if (!path_node)
-		return (NULL);
+	if (exec_path || !path_node || !cmd_args[0])
+		return (exec_path);
 	paths = ft_split(path_node->value, ':');
-	i = 0;
-	while (paths [i])
+	i = -1;
+	while (paths && paths[i++])
 	{
 		full_path = ft_strjoin(paths[i], "/");
 		exec_path = join_and_free(full_path, cmd_args[0]);
@@ -63,9 +42,20 @@ static char	*create_path_array(t_env *env_list, char **cmd_args)
 			return (exec_path);
 		}
 		free(exec_path); //se n for o comando certo, damos free antes de testar o prox, assim n perde a ref
-		i++;
 	}
 	free_split(paths); //caso passe por tds os paths e nao ache o comando
+	return (NULL);
+}
+
+static char	*check_slash(char *cmd_args)
+{
+	if (!cmd_args)
+		return (NULL);
+	if (ft_strrchr(cmd_args, '/'))
+	{
+		if (access(cmd_args, X_OK) == 0)
+			return (ft_strdup(cmd_args));
+	}
 	return (NULL);
 }
 
@@ -85,7 +75,7 @@ static t_env	*find_path_node(t_env *head, char *args)
 	return (temp);
 }
 
-static char	**transform_env_list(t_env *env_list)
+char	**transform_env_list(t_env *env_list)
 {
 	t_env	*temp;
 	char	**envp;

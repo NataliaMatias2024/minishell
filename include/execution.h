@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/22 23:47:18 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/24 19:51:15 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@
 # include "expansion.h"
 
 int		exec_commands(t_env *env_list, char **cmd_args);
-int		exec_external_command(t_env *env_list, char **cmd_args);
-int		is_external_command(t_env *env_list, char **cmd_args);
+void	exec_external_command(t_env *env_list, char **cmd_args);
+void	execute_handler(t_env *env_list, char **cmd_args);
+
+char	*create_path_array(t_env *env_list, char **cmd_args);
+char	**transform_env_list(t_env *env_list);
 
 char	*get_env_path(t_env **env, char *name);
 char	**tokens_to_argv(t_dlist *tklst);
