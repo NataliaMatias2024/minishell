@@ -93,7 +93,7 @@ static char	*target_path(t_env **env, char **args)
 
 static char	*get_env_path(t_env **env, char *name)
 {
-	t_environment	*temp_env;
+	t_env	*temp_env;
 
 	if (!env)
 		return (NULL);
