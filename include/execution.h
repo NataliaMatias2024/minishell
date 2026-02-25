@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/24 19:51:15 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/25 01:09:02 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,26 @@
 # include <sys/wait.h>
 
 # include "environment.h"
+# include "token.h"
 # include "builtin.h"
 # include "expansion.h"
 
-int		exec_commands(t_env *env_list, char **cmd_args);
-void	exec_external_command(t_env *env_list, char **cmd_args);
-void	execute_handler(t_env *env_list, char **cmd_args);
+typedef struct s_executor
+{
+	t_token	*token;
+	t_env	*env_list;
+	int		exit_status;
+}		t_exec;
 
-char	*create_path_array(t_env *env_list, char **cmd_args);
+void	execute_handler(t_exec *exec, char **cmd_args);
+void	exec_external_command(t_exec *exec, char **cmd_args);
+
 char	**transform_env_list(t_env *env_list);
+char	*create_path_array(t_env *env_list, char **cmd_args);
 
-char	*get_env_path(t_env **env, char *name);
-char	**tokens_to_argv(t_dlist *tklst);
-void	free_split(char **splited);
 int		ft_is_space(char *line);
+void	free_split(char **splited);
+char	**tokens_to_argv(t_dlist *tklst);
+char	*get_env_path(t_env **env, char *name);
 
 #endif

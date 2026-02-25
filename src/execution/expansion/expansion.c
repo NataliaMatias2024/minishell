@@ -6,24 +6,24 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 21:06:07 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 21:10:27 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/25 01:04:22 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_name(char *lexeme, int *i);
-static char	*expand_lexeme(t_env *env, char *lexeme);
-static char	*handle_dollar(t_env *env, char *lexeme, int *i, char *analyzed);
 static void	clean_quotes(t_token *token);
+static char	*get_name(char *lexeme, int *i);
+static char	*expand_lexeme(t_exec *exec, char *lexeme);
+static char	*handle_dollar(t_exec *exec, char *lexeme, int *i, char *analyzed);
 
-int	expand_variable(t_env *env, t_dlist **tklst)
+int	expand_variable(t_exec *exec, t_dlist **tklst)
 {
 	t_node			*node;
 	t_token			*token;
 	char			*expanded_lexeme;
 
-	if (!env || !tklst)
+	if (!exec->env_list || !tklst)
 		return (1);
 	node = (*tklst)->head;
 	while (node)
@@ -33,7 +33,7 @@ int	expand_variable(t_env *env, t_dlist **tklst)
 		{
 			if (ft_strchr(token->lexeme, '$'))
 			{
-				expanded_lexeme = expand_lexeme(env, token->lexeme);
+				expanded_lexeme = expand_lexeme(exec, token->lexeme);
 				free(token->lexeme);
 				token->lexeme = expanded_lexeme;
 			}
@@ -44,7 +44,7 @@ int	expand_variable(t_env *env, t_dlist **tklst)
 	return (0);
 }
 
-static char	*expand_lexeme(t_env *env, char *lexeme)
+static char	*expand_lexeme(t_exec *exec, char *lexeme)
 {
 	int		i;
 	char	auxiliar[2];
@@ -59,7 +59,7 @@ static char	*expand_lexeme(t_env *env, char *lexeme)
 	{
 		state = quote_state(lexeme[i], state);
 		if (lexeme[i] == '$' && state != 1)
-			analyzed = handle_dollar(env, lexeme, &i, analyzed);
+			analyzed = handle_dollar(exec, lexeme, &i, analyzed);
 		else
 		{
 			auxiliar[0] = lexeme[i];
@@ -70,7 +70,7 @@ static char	*expand_lexeme(t_env *env, char *lexeme)
 	return (analyzed);
 }
 
-static char	*handle_dollar(t_env *env, char *lexeme, int *i, char *analyzed)
+static char	*handle_dollar(t_exec *exec, char *lexeme, int *i, char *analyzed)
 {
 	char	*var_name;
 	char	*var_value;
@@ -78,9 +78,11 @@ static char	*handle_dollar(t_env *env, char *lexeme, int *i, char *analyzed)
 	(*i)++;
 	if (lexeme[*i] == '?')
 	{
-		// TODO :var_value = ft_itoa(g_exit_status);
-		var_value = ft_strdup("0");
+		//Transforma o exit_status em string
+		var_value = ft_itoa(exec->exit_status);
+		//Concatena o valor de $? com o resto da frase ja existente
 		analyzed = join_and_free(analyzed, var_value);
+		//como ft_itoa faz malloc interno temos que liberar depois de concatenar
 		free(var_value);
 		(*i)++;
 	}
@@ -92,7 +94,7 @@ static char	*handle_dollar(t_env *env, char *lexeme, int *i, char *analyzed)
 			analyzed = join_and_free(analyzed, "$");
 			return (analyzed);
 		}
-		var_value = get_env_path(&env, var_name);
+		var_value = get_env_path(&exec->env_list, var_name);
 		free(var_name);
 		if (var_value)
 			analyzed = join_and_free(analyzed, var_value);
