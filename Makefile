@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/19 03:24:54 by namatias         ###   ########.fr        #
+#    Updated: 2026/02/25 11:41:14 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,12 @@ SRC_DIR =		./src/
 OBJ_DIR =		./obj/
 LIB_DIR =		./lib/libftx/
 INCLUDE_DIR =	./include/
-PARSING_DIR =	./parsing/
 EXEC_DIR =		./execution/
 TOKEN_DIR =		./tokenize/
+SYNTAX_DIR =	./syntax/
 
-PARSING_FILES =
+SYNTAX_FILES = 	syntax_check.c \
+	syntax_utils.c \
 
 EXEC_FILES = builtin/cd.c \
 			 builtin/env.c \
@@ -48,7 +49,7 @@ TOKEN_FILES = token.c \
 	token_utils.c \
 
 SRC_FILES = main.c \
-			$(addprefix $(PARSING_DIR), $(PARSING_FILES)) \
+			$(addprefix $(SYNTAX_DIR), $(SYNTAX_FILES)) \
             $(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
 			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES))
 

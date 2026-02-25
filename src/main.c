@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 03:35:00 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:44:48 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 			//TOKEN alimenta a tklst
 			tklst = tokenize(line, 0);
-			if (tklst)
+			if (tklst && syntax_check(tklst))
 			{
 				//ANTES DA CONVERSAO de ser expandido
 				expand_variable(env_list, &tklst);
@@ -51,13 +51,16 @@ int	main(int argc, char **argv, char **envp)
 				ft_destroy_dlst(&tklst, free_tks);
 				free_split(cmd_args);
 			}
-			else
-				return (1);
+			else if (!syntax_check(tklst))
+			{
+				ft_destroy_dlst(&tklst, free_tks);
+				printf("syntax achou erro, exec frees\n");
+				return(1);
+			}
 		}
 		free(line);
 	}
 	rl_clear_history();
 	deleting_list(&env_list);
 	printf("Exiting Minishell... (Ctrl + D)\n");
-	return (0);
 }

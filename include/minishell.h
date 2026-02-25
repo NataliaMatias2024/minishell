@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 03:20:25 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:40:05 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,11 @@ typedef struct s_nodem
 	//t_dlist		*args;
 	t_redir			redir_kind;
 }					t_nodem;
+
+//para teste main
+int	syntax_check(t_dlist *tk_lst);
+int pipe_check(t_node *node);
+int redir_check(t_node *node);
+void err_msg(char *lex);
 
 #endif
