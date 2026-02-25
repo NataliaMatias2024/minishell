@@ -14,9 +14,9 @@
 
 //mostra a lista com as variaveis de ambiente no formato name=value
 //digitar alguma coisa a mais (sem ser as flags) = No such file or directory
-static void	print_list(t_environment **head);
+static void	print_list(t_env **head);
 
-int	builtin_env(t_environment **head, char **args)
+int	builtin_env(t_env **head, char **args)
 {
 	if (!head)
 		return (1);
@@ -33,9 +33,9 @@ int	builtin_env(t_environment **head, char **args)
 	return (0);
 }
 
-static void	print_list(t_environment **head)
+static void	print_list(t_env **head)
 {
-	t_environment	*temp;
+	t_env	*temp;
 
 	temp = *head;
 	while (temp != NULL)

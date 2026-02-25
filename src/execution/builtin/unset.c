@@ -12,16 +12,16 @@
 
 #include "minishell.h"
 
-static t_environment	*get_and_detach_node(t_environment **head, char *args);
-static t_environment	*detach_node(t_environment **previus, t_environment *target_node);
+static t_env	*get_and_detach_node(t_env **head, char *args);
+static t_env	*detach_node(t_env **head, t_env *target);
 
 //TODO: verificar se unset tbm reage igual ao export para variaveis com nomes invalidos ou inexistentes
 //Apaga uma variável do ambiente
 //retorna sucess a menos q uma opçao invalida seja dada ou seja um NAME read-only
-int	builtin_unset(t_environment **head, char **args)
+int	builtin_unset(t_env **head, char **args)
 {
-	int				i;
-	t_environment	*target_node;
+	int		i;
+	t_env	*target_node;
 
 	if (!args[1])
 		return (0);
@@ -36,10 +36,10 @@ int	builtin_unset(t_environment **head, char **args)
 	return (0);
 }
 
-static t_environment	*get_and_detach_node(t_environment **head, char *args)
+static t_env	*get_and_detach_node(t_env **head, char *args)
 {
-	t_environment	*temp;
-	t_environment	*target_node;
+	t_env	*temp;
+	t_env	*target_node;
 
 	temp = *head;
 	while (temp)
@@ -56,10 +56,10 @@ static t_environment	*get_and_detach_node(t_environment **head, char *args)
 	return (target_node);
 }
 
-static t_environment	*detach_node(t_environment **head, t_environment *target)
+static t_env	*detach_node(t_env **head, t_env *target)
 {
-	t_environment	*temp_prev;
-	t_environment	*temp;
+	t_env	*temp_prev;
+	t_env	*temp;
 
 	if (!*head || !head || !target)
 		return (NULL);
@@ -73,7 +73,7 @@ static t_environment	*detach_node(t_environment **head, t_environment *target)
 			if (temp_prev == NULL)
 				*head = temp->next;
 			else
-				temp_prev->next = temp->next; //o next do prev será igual ao next do nosso target
+				temp_prev->next = temp->next;
 			temp->next = NULL;
 			return (temp);
 		}

@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-static void	print_sorted_environment(t_environment *env);
-static void	sorted_env(t_environment **to_sort, int size);
-static void	print_env(t_environment **sorted, int size);
+static void	print_sorted_environment(t_env *env);
+static void	sorted_env(t_env **to_sort, int size);
+static void	print_env(t_env **sorted, int size);
 static int	is_valid_name(char *args);
 
-int	builtin_export(t_environment **head, char **args)
+int	builtin_export(t_env **head, char **args)
 {
 	int	exit_code;
 	int	i;
@@ -50,16 +50,15 @@ int	builtin_export(t_environment **head, char **args)
 	return (exit_code);
 }
 
-static void	print_sorted_environment(t_environment *env)
+static void	print_sorted_environment(t_env *env)
 {
-	t_environment	**to_sort;
-	t_environment	*current;
-	int				size;
-	int				i;
+	t_env	**to_sort;
+	t_env	*current;
+	int		size;
+	int		i;
 
 	size = list_size(env);
-	printf("Size = %d\n", size);
-	to_sort = malloc(size * sizeof(t_environment *));
+	to_sort = malloc(size * sizeof(t_env *));
 	if (!to_sort)
 		return ;
 	current = env;
@@ -75,12 +74,12 @@ static void	print_sorted_environment(t_environment *env)
 	free(to_sort);
 }
 
-static void	sorted_env(t_environment **to_sort, int size)
+static void	sorted_env(t_env **to_sort, int size)
 {
 //Bubble sort, ordena da forma mais simples, do ultimo espaço para o primeiro
-	int				i;
-	int				j;
-	t_environment	*auxiliar;
+	int		i;
+	int		j;
+	t_env	*aux;
 
 	i = 0;
 	while (i < size - 1)
@@ -90,9 +89,9 @@ static void	sorted_env(t_environment **to_sort, int size)
 		{
 			if (ft_strcmp(to_sort[j]->variable, to_sort[j + 1]->variable) > 0)
 			{
-				auxiliar = to_sort[j];
+				aux = to_sort[j];
 				to_sort[j] = to_sort[j + 1];
-				to_sort[j + 1] = auxiliar;
+				to_sort[j + 1] = aux;
 			}
 			j++;
 		}
@@ -100,11 +99,11 @@ static void	sorted_env(t_environment **to_sort, int size)
 	}
 }
 
-static void	print_env(t_environment **sorted, int size)
+static void	print_env(t_env **sorted, int size)
 {
 	//SE apenas export for digitado retornar lista de env 
 	//EM ORDEM ALFABETICA no formato "declare -x VARIAVEL"
-	int				i;
+	int	i;
 
 	i = 0;
 	while (i < size)

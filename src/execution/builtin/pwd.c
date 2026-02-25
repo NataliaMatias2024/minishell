@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	builtin_pwd(t_environment **head, char **args)
+int	builtin_pwd(t_env **head, char **args)
 {
 	char	pwd[SIZE_PATH];
 

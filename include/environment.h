@@ -28,17 +28,17 @@ typedef struct s_environment
 	char					*variable;
 	char					*value;
 	struct s_environment	*next;
-}							t_environment;
+}							t_env;
 
-t_environment	*init_environment(char **envp);
-void			create_environment(t_environment **head, char *envp);
-t_environment	*create_environment_node(char *var, char *var_info);
-void			create_update_list_env(t_environment **head,
-					char *var, char *var_info);
+t_env	*init_environment(char **envp);
+t_env	*create_environment_node(char *var, char *var_info);
 
-int				list_size(t_environment *head);
+void	create_environment(t_env **head, char *envp);
+void	create_update_list_env(t_env **head, char *var, char *var_info);
 
-void			deleting_list(t_environment **head);
-void			deleting_node(t_environment *to_delete);
+int		list_size(t_env *head);
+
+void	deleting_list(t_env **head);
+void	deleting_node(t_env *to_delete);
 
 #endif

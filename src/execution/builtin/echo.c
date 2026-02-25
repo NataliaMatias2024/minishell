@@ -17,9 +17,9 @@
 //TODO: SE houver aspas duplas hello $USER expande e aparece hello valor de $USER
 //TODO: SE houver aspas simples hello $USER aparece exatamente assim
 
-static int	exist_flag(t_environment **head, char *str);
+static int	exist_flag(t_env **head, char *str);
 
-int	builtin_echo(t_environment **head, char **args)
+int	builtin_echo(t_env **head, char **args)
 {
 	int	i;
 	int	flag_n;
@@ -38,7 +38,7 @@ int	builtin_echo(t_environment **head, char **args)
 		i++;
 	}
 	//printamos o conteudo na tela acrescentando um espaço entre as palavras
-	//exceto na ultima posiçao (args[i +1])
+	//exceto na ultima posiçao (args[i + 1] == NULL)
 	while (args[i])
 	{
 		printf("%s", args[i]);
@@ -52,7 +52,7 @@ int	builtin_echo(t_environment **head, char **args)
 	return (0);
 }
 
-static int	exist_flag(t_environment **head, char *str)
+static int	exist_flag(t_env **head, char *str)
 {
 	int	i;
 

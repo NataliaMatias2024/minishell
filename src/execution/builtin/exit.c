@@ -17,9 +17,9 @@
 //exit + numero = saida
 //exit = considerado flag = 0, sai sem erros.
 
-static int		ft_is_valid(char *string);
+static int	ft_is_valid(char *string);
 
-int	builtin_exit(t_environment **env, char **args)
+int	builtin_exit(t_env **env, char **args)
 {
 	int	exit_flag;
 

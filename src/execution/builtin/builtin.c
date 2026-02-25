@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	is_builtin_command(t_environment **head, char **argv) //TODO: Ver qual struct sera passada
+int	is_builtin_command(t_env **head, char **argv) //TODO: Ver qual struct sera passada
 {
 	if (!head || !*head)
 		return (0);
@@ -24,7 +24,7 @@ int	is_builtin_command(t_environment **head, char **argv) //TODO: Ver qual struc
 	return (0);
 }
 
-int	exec_builtin(t_environment *environment_list, char **argv) //TODO: Ver qual struct sera passada
+int	exec_builtin(t_env *environment_list, char **argv) //TODO: Ver qual struct sera passada
 {
 	int	status;
 

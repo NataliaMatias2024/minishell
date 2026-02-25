@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-static char	*target_path(t_environment **env, char **args);
-static char	*get_env_path(t_environment **env, char *name);
+static char	*target_path(t_env **env, char **args);
+static char	*get_env_path(t_env **env, char *name);
 static int	execute_chdir(char *target, char *old_pwd);
 static int	handle_max_args(char **args);
 
-int	builtin_cd(t_environment **env, char **args)
+int	builtin_cd(t_env **env, char **args)
 {
 	char	pwd[SIZE_PATH];
 	char	*old_pwd;
@@ -60,7 +60,7 @@ static int	handle_max_args(char **args)
 	return (0);
 }
 
-static char	*target_path(t_environment **env, char **args)
+static char	*target_path(t_env **env, char **args)
 {
 	//verificar se recebemos cd + nome de onde ir
 	//se receber apenas cd OU  cd ~ mudar para home (getenv("HOME"))
@@ -91,7 +91,7 @@ static char	*target_path(t_environment **env, char **args)
 	return (target);
 }
 
-static char	*get_env_path(t_environment **env, char *name)
+static char	*get_env_path(t_env **env, char *name)
 {
 	t_environment	*temp_env;
 

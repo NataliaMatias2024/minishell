@@ -17,7 +17,7 @@ static void		free_split(char **splited);
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_environment	*environment_list;
+	t_env			*environment_list;
 	char			*line;
 
 	(void)argc;
