@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/25 11:44:48 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:57:50 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_dlist	*tklst;
-	t_env	*env_list;
+	t_exec	exec;
 	char	*line;
 	char	**cmd_args;
 
 	(void)argv;
 	(void)argc;
-	env_list = init_environment(envp);
+	// Para iniciar sempre usamos ponto (.) em vez de seta (->)
+	exec.env_list = init_environment(envp);
+	exec.exit_status = 0;
+	exec.token = NULL;
 	while (1)
 	{
 		line = readline("minishell> ");
@@ -35,17 +38,16 @@ int	main(int argc, char **argv, char **envp)
 			tklst = tokenize(line, 0);
 			if (tklst && syntax_check(tklst))
 			{
-				//ANTES DA CONVERSAO de ser expandido
-				expand_variable(env_list, &tklst);
+				//ANTES DA CONVERSAO comandos são expandidos e aspas externas removidas
+				expand_variable(&exec, &tklst);
 
 				// CONVERSÃO (Transforma a lista de tokens em char ** para os built-ins)
 				cmd_args = tokens_to_argv(tklst);
 
-				//EXECUÇÃO DE BUILT-INS
-				if (is_builtin_command(&env_list, cmd_args))
-					exec_builtin(env_list, cmd_args);
-				else
-					printf("Comando nao encontrado: %s\n", line);
+				//Verifica se tem comandos a serem executados e nao foi apenas um enter
+				if (cmd_args && cmd_args[0])
+					//Verifica o tipo de comando (externo ou builtin) e executa
+					execute_handler(&exec, cmd_args);
 
 				//LIMPEZA libera as structs
 				ft_destroy_dlst(&tklst, free_tks);
@@ -61,6 +63,6 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 	}
 	rl_clear_history();
-	deleting_list(&env_list);
+	deleting_list(&(exec.env_list));
 	printf("Exiting Minishell... (Ctrl + D)\n");
 }
