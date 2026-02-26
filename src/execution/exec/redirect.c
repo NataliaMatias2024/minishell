@@ -1,31 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_ast.c                                         :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/25 13:10:13 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/25 13:12:39 by namatias         ###   ########.fr       */
+/*   Created: 2026/02/25 13:41:48 by namatias          #+#    #+#             */
+/*   Updated: 2026/02/25 23:03:21 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//TODO frees
-
-/*void free_ast(void *data)
-{
-	//pipe left > free lst
-	//pipe rigt > checka se tem | ou EOF (ando com um aux) > free lst
-	// free pipe > se tinha achado outro pipe head = aux
-	// chegou mull right arvore = NULL
-}
-
-void free_pipe(void *data)
-
-void free_lst(void *data)
-
-void free_word(void *data)
-
-void free_redir(void *data)*/
+//apply_all_redirections(&exec, mock_redirs)

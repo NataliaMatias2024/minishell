@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:46:12 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/24 23:16:53 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:12:54 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exec_external_command(t_exec *exec, char **cmd_args)
 		ft_putstr_fd(cmd_args[0], STDERR_FILENO);
 		ft_putendl_fd("' not found", STDERR_FILENO);
 		//127 é o codigo padrao do linux para comando n encontrado, como exec é chamado no processo filho
-		//podemos dar exit direto, e o valor ja vai pra a variavel global //TODO
+		//podemos dar exit(127) direto, o processo pai recebe, processa e armazena esse valor.
 		exit(127);
 	}
 	envp = transform_env_list(exec->env_list);

@@ -6,13 +6,13 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 14:41:57 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/25 11:49:04 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/25 20:50:35 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int pipe_check(t_node *node)
+int	pipe_check(t_node *node)
 {
 	t_token	*token;
 	t_token	*next;
@@ -40,7 +40,7 @@ int pipe_check(t_node *node)
 	return (1);
 }
 
-int redir_check(t_node *node) //TODO: Mensagem de erro duplicada para cat |
+int	redir_check(t_node *node) //TODO: Mensagem de erro duplicada para |
 {
 	t_token	*next;
 
@@ -78,10 +78,10 @@ int	syntax_check(t_dlist *tk_lst)
 		token = (t_token *)node->data;
 		if (token->kind == TK_PIPE)
 		{
-			if(!pipe_check(node))
-				return (0);	
+			if (!pipe_check(node))
+				return (0);
 		}
-		else if (token->kind == TK_IN || token->kind == TK_OUT 
+		else if (token->kind == TK_IN || token->kind == TK_OUT
 			|| token->kind == TK_APPEND || token->kind == TK_HEREDOC)
 		{
 			if (!redir_check(node))

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/25 01:06:37 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:53:40 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	execute_handler(t_exec *exec, char **cmd_args)
 {
 	//EXECUÇÃO DE BUILT-INS
 	if (is_builtin_command(&exec->env_list, cmd_args))
-		exec_builtin(exec->env_list, cmd_args);
+		exec->exit_status = exec_builtin(exec->env_list, cmd_args);
 	else
 	{
 		exec_fork(exec, cmd_args);
