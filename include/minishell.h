@@ -20,6 +20,7 @@
 # include "../lib/libftx/include/libft.h"
 
 # include "token.h"
+# include "ast.h"
 
 /**
  * @brief Tipos de nós da AST
