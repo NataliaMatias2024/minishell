@@ -15,7 +15,7 @@ typedef struct s_ast
 // usado só se for ND_CMD
 	char			**arg;
 	t_redir			*redir_lst;
-}	t_redir;
+}	t_ast;
 
 typedef struct s_redir
 {
