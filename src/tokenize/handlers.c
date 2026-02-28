@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 14:41:57 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/01 19:26:27 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/02/28 11:14:36 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check_quotes(const char *input, int *i, char quote)
 	while (input[*i] && input[*i] != quote)
 		(*i)++;
 	if (input[*i] != quote)
-		return(0);
+		return (0);
 	(*i)++;
 	return (1);
 }
@@ -79,7 +79,7 @@ t_token	*handler_word(const char *input, int *i)
 		else
 			(*i)++;
 	}
-	token = new_token(TK_WORD, ft_substr(input,start, *i - start));
+	token = new_token(TK_WORD, ft_substr(input, start, *i - start));
 	if (!token)
 		return (NULL);
 	return (token);
