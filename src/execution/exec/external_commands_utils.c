@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:03:40 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/24 19:49:28 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 02:08:42 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*create_path_array(t_env *env_list, char **cmd_args)
 		return (exec_path);
 	paths = ft_split(path_node->value, ':');
 	i = -1;
-	while (paths && paths[i++])
+	while (paths && paths[++i])
 	{
 		full_path = ft_strjoin(paths[i], "/");
 		exec_path = join_and_free(full_path, cmd_args[0]);
@@ -99,6 +99,7 @@ char	**transform_env_list(t_env *env_list)
 		i++;
 		temp = temp->next;
 	}
+	envp[i] = NULL;
 	return (envp);
 }
 
