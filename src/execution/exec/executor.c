@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/25 12:53:40 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 11:00:12 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static	void	exec_fork(t_exec *exec, char **cmd_args)
 	int		status;
 	int		exit_code;
 
+	status = 0;
+	exit_code = 0;
 	pid = fork();
 	if (pid < 0)
 		perror("minishell: fork fail");

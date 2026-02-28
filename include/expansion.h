@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 21:03:35 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/25 01:15:11 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 14:42:40 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /* FORWARD DECLARATION */
 /* Isso avisa o compilador: "Existe uma struct chamada s_executor que chamamos de t_exec". */
 /* Assim posso deixar os includes antes da struct no executin.h como a norminette exige */
-typedef struct s_executor t_exec;
+typedef struct s_executor	t_exec;
 
 char	*remove_quotes(char *lexeme);
 char	*join_and_free(char *s1, char *s2);

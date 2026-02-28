@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 13:41:48 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 02:08:59 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 18:20:43 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	handle_redir_output(char *filename)
 	}
 	//dup2 faz uma cópia do fd antigo para o fd novo, ou seja,
 	// o fd gerado pelo open passa a substituir o fd STDOUT padrao.
-	//assim ao inves da saida ser o terminal d saida padrao passa a ser o do arquivo aberto. 
+	//assim ao inves da saida ser o terminal d saida padrao passa a ser o do arquivo aberto.
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		perror("minishell: dup2");
@@ -97,19 +97,27 @@ int	handle_redir_output(char *filename)
 int	handle_heredoc(char *delimiter)
 {
 	// <<, Here Documents -> heredoc, ele abre uma nova linha, acumula todas as informaçoes ou linhas digitadas
-	//lendo de forma dinamica as inf digitadas ao inves d um arquivo pré existente. até encontrar o delimitador! 
-	int	size_delimiter;
+	//lendo de forma dinamica as inf digitadas ao inves d um arquivo pré existente. até encontrar o delimitador!
 	char	*line;
+	int		fd;
 
-	size_delimiter = ft_strlen(delimiter);
+	fd = open(".minishell_heredoc_tmp", O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+	{
+		perror("minishell: heredoc");
+		return (1);
+	}
 	while (1)
 	{
 		line = readline("> ");
-		if (ft_strnstr(line, delimiter, size_delimiter))
+		if (ft_strcmp(line, delimiter) == 0)
 		{
 			printf("Achou delimitador\n");
+			close(fd);
 			return 0;
 		}
+		ft_putendl_fd(line, fd);
+		free(line);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 02:08:35 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 14:43:40 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int		handle_append(char *filename);
 int		handle_heredoc(char *delimiter);
 int		handle_redir_in(char *filename);
 int		handle_redir_output(char *filename);
-void	apply_all_redirections(t_exec *exec,  t_dlist *mock_redirs);
+void	apply_all_redirections(t_exec *exec, t_dlist *mock_redirs);
 
 #endif
