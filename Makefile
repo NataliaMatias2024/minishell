@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/02/28 23:52:42 by namatias         ###   ########.fr        #
+#    Updated: 2026/03/01 10:52:48 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ EXEC_FILES = builtin/cd.c \
 			 exec/external_commands.c \
 			 exec/executor.c \
 			 exec/redirect.c \
-			 exec/heredocs.c
+			 exec/heredocs.c \
+			 exec/pipe.c
 
 TOKEN_FILES = token.c \
 	handlers.c \
