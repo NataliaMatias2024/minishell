@@ -6,13 +6,13 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:52:42 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/28 12:03:15 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/03/01 10:44:18 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*find_pipe(t_node *start, t_node *end)
+static t_node	*find_pipe(t_node *start, t_node *end)
 {
 	t_node	*curr;
 
