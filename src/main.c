@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 02:08:44 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/01 01:08:26 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,28 @@ int main(int argc, char **argv, char **envp)
             tklst = tokenize(line, 0);
             if (tklst && syntax_check(tklst))
             {
-                expand_variable(&exec, &tklst);
                 cmd_args = filter_args_for_exec(tklst);
-
-            if (cmd_args && cmd_args[0])
-            {
-                // 1. EXTRAI redirecionamentos reais dos tokens digitados
-                t_dlist *real_redirs = extract_redirections(tklst);
                 
-                // 3. APLICA a sua lógica (que já está certa!)
-                apply_all_redirections(&exec, real_redirs);
-                
-                // 4. EXECUTA
-                execute_handler(&exec, cmd_args); // Por enquanto use cmd_args, mas o ideal será o clean_args
+                if (cmd_args && cmd_args[0])
+                {
+                    // 1. EXTRAI redirecionamentos reais dos tokens digitados
+                    t_dlist *real_redirs = extract_redirections(tklst);
+                    
+                    // 3. APLICA a sua lógica (que já está certa!)
+                    apply_all_redirections(&exec, real_redirs);
+                    
+                    //para testar o heredoc temos q fazer a expansao só depois dele
+                    //por isso tive q criar o cmd_Args de novo T_T
+                    expand_variable(&exec, &tklst);
+                    free_split(cmd_args);
+                    cmd_args = filter_args_for_exec(tklst);
+                    // 4. EXECUTA
+                    execute_handler(&exec, cmd_args); // Por enquanto use cmd_args, mas o ideal será o clean_args
 
-                // 5. RESTAURA e LIMPA
-                dup2(exec.saved_stdout, STDOUT_FILENO);
-                dup2(exec.saved_stdin, STDIN_FILENO);
-                ft_destroy_dlst(&real_redirs, free_redir_content);
+                    // 5. RESTAURA e LIMPA
+                    dup2(exec.saved_stdout, STDOUT_FILENO);
+                    dup2(exec.saved_stdin, STDIN_FILENO);
+                    ft_destroy_dlst(&real_redirs, free_redir_content);
             }
                 ft_destroy_dlst(&tklst, free_tks);
                 free_split(cmd_args);

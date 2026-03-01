@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 14:43:40 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 23:51:16 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ char	**tokens_to_argv(t_dlist *tklst);
 char	*get_env_path(t_env **env, char *name);
 
 int		handle_append(char *filename);
-int		handle_heredoc(char *delimiter);
 int		handle_redir_in(char *filename);
 int		handle_redir_output(char *filename);
+int		handle_heredoc(char *delimiter, t_exec *exec);
 void	apply_all_redirections(t_exec *exec, t_dlist *mock_redirs);
 
 #endif

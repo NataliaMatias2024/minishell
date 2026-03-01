@@ -6,16 +6,14 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 21:06:07 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/25 01:04:22 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 23:49:32 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	clean_quotes(t_token *token);
-static char	*get_name(char *lexeme, int *i);
 static char	*expand_lexeme(t_exec *exec, char *lexeme);
-static char	*handle_dollar(t_exec *exec, char *lexeme, int *i, char *analyzed);
 
 int	expand_variable(t_exec *exec, t_dlist **tklst)
 {
@@ -70,7 +68,7 @@ static char	*expand_lexeme(t_exec *exec, char *lexeme)
 	return (analyzed);
 }
 
-static char	*handle_dollar(t_exec *exec, char *lexeme, int *i, char *analyzed)
+char	*handle_dollar(t_exec *exec, char *lexeme, int *i, char *analyzed)
 {
 	char	*var_name;
 	char	*var_value;
@@ -102,7 +100,7 @@ static char	*handle_dollar(t_exec *exec, char *lexeme, int *i, char *analyzed)
 	return (analyzed);
 }
 
-static char	*get_name(char *str, int *i)
+char	*get_name(char *str, int *i)
 {
 	int		start;
 	char	*var_name;

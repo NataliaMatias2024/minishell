@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:03:40 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 02:08:42 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 21:23:59 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char	*create_path_array(t_env *env_list, char **cmd_args)
 		//acess X_OK teste se o arquivo existe e temos permissao de executar
 		if (access(exec_path, X_OK) == 0) //Retorna 0 se SIM e -1 se NAO
 		{
-			//achamos o path que queremos, liberados oq foi splitado e retornamos apenas o path alvo
+			//achamos o path que queremos, por isso temos que:
+			//liberar oq foi splitado e retornar apenas o path alvo
 			free_split(paths);
 			return (exec_path);
 		}

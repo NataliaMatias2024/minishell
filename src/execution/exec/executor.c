@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 11:00:12 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 21:22:48 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	execute_handler(t_exec *exec, char **cmd_args)
 		exec->exit_status = exec_builtin(exec->env_list, cmd_args);
 	else
 	{
+		//Quando ocorre comandos externos temos q criar processo filho
+		//caso contrario o execve sobrescreve o nosso minishell
 		exec_fork(exec, cmd_args);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 14:41:57 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/25 20:50:35 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 21:18:40 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	pipe_check(t_node *node)
 	return (1);
 }
 
-int	redir_check(t_node *node) //TODO: Mensagem de erro duplicada para |
+int	redir_check(t_node *node)
 {
 	t_token	*next;
 

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 13:41:48 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 18:20:43 by namatias         ###   ########.fr       */
+/*   Updated: 2026/02/28 23:39:54 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	apply_all_redirections(t_exec *exec,  t_dlist *mock_redirs)
 			status = handle_redir_output(content->filename);
 		else if (content->kind == HEREDOC) // <<
 			// printf ("Tipo << : 3\n");
-			status = handle_heredoc(content->filename);
+			status = handle_heredoc(content->filename, exec);
 		else if (content->kind == APPEND) // >>
 			status = handle_append(content->filename);
 		// Se QUALQUER redirecionamento falhar, paramos por aqui
@@ -94,33 +94,6 @@ int	handle_redir_output(char *filename)
 	return (0);
 }
 
-int	handle_heredoc(char *delimiter)
-{
-	// <<, Here Documents -> heredoc, ele abre uma nova linha, acumula todas as informaçoes ou linhas digitadas
-	//lendo de forma dinamica as inf digitadas ao inves d um arquivo pré existente. até encontrar o delimitador!
-	char	*line;
-	int		fd;
-
-	fd = open(".minishell_heredoc_tmp", O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd == -1)
-	{
-		perror("minishell: heredoc");
-		return (1);
-	}
-	while (1)
-	{
-		line = readline("> ");
-		if (ft_strcmp(line, delimiter) == 0)
-		{
-			printf("Achou delimitador\n");
-			close(fd);
-			return 0;
-		}
-		ft_putendl_fd(line, fd);
-		free(line);
-	}
-}
-
 int	handle_append(char *filename)
 {
 //>>, direciona o output porem nao sobrecresve se ja tiver info no arquivo.
@@ -143,10 +116,3 @@ int	handle_append(char *filename)
 	close(fd);
 	return (0);
 }
-
-// typedef struct s_redir
-// {
-// 	t_redir_type	kind;
-// 	int				fd;
-// 	char			*filename;
-// }	t_redir;
