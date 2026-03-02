@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deleting_list_node.c                               :+:      :+:    :+:   */
+/*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 14:41:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 02:55:43 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/02 19:49:06 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,19 @@ void	deleting_list(t_env **head)
 	deleteting_all_nodes(head);
 	*head = NULL;
 }
+
+// //TODO: Só dará para testar com o parser pronto!!
+// void	clear_child_process(t_exec *exec)
+// {
+// 	//limpar o historico do readline do processo filho
+// 	rl_clear_history();
+// 	if (exec)
+// 	{
+// 		if (exec->env_list)
+// 			deleting_list(&(exec->env_list));
+// 		if (exec->ast_root) //TODO: Adicionar a arvore ao meu exec para poder chamar a funçao d limpeza
+// 			free_ast(exec->ast_root); //TODO: Parser fazendo
+// 		close(exec->saved_stdin);
+// 		close(exec->saved_stdout);
+// 	}
+// }

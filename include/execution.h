@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 23:51:16 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/02 19:49:21 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 typedef struct s_executor
 {
 	t_env	*env_list;
+	//t_ast	*ast_root;
 	int		exit_status;
 	int		saved_stdin;
 	int		saved_stdout;

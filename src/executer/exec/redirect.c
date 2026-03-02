@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 13:41:48 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 23:39:54 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/02 19:49:11 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	apply_all_redirections(t_exec *exec,  t_dlist *mock_redirs)
 	t_node	*current;
 	int		status;
 
-	status = 1;
+	status = 0;
 	current = mock_redirs->head; //faz o t_node apontar para o primeiro node
 	while (current) //percorre toda a lista de redirecs da linha digitada
 	{

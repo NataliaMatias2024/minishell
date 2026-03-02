@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 14:54:45 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 03:15:58 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/02 19:49:14 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int		list_size(t_env *head);
 
 void	deleting_list(t_env **head);
 void	deleting_node(t_env *to_delete);
+// void	clear_child_process(t_exec *exec);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/03/01 10:52:48 by namatias         ###   ########.fr        #
+#    Updated: 2026/03/02 19:49:19 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC_DIR =		./src/
 OBJ_DIR =		./obj/
 LIB_DIR =		./lib/libftx/
 INCLUDE_DIR =	./include/
-EXEC_DIR =		./execution/
+EXEC_DIR =		./executer/
 TOKEN_DIR =		./tokenize/
 SYNTAX_DIR =	./syntax/
 
@@ -40,7 +40,7 @@ EXEC_FILES = builtin/cd.c \
 			 builtin/builtin.c \
 			 environment_list.c \
 			 executions_utils.c \
-			 deleting_list_node.c \
+			 cleaning.c \
 			 expansion/expansion.c \
 			 expansion/expansion_utils.c \
 			 exec/external_commands_utils.c \

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/01 15:31:48 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/02 15:50:32 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static	void	exec_fork(t_exec *exec, char **cmd_args)
 	//SIGINT (Ctrl+C): Sinal nº 2. Resultado: $128 + 2 = 130 , o 128 é para isolar oq é status vindos d sinal e oq é vindo do codigo como um exit(2)
 			exit_code = 128 + WTERMSIG(status); // extrai o numero do sinal e soma com 128 (padrao do linux)
 		exec->exit_status = exit_code;
-		// printf("exit code (executor.c) = %d\n", exit_code);
-		// printf("exit code (exec->exit_status) = %d\n", exec->exit_status);
+		printf("exit code (executor.c) = %d\n", exit_code);
+		printf("exit code (exec->exit_status) = %d\n", exec->exit_status);
 	}
 }

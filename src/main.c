@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/01 01:08:26 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/02 19:49:09 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,33 +102,34 @@ int main(int argc, char **argv, char **envp)
             tklst = tokenize(line, 0);
             if (tklst && syntax_check(tklst))
             {
-                cmd_args = filter_args_for_exec(tklst);
-                
-                if (cmd_args && cmd_args[0])
+                // 1. EXTRAI redirecionamentos reais dos tokens digitados
+                t_dlist *real_redirs = extract_redirections(tklst);
+                // 2. APLICA lógica de redirect
+                apply_all_redirections(&exec, real_redirs);
+                //3. EXECUTA o resto dos comando apenas SE os redirect n deram ruim, SE NAO paramos td por aqui!!!
+                if (exec.exit_status == 0)
                 {
-                    // 1. EXTRAI redirecionamentos reais dos tokens digitados
-                    t_dlist *real_redirs = extract_redirections(tklst);
-                    
-                    // 3. APLICA a sua lógica (que já está certa!)
-                    apply_all_redirections(&exec, real_redirs);
-                    
-                    //para testar o heredoc temos q fazer a expansao só depois dele
-                    //por isso tive q criar o cmd_Args de novo T_T
+                    //4. EXPANDE e FILTRA os argumentos, assim imitamos o comportamento do parser
                     expand_variable(&exec, &tklst);
-                    free_split(cmd_args);
                     cmd_args = filter_args_for_exec(tklst);
-                    // 4. EXECUTA
-                    execute_handler(&exec, cmd_args); // Por enquanto use cmd_args, mas o ideal será o clean_args
-
-                    // 5. RESTAURA e LIMPA
-                    dup2(exec.saved_stdout, STDOUT_FILENO);
-                    dup2(exec.saved_stdin, STDIN_FILENO);
-                    ft_destroy_dlst(&real_redirs, free_redir_content);
+                    if (cmd_args && cmd_args[0])
+                    {
+                        // 5. EXECUTA
+                        execute_handler(&exec, cmd_args); // Por enquanto use cmd_args, mas o ideal será o clean_args
+                    }
+                    // 6. LIMPA o cmd criado para testar execs
+                    if (cmd_args)
+                        free_split(cmd_args);
+                }
+                //7. Caso redirect de erro e nada seja executado continuamos precisando LIMPAR e RESTAURAR os FDS
+                dup2(exec.saved_stdout, STDOUT_FILENO);
+                dup2(exec.saved_stdin, STDIN_FILENO);
+                ft_destroy_dlst(&real_redirs, free_redir_content);
             }
-                ft_destroy_dlst(&tklst, free_tks);
-                free_split(cmd_args);
-            }
+            //8. Caso tenha dado erro de syntax e token LIMPA apenas a lista de tokens
+            ft_destroy_dlst(&tklst, free_tks);
         }
+        //9. Libera a linha digitada e reinicia o looping para testar e executar as proximas linhas
         free(line);
     }
     // Limpeza final
@@ -195,12 +196,15 @@ t_dlist *extract_redirections(t_dlist *tklst)
             r->kind = get_redir_type(tok->kind);
             r->filename = NULL;
             
-            curr = curr->next; // Pula o operador (ex: '>')
-            if (curr && curr->data) // SÓ acessa se o arquivo existir
+            if (curr->next)
             {
-                r->filename = ft_strdup(((t_token *)curr->data)->lexeme);
+                curr = curr->next; // Pula o operador (ex: '>')
+                if (curr && curr->data) // SÓ acessa se o arquivo existir
+                {
+                    r->filename = ft_strdup(((t_token *)curr->data)->lexeme);
+                }
+                ft_lst_push_back(redirs, r);
             }
-            ft_lst_push_back(redirs, r);
         }
         if (curr) // Proteção extra para o final da lista
             curr = curr->next;

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 21:06:07 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 23:49:32 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/02 19:49:17 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	clean_quotes(t_token *token);
 static char	*expand_lexeme(t_exec *exec, char *lexeme);
 
+//TODO: Ajustar para quando parser ficar pronto. Temos que verificar SE o token 
 int	expand_variable(t_exec *exec, t_dlist **tklst)
 {
 	t_node			*node;
@@ -29,7 +30,14 @@ int	expand_variable(t_exec *exec, t_dlist **tklst)
 		token = (t_token *)node->data;
 		if (token->kind == TK_WORD)
 		{
-			if (ft_strchr(token->lexeme, '$'))
+	//Para a funçao funcionar para o heredoc temos que acrescentar uma condiçao para verificar 2 coisas alem da existencia de $
+	//1 - Verificar se existe algum node antes doq queremos expandir
+	//2 - SE existe verificar se é o nodo do Heredoc ou outro qualquer
+	//Isso pq se existir um heredoc anteriormente, esse node se refere ao delimitador e n deve ser expandido
+	//MAS deve ter suas aspas retiradas.
+			if (!(node->prev &&
+				((t_token *)node->prev->data)->kind == TK_HEREDOC) &&
+				 ft_strchr(token->lexeme, '$'))
 			{
 				expanded_lexeme = expand_lexeme(exec, token->lexeme);
 				free(token->lexeme);
