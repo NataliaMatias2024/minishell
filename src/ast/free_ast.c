@@ -10,10 +10,12 @@
 	// chegou mull right arvore = NULL
 }
 
-void free_pipe(void *data)
+void	free_pipe(void *data)
 
-void free_lst(void *data)
+void	free_cmd(void *data)
 
-void free_word(void *data)
+void	free_rdlst(void *data)
 
-void free_redir(void *data)*/
+void	free_redir(void *data)
+
+void	free_argv(void *data)
