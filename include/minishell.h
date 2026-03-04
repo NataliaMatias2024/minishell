@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 17:55:54 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:07:35 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "execution.h"
 
 # include "token.h"
+# include "ast.h"
 
 /**
  * @brief Tipos de nós da AST
@@ -75,9 +76,9 @@ typedef struct s_nodem
 }					t_nodem;
 
 //para teste main
-void	err_msg(char *lex);
+int		syntax_check(t_dlist *tk_lst);
 int		pipe_check(t_node *node);
 int		redir_check(t_node *node);
-int		syntax_check(t_dlist *tk_lst);
+void	err_msg(char *lex);
 
 #endif
