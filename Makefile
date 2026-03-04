@@ -26,6 +26,7 @@ INCLUDE_DIR =	./include/
 EXEC_DIR =		./execution/
 TOKEN_DIR =		./tokenize/
 SYNTAX_DIR =	./syntax/
+AST_DIR =		./ast/
 
 SYNTAX_FILES = 	syntax_check.c \
 	syntax_utils.c \
@@ -36,10 +37,17 @@ TOKEN_FILES = token.c \
 	handlers.c \
 	token_utils.c \
 
+AST_FILES = ast_build.c \
+	cmd_arg.c \
+	cmd_redir.c \
+	create_node.c \
+	free_ast.c \
+
 SRC_FILES = main.c \
 			$(addprefix $(SYNTAX_DIR), $(SYNTAX_FILES)) \
             $(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
-			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES))
+			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES)) \
+			$(addprefix $(AST_DIR), $(AST_FILES))
 
 FILES_O = $(SRC_FILES:.c=.o)
 

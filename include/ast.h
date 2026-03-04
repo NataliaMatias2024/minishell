@@ -36,4 +36,17 @@ typedef struct s_redir
 	t_redir		*next;
 }	t_redir;
 
+t_ast	*build_ast(t_node *start, t_node *end);
+t_ast	*create_pipe_nd(t_node *pipe, t_node *start, t_node *end);
+t_ast	*create_cmd_nd(t_node *start, t_node *end);
+
+char	**fill_arg(t_node *start, t_node *end);
+t_redir	*extr_redir(t_node *start, t_node *end);
+
+void	free_ast(t_ast *node);
+void	free_pipe(t_ast *node);
+void	free_cmd(t_ast *node);
+void 	free_argv(char **argv);
+void	free_redir(t_redir *head);
+
 #endif

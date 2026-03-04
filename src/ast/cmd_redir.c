@@ -61,6 +61,28 @@ static void	*add_node_back(t_redir **head, t_redir *to_add)
 	tmp->next = new;
 }
 
+static t_redir	*create_rd(t_token *redir, t_node *name)
+{
+	t_redir	*rd_node;
+	t_token	*filename;
+
+	if (!name)
+		return (NULL);
+	filename = (t_token *)name->data;
+	rd_node = malloc(sizeof(t_redir));
+	if (!rd_node)
+		return (NULL);
+	rd_node->kind = redir->kind;
+	rd_node->file = ft_strdup(filename->lexeme);
+	if (!rd_node->file)
+	{
+		free(rd_node);
+		return (NULL);
+	}
+	rd_node->next = NULL;
+	return (rd_node);
+}
+
 t_redir	*extr_redir(t_node *start, t_node *end)
 {
 	t_redir	*head;
@@ -87,26 +109,4 @@ t_redir	*extr_redir(t_node *start, t_node *end)
 		cur = cur->next;
 	}
 	return (head);
-}
-
-t_redir	*create_rd(t_token *redir, t_node *name)
-{
-	t_redir	*rd_node;
-	t_token	*filename;
-
-	if (!name)
-		return (NULL);
-	filename = (t_token *)name->data;
-	rd_node = malloc(sizeof(t_redir));
-	if (!rd_node)
-		return (NULL);
-	rd_node->kind = redir->kind;
-	rd_node->file = ft_strdup(filename->lexeme);
-	if (!rd_node->file)
-	{
-		free(rd_node);
-		return (NULL);
-	}
-	rd_node->next = NULL;
-	return (rd_node);
 }
