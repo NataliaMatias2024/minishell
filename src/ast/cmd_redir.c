@@ -76,7 +76,7 @@ t_redir	*extr_redir(t_node *start, t_node *end)
 			new = create_rd((t_token *)cur->data, cur->next);
 			if (!new)
 			{
-				free_rdlst(head); //TODO
+				free_redir(head);
 				return (NULL);
 			}
 			add_node_back(&head, new);

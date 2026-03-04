@@ -1,21 +1,55 @@
 #include "minishell"
 
-//TODO frees
-
-/*void free_ast(void *data)
+void	free_redir(t_redir *head)
 {
-	//pipe left > free lst
-	//pipe rigt > checka se tem | ou EOF (ando com um aux) > free lst
-	// free pipe > se tinha achado outro pipe head = aux
-	// chegou mull right arvore = NULL
+	t_redir	*temp;
+
+	if (!rd_lst)
+		return (NULL);
+	while (head)
+	{
+		temp = head->next;
+		free(head->file);
+		free(head);
+		head = temp;
+	}
 }
 
-void	free_pipe(void *data)
+void	free_argv(char **argv) //verificar
+{
+	int	i;
 
-void	free_cmd(void *data)
+	i = 0;
+	if (!argv)
+		return (NULL);
+	while (argv[i])
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
+}
 
-void	free_rdlst(void *data)
+void	free_cmd(t_ast *node)
+{
+	free_argv(node->arg);
+	free_redir(node->redir_lst);
+	free(node);
+}
 
-void	free_redir(void *data)
+void	free_pipe(t_ast *node)
+{
+	free_ast(node->left);
+	free_ast(node->right);
+	free(node);
+}
 
-void	free_argv(void *data)
+void	free_ast(t_ast *node)
+{
+	if (!node)
+		return (NULL);
+	if (node->type == ND_PIPE)
+		free_pipe(node);
+	else if (node->type == ND_CMD)
+		free_cmd(node);
+}
