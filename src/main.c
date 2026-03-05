@@ -12,26 +12,8 @@
 
 #include "minishell.h"
 
-/*função para teste do tokenize*/
-static char *kind_to_str(t_tk_kind kind)
-{
-	if (kind == TK_WORD)
-		return ("WORD");
-	if (kind == TK_PIPE)
-		return ("PIPE");
-	if (kind == TK_IN)
-		return ("IN");
-	if (kind == TK_OUT)
-		return ("OUT");
-	if (kind == TK_HEREDOC)
-		return ("HEREDOC");
-	if (kind == TK_APPEND)
-		return ("APPEND");
-	if (kind == TK_EOF)
-		return ("EOF");
-	return ("UNKNOWN");
-}
 
+/* versao 2.0
 static char	*node_type(t_node_type type)
 {
 	if (type == ND_PIPE)
@@ -40,7 +22,7 @@ static char	*node_type(t_node_type type)
 		return ("CMD");
 	return ("ACESSOU NULL?");
 }
-
+	
 static void	print_node(t_ast *ast)
 {
 	t_redir	*redir;
@@ -48,7 +30,6 @@ static void	print_node(t_ast *ast)
 
 	if (!ast)
 		return ;
-	redir = ast->redir_lst;
 	if (ast->type == ND_PIPE)
 		printf("node: %s\n", node_type(ast->type));
 	else
@@ -76,6 +57,7 @@ static void	print_node(t_ast *ast)
         printf("\n");
     }
 }
+
 static void	print_ast(t_ast *ast)
 {
 	if (!ast)
@@ -88,9 +70,95 @@ static void	print_ast(t_ast *ast)
 	}
 	else if (ast->type == ND_CMD)
 		print_node(ast);
+}*/
+
+/*função para teste do tokenize*/
+static char *kind_to_str(t_tk_kind kind)
+{
+	if (kind == TK_WORD)
+		return ("WORD");
+	if (kind == TK_PIPE)
+		return ("PIPE");
+	if (kind == TK_IN)
+		return ("IN");
+	if (kind == TK_OUT)
+		return ("OUT");
+	if (kind == TK_HEREDOC)
+		return ("HEREDOC");
+	if (kind == TK_APPEND)
+		return ("APPEND");
+	if (kind == TK_EOF)
+		return ("EOF");
+	return ("UNKNOWN");
 }
 
-/*main para teste do tokenize*/
+static void print_args(char **argv)
+{
+	int i;
+
+	i = 0;
+	while (argv && argv[i])
+	{
+		printf("%s ", argv[i]);
+		i++;
+	}
+}
+
+static void print_redir(t_redir *redir)
+{
+	while (redir)
+	{
+		printf(" %s %s", kind_to_str(redir->kind), redir->file);
+		redir = redir->next;
+	}
+}
+
+static void print_node(t_ast *ast)
+{
+	if (!ast)
+		return ;
+
+	if (ast->type == ND_PIPE)
+	{
+		printf("PIPE\n");
+	}
+	else if (ast->type == ND_CMD)
+	{
+		printf("CMD ");
+
+		print_args(ast->arg);
+
+		if (ast->redir_lst)
+			print_redir(ast->redir_lst);
+
+		printf("\n");
+	}
+}
+
+static void print_ast(t_ast *ast, int depth)
+{
+	int i;
+
+	if (!ast)
+		return ;
+
+	i = 0;
+	while (i < depth)
+	{
+		printf("  ");
+		i++;
+	}
+
+	print_node(ast);
+
+	if (ast->type == ND_PIPE)
+	{
+		print_ast(ast->left, depth + 1);
+		print_ast(ast->right, depth + 1);
+	}
+}
+
+/*main para teste do ast*/
 int	main(int argc, char **argv)
 {
 	//teste
@@ -124,7 +192,7 @@ int	main(int argc, char **argv)
 	ast_nd = build_ast(tklst->head, tklst->tail->prev);
 	ft_destroy_dlst(&tklst, free_tks);
 	printf("tokens frees\n");
-	print_ast(ast_nd);
+	print_ast(ast_nd, 0);
 	free_ast(ast_nd);
 	printf("ast freed\n");
 	return (0);

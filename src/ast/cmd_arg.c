@@ -50,7 +50,7 @@ static char	**lst_to_arg(char **argv, t_node *cur, t_node *end, int i)
 			argv[i] = ft_strdup (token->lexeme);
 			if (!argv[i])
 			{
-				free_argv(argv); //TODO
+				free_argv(argv);
 				return (NULL);
 			}
 			i++;
