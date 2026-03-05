@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 /*função para teste do tokenize*/
-static char *kind_to_str(t_tk_kind kind)
+/*static char *kind_to_str(t_tk_kind kind)
 {
 	if (kind == TK_WORD)
 		return ("WORD");
@@ -30,14 +30,45 @@ static char *kind_to_str(t_tk_kind kind)
 	if (kind == TK_EOF)
 		return ("EOF");
 	return ("UNKNOWN");
+}*/
+
+static char	*node_type(t_node_type type)
+{
+	if (type == ND_PIPE)
+		return ("PIPE");
+	if (type == ND_CMD)
+		return ("CMD");
+	return ("ACESSOU NULL?");
 }
+
+static void	print_node(t_ast *ast)
+{
+	if (!ast)
+		return ;
+	printf("node: %s\n", node_type(ast->type));
+}
+static void	print_ast(t_ast *ast)
+{
+	if (!ast)
+		return ;
+	if (ast->type == ND_PIPE)
+	{
+		print_node(ast);
+		print_ast(ast->left);
+		print_ast(ast->right);
+	}
+	else if (ast->type == ND_CMD)
+		print_node(ast);
+}
+
 /*main para teste do tokenize*/
 int	main(int argc, char **argv)
 {
 	//teste
 	t_dlist	*tklst;
-	t_node	*node;
-	t_token	*token;
+	//t_node	*node;
+	//t_token	*token;
+	t_ast	*ast_nd;
 
 	if (argc < 2)
 	{
@@ -47,25 +78,27 @@ int	main(int argc, char **argv)
 	tklst = tokenize(argv[1], 0);
 	if (!tklst)
 		return (1);
-	node = tklst->head;
+	/*node = tklst->head;
 	while (node)
 	{
 		token = (t_token *) node->data;
 		printf("Token: %s\n", kind_to_str(token->kind));
 		printf("Lexeme: %s\n\n", token->lexeme);
 		node = node->next;
-	}
+	}*/
 	if (!syntax_check(tklst))
 	{
 		ft_destroy_dlst(&tklst, free_tks);
 		printf("syntax achou erro, exec frees\n");
 		return(1);
 	}
+	ast_nd = build_ast(tklst->head, tklst->tail->prev);
 	ft_destroy_dlst(&tklst, free_tks);
-	printf("Deu tudo certo, exec frees\n");
+	printf("tokens frees\n");
+	print_ast(ast_nd);
+	free_ast(ast_nd);
+	printf("ast freed\n");
 	return (0);
-//	if (argc > 1 && teste_valida(argv[1]))
-//		teste_print(argv[1]);
 }
 
 /*

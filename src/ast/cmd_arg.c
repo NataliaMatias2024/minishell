@@ -24,7 +24,7 @@ static int	count_arg(t_node *start, t_node *end)
 	{
 		token = (t_token *)cur->data;
 		if (token->kind == TK_IN || token->kind == TK_OUT
-			|| token->kind == APPEND || token->kind == TK_HEREDOC)
+			|| token->kind == TK_APPEND || token->kind == TK_HEREDOC)
 			cur = cur->next;
 		else if (token->kind == TK_WORD)
 			count++;
@@ -43,7 +43,7 @@ static char	**lst_to_arg(char **argv, t_node *cur, t_node *end, int i)
 	{
 		token = (t_token *)cur->data;
 		if (token->kind == TK_IN || token->kind == TK_OUT
-			|| token->kind == APPEND || token->kind == TK_HEREDOC)
+			|| token->kind == TK_APPEND || token->kind == TK_HEREDOC)
 			cur = cur->next;
 		else if (token->kind == TK_WORD)
 		{

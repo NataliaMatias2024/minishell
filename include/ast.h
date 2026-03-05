@@ -19,6 +19,13 @@ typedef enum e_node_type
 	ND_PIPE,
 }	t_node_type;
 
+typedef struct s_redir
+{
+	t_tk_kind		kind;
+	char			*file;
+	struct s_redir	*next;
+}	t_redir;
+
 typedef struct s_ast
 {
 	t_node_type		type;
@@ -28,13 +35,6 @@ typedef struct s_ast
 	char			**arg;
 	t_redir			*redir_lst;
 }	t_ast;
-
-typedef struct s_redir
-{
-	t_tk_kind	kind;
-	char		*file;
-	t_redir		*next;
-}	t_redir;
 
 t_ast	*build_ast(t_node *start, t_node *end);
 t_ast	*create_pipe_nd(t_node *pipe, t_node *start, t_node *end);
