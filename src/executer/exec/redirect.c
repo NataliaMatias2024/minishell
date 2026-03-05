@@ -6,41 +6,42 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 13:41:48 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/02 19:49:11 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 15:19:39 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	apply_all_redirections(t_exec *exec,  t_dlist *mock_redirs)
+int	apply_all_redirections(t_exec *exec,  t_redir *node)
 {
-	t_redir	*content;
-	t_node	*current;
-	int		status;
+	int	status;
 
 	status = 0;
-	current = mock_redirs->head; //faz o t_node apontar para o primeiro node
-	while (current) //percorre toda a lista de redirecs da linha digitada
+	while (node) //percorre toda a lista de redirecs da linha digitada
 	{
-		content = (t_redir *)current->data;
 		//chama a função correspondende e salva o retorno na variavel status
-		if (content->kind == REDIR_IN) // <
+		if (node->kind == REDIR_IN) // <
 			// printf ("Tipo < : 1\n");
-			status = handle_redir_in(content->filename);
-		else if (content->kind == REDIR_OUT) // >
+			status = handle_redir_in(node->file);
+		else if (node->kind == TK_OUT) // >
 			//printf ("Tipo > : 2\n");
-			status = handle_redir_output(content->filename);
-		else if (content->kind == HEREDOC) // <<
+			status = handle_redir_output(node->file);
 			// printf ("Tipo << : 3\n");
-			status = handle_heredoc(content->filename, exec);
-		else if (content->kind == APPEND) // >>
-			status = handle_append(content->filename);
+		else if (node->kind == TK_APPEND) // >>
+			status = handle_append(node->file);
+		else if (node->kind == TK_HEREDOC) // <<
+		{
+			// printf ("Tipo << : 4\n");
+			status = handle_redir_in(".heredoc_tmp");
+			unlink(".heredoc_tmp"); // Apaga logo após abrir e transferir arq
+		}
 		// Se QUALQUER redirecionamento falhar, paramos por aqui
         if (status != 0)
             break ;
-		current = current->next;
+		node = node->next;
 	}
 	exec->exit_status = status; //atualiza a variavel do exec ($?), com o retorno OU 1
+	return (status);
 }
 
 int	handle_redir_in(char *filename)

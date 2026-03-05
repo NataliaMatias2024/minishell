@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 12:18:15 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 02:55:43 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:06:22 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*target_path(t_env **env, char **args);
 static int	execute_chdir(char *target, char *old_pwd);
 static int	handle_max_args(char **args);
 
-int	builtin_cd(t_env **env, char **args)
+int	builtin_cd(t_exec *exec, char **args)
 {
 	char	pwd[SIZE_PATH];
 	char	*old_pwd;
@@ -28,7 +28,7 @@ int	builtin_cd(t_env **env, char **args)
 		old_pwd = ft_strdup(pwd);
 	else
 		old_pwd = ft_strdup("");
-	target = target_path(env, args);
+	target = target_path(&exec->env_list, args);
 	if (!target)
 	{
 		free(old_pwd);
@@ -36,10 +36,10 @@ int	builtin_cd(t_env **env, char **args)
 	}
 	if (execute_chdir(target, old_pwd) != 0)
 		return (1);
-	create_update_list_env(env, "OLDPWD", old_pwd);
+	create_update_list_env(&exec->env_list, "OLDPWD", old_pwd);
 	free(old_pwd);
 	if (getcwd(pwd, SIZE_PATH))
-		create_update_list_env(env, "PWD", pwd);
+		create_update_list_env(&exec->env_list, "PWD", pwd);
 	return (exit_status);
 }
 

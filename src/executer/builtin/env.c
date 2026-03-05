@@ -6,17 +6,17 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:59:49 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 02:55:43 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 22:01:33 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_list(t_env **head);
+static void	print_list(t_env *head);
 
-int	builtin_env(t_env **head, char **args)
+int	builtin_env(t_exec *exec, char **args)
 {
-	if (!head)
+	if (!exec || !exec->env_list)
 		return (1);
 	else if (args[0] && args[1])
 	{
@@ -26,15 +26,15 @@ int	builtin_env(t_env **head, char **args)
 		return (127);
 	}
 	else
-		print_list(head);
+		print_list(exec->env_list);
 	return (0);
 }
 
-static void	print_list(t_env **head)
+static void	print_list(t_env *head)
 {
 	t_env	*temp;
 
-	temp = *head;
+	temp = head;
 	while (temp != NULL)
 	{
 		if (temp->value != NULL)

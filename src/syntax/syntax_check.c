@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 14:41:57 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/04 11:09:04 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 12:20:01 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	syntax_check(t_dlist *tk_lst)
 			if (!pipe_check(node))
 				return (0);
 		}
-		else if (token->kind == TK_IN || token->kind == TK_OUT
+		else if (token->kind == REDIR_IN || token->kind == TK_OUT
 			|| token->kind == TK_APPEND || token->kind == TK_HEREDOC)
 		{
 			if (!redir_check(node))

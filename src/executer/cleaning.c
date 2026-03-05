@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 14:41:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/02 19:49:06 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 14:59:39 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	deleting_list(t_env **head)
 // 			deleting_list(&(exec->env_list));
 // 		if (exec->ast_root) //TODO: Adicionar a arvore ao meu exec para poder chamar a funçao d limpeza
 // 			free_ast(exec->ast_root); //TODO: Parser fazendo
-// 		close(exec->saved_stdin);
-// 		close(exec->saved_stdout);
+// 		close(exec->backup_stdin);
+// 		close(exec->backup_stdout);
 // 	}
 // }

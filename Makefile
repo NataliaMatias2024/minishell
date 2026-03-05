@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/03/02 19:49:19 by namatias         ###   ########.fr        #
+#    Updated: 2026/03/04 22:14:45 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,13 @@ INCLUDE_DIR =	./include/
 EXEC_DIR =		./executer/
 TOKEN_DIR =		./tokenize/
 SYNTAX_DIR =	./syntax/
+AST_DIR =		./ast/
+
+AST_FILES = ast_build.c \
+			cmd_arg.c \
+			cmd_redir.c \
+			create_node.c \
+			free_ast.c
 
 SYNTAX_FILES = 	syntax_check.c \
 	syntax_utils.c \
@@ -57,7 +64,8 @@ TOKEN_FILES = token.c \
 SRC_FILES = main.c \
 			$(addprefix $(SYNTAX_DIR), $(SYNTAX_FILES)) \
             $(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
-			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES))
+			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES)) \
+			$(addprefix $(AST_DIR), $(AST_FILES))
 
 FILES_O = $(SRC_FILES:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/02 19:49:21 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 22:08:17 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,20 @@
 # include "builtin.h"
 # include "expansion.h"
 
+typedef struct s_ast	t_ast;
+typedef struct s_redir	t_redir;
+
 typedef struct s_executor
 {
 	t_env	*env_list;
-	//t_ast	*ast_root;
+	t_ast	*ast_root;
 	int		exit_status;
-	int		saved_stdin;
-	int		saved_stdout;
+	int		backup_stdin;
+	int		backup_stdout;
 }			t_exec;
 
-void	execute_handler(t_exec *exec, char **cmd_args);
+void	exec_ast(t_exec *exec, t_ast *root, int in_pipe);
+int		execute_commands_handler(t_exec *exec, t_ast *node, int in_pipe);
 void	exec_external_command(t_exec *exec, char **cmd_args);
 
 char	**transform_env_list(t_env *env_list);
@@ -58,6 +62,7 @@ int		handle_append(char *filename);
 int		handle_redir_in(char *filename);
 int		handle_redir_output(char *filename);
 int		handle_heredoc(char *delimiter, t_exec *exec);
-void	apply_all_redirections(t_exec *exec, t_dlist *mock_redirs);
+int		check_and_run_heredoc(t_exec *exec, t_redir *redir);
+int		apply_all_redirections(t_exec *exec, t_redir *redir_list);
 
 #endif

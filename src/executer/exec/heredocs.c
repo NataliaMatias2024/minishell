@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 23:39:06 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/01 01:47:23 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 22:08:54 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ int	handle_heredoc(char *delimiter, t_exec *exec)
 	}
 //Para manter dentro das 25 modularizei o looping que coleta as infos digitadas e passa para o arquivo tmp
 	create_temp(fd, expand, exec, clean_quotes);
-//Após criar o arquivo tmp redirecionamos a info dele para um comando mostrar na tela (igual o redir_in)
-	handle_redir_in(".heredoc_tmp");
-//essa funçao deleta nosso arquivo temp, fazendo o heredoc "imprimir na tela" sem criar arquivos na pasta
-	unlink(".heredoc_tmp");
+//em comandos como cat << EOF < arquivo.txt, o cat deve ler o arquivo n o EOF, pois o arquivo q veio por ultimo.
+//por isso deixamos o resto do codigo para ser executado pelo applay_all_redirections:
+	//Após criar o arquivo tmp redirecionamos a info dele para um comando mostrar na tela (igual o redir_in)
+	// 	handle_redir_in(".heredoc_tmp");
+	//essa funçao deleta nosso arquivo temp, fazendo o heredoc "imprimir na tela" sem criar arquivos na pasta
+	// 	unlink(".heredoc_tmp");
 	return (0);
 }
 
@@ -56,8 +58,15 @@ static void	create_temp(int fd, int expand, t_exec *exec, char *clean_quotes)
 	{
 //Cria a nova lina com o > para o usuario digitar oq quiser
 		line = readline("> ");
-		if(!line)
-			break;
+		if(!line) //usuario usou algum atalho para encerrar o looping
+		{
+			// if (variavel_global == SIGINT) //TODO: SIGINT acusa o uso de ctrl + C
+			// {
+				close(fd);
+				exec->exit_status = 130;
+			// }
+			break; // Foi apenas o ctrl + D //TODO: status
+		}
 //Verifica se o delimitar foi digitado e se foi encerra o looping e dar free na ultima linha
 		if (ft_strcmp(line, clean_quotes) == 0)
 		{
@@ -107,4 +116,28 @@ static char	*expand_heredoc(t_exec *exec, char *line)
 		}
 	}
 	return (analyzed);
+}
+
+//Essa funçao garante que todos os heredocs serao encontrados e executados PRIMEIRO
+int	check_and_run_heredoc(t_exec *exec, t_redir *redir)
+{
+	while(redir)
+	{
+		if (redir->kind == TK_HEREDOC)
+		{
+			if (handle_heredoc(redir->file, exec))
+			{
+				//quando é encerrado com o ctrl + c
+				if (exec->exit_status == 130)
+					//como foi encerrado antes da hora, deixou o arquivo temp para trás
+					unlink(".heredoc_tmp");
+				else
+					exec->exit_status = 1;  //acusa o erro, pois só entra dentro do if quando da erro
+				return (1); //encerra a execuçao dos comandos, pois heredoc ou deu erro ou foi cancelado
+			}
+		}
+		redir = redir->next;
+	}
+	//se chegou aqui ja percorreu td a lista e executou os HEREDOCS existentes sem erros
+	return (0);
 }

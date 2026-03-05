@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 19:15:09 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 03:02:26 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 16:57:16 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	sorted_env(t_env **to_sort, int size);
 static void	print_env(t_env **sorted, int size);
 static int	is_valid_name(char *args);
 
-int	builtin_export(t_env **head, char **args)
+int	builtin_export(t_exec *exec, char **args)
 {
 	int	exit_code;
 	int	i;
@@ -25,7 +25,7 @@ int	builtin_export(t_env **head, char **args)
 	i = 1;
 	exit_code = 0;
 	if (!args[i])
-		print_sorted_environment(*head);
+		print_sorted_environment(exec->env_list);
 	else
 	{
 		while (args[i])
@@ -33,7 +33,7 @@ int	builtin_export(t_env **head, char **args)
 			if (is_valid_name(args[i]))
 				exit_code = 1;
 			else
-				create_environment(head, args[i]);
+				create_environment(&exec->env_list, args[i]);
 			i++;
 		}
 	}

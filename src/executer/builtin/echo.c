@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 15:44:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 02:55:43 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 16:55:34 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	exist_flag(t_env **head, char *str);
 
-int	builtin_echo(t_env **head, char **args)
+int	builtin_echo(t_exec *exec, char **args)
 {
 	int	i;
 	int	flag_n;
@@ -26,7 +26,7 @@ int	builtin_echo(t_env **head, char **args)
 		return (0);
 	}
 	i = 1;
-	while (args[i] && exist_flag(head, args[i]))
+	while (args[i] && exist_flag(&exec->env_list, args[i]))
 	{
 		flag_n = 1;
 		i++;

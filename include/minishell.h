@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 11:07:35 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 22:01:50 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
  */
 # include "execution.h"
 
-# include "token.h"
-# include "ast.h"
 
 /**
  * @brief Tipos de nós da AST
@@ -44,27 +42,10 @@
  * HEREDOC		<<
  * APPEND		>>
  */
+# include "token.h"
+# include "ast.h"
 
-typedef enum e_redir_type
-{
-	REDIR_IN,
-	REDIR_OUT,
-	HEREDOC,
-	APPEND
-}	t_redir_type;
-
-typedef struct s_redir
-{
-	t_redir_type	kind;
-	int				fd;
-	char			*filename;
-}	t_redir;
-
-typedef enum e_node_type
-{
-	NT_WORD,
-	NT_PIPE
-}	t_node_type;
+typedef struct s_redir	t_redir;
 
 typedef struct s_nodem
 {

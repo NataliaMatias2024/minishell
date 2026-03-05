@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 17:28:16 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/04 11:08:13 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/04 12:20:01 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum e_tk_kind
 {
 	TK_WORD,
 	TK_PIPE,
-	TK_IN,
+	REDIR_IN,
 	TK_OUT,
 	TK_HEREDOC,
 	TK_APPEND,
