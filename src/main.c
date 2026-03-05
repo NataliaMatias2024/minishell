@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 /*função para teste do tokenize*/
-/*static char *kind_to_str(t_tk_kind kind)
+static char *kind_to_str(t_tk_kind kind)
 {
 	if (kind == TK_WORD)
 		return ("WORD");
@@ -30,7 +30,7 @@
 	if (kind == TK_EOF)
 		return ("EOF");
 	return ("UNKNOWN");
-}*/
+}
 
 static char	*node_type(t_node_type type)
 {
@@ -43,9 +43,37 @@ static char	*node_type(t_node_type type)
 
 static void	print_node(t_ast *ast)
 {
+	t_redir	*redir;
+
 	if (!ast)
 		return ;
-	printf("node: %s\n", node_type(ast->type));
+	redir = ast->redir_lst;
+	if (ast->type == ND_PIPE)
+		printf("node: %s\n", node_type(ast->type));
+	else
+    {
+        printf("node: %s ", node_type(ast->type));
+
+        if (ast->arg)
+        {
+            printf("args: ");
+            i = 0;
+            while (ast->arg[i])
+            {
+                printf("%s ", ast->arg[i]);
+                i++;
+            }
+        }
+        redir = ast->redir_lst;
+        while (redir)
+        {
+            printf("redir_type: %s ", kind_to_str(redir->kind));
+            printf("file: %s ", redir->file);
+            redir = redir->next;
+        }
+
+        printf("\n");
+    }
 }
 static void	print_ast(t_ast *ast)
 {
