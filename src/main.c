@@ -12,67 +12,7 @@
 
 #include "minishell.h"
 
-
-/* versao 2.0
-static char	*node_type(t_node_type type)
-{
-	if (type == ND_PIPE)
-		return ("PIPE");
-	if (type == ND_CMD)
-		return ("CMD");
-	return ("ACESSOU NULL?");
-}
-	
-static void	print_node(t_ast *ast)
-{
-	t_redir	*redir;
-	int		i;
-
-	if (!ast)
-		return ;
-	if (ast->type == ND_PIPE)
-		printf("node: %s\n", node_type(ast->type));
-	else
-    {
-        printf("node: %s ", node_type(ast->type));
-
-        if (ast->arg)
-        {
-            printf("args: ");
-            i = 0;
-            while (ast->arg[i])
-            {
-                printf("%s ", ast->arg[i]);
-                i++;
-            }
-        }
-        redir = ast->redir_lst;
-        while (redir)
-        {
-            printf("redir_type: %s ", kind_to_str(redir->kind));
-            printf("file: %s ", redir->file);
-            redir = redir->next;
-        }
-
-        printf("\n");
-    }
-}
-
-static void	print_ast(t_ast *ast)
-{
-	if (!ast)
-		return ;
-	if (ast->type == ND_PIPE)
-	{
-		print_node(ast);
-		print_ast(ast->left);
-		print_ast(ast->right);
-	}
-	else if (ast->type == ND_CMD)
-		print_node(ast);
-}*/
-
-/*função para teste do tokenize*/
+/*função para teste*/
 static char *kind_to_str(t_tk_kind kind)
 {
 	if (kind == TK_WORD)
@@ -91,7 +31,7 @@ static char *kind_to_str(t_tk_kind kind)
 		return ("EOF");
 	return ("UNKNOWN");
 }
-
+/* Teste print com indent (tabs, mas esta espelhado)
 static void print_args(char **argv)
 {
 	int i;
@@ -156,6 +96,64 @@ static void print_ast(t_ast *ast, int depth)
 		print_ast(ast->left, depth + 1);
 		print_ast(ast->right, depth + 1);
 	}
+}*/
+// Teste print sem tabs
+static char	*node_type(t_node_type type)
+{
+	if (type == ND_PIPE)
+		return ("PIPE");
+	if (type == ND_CMD)
+		return ("CMD");
+	return ("ACESSOU NULL?");
+}
+
+static void	print_node(t_ast *ast)
+{
+	t_redir	*redir;
+	int		i;
+
+	if (!ast)
+		return ;
+	if (ast->type == ND_PIPE)
+		printf("node: %s\n", node_type(ast->type));
+	else
+    {
+        printf("node: %s ", node_type(ast->type));
+
+        if (ast->arg)
+        {
+            printf("args: ");
+            i = 0;
+            while (ast->arg[i])
+            {
+                printf("%s ", ast->arg[i]);
+                i++;
+            }
+        }
+        redir = ast->redir_lst;
+        while (redir)
+        {
+            printf("redir_type: %s ", kind_to_str(redir->kind));
+            printf("file: %s ", redir->file);
+            redir = redir->next;
+        }
+
+        printf("\n");
+    }
+}
+
+static void	print_ast(t_ast *ast)
+{
+	if (!ast)
+		return ;
+	if (ast->type == ND_PIPE)
+	{
+		print_node(ast);
+		print_ast(ast->left);
+		print_ast(ast->right);
+	}
+	else if (ast->type == ND_CMD)
+		print_node(ast);
 }
 
 /*main para teste do ast*/
@@ -192,7 +190,7 @@ int	main(int argc, char **argv)
 	ast_nd = build_ast(tklst->head, tklst->tail->prev);
 	ft_destroy_dlst(&tklst, free_tks);
 	printf("tokens frees\n");
-	print_ast(ast_nd, 0);
+	print_ast(ast_nd,);
 	free_ast(ast_nd);
 	printf("ast freed\n");
 	return (0);
@@ -219,13 +217,3 @@ int main(int argc, char **argv)
         // depois execute(...)
     }
 }
-CONCEITO DE MAIN REALOFICIAL
-	while (1)
-	{
-		input = readline();
-		tokens = tokenize(input);
-		ast = parse(tokens);
-		expand(ast);
-		execute(ast);
-		free_all();
-	}*/
