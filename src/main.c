@@ -44,6 +44,7 @@ static char	*node_type(t_node_type type)
 static void	print_node(t_ast *ast)
 {
 	t_redir	*redir;
+	int		i;
 
 	if (!ast)
 		return ;
