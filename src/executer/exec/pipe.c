@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 10:52:54 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 03:31:02 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 12:23:57 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	update_exit_status(t_exec *exec)
 	int	status;
 	int	exit_code;
 
+	exit_code = 0;
 	status = exec->exit_status;
 	if (WIFEXITED(status))
 		exit_code = WEXITSTATUS(status);

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 12:20:18 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 13:37:53 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_executor
 	int		backup_stdout;
 }			t_exec;
 
-void	exec_ast(t_exec *exec, t_ast *root, int in_pipe);
+void	exec_ast(t_exec *exec, t_ast *root);
+void	exec_pipe(t_exec *exec, t_ast *node);
 int		execute_commands_handler(t_exec *exec, t_ast *node, int in_pipe);
 void	exec_external_command(t_exec *exec, char **cmd_args);
 

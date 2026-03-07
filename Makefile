@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/03/07 02:11:52 by namatias         ###   ########.fr        #
+#    Updated: 2026/03/07 13:39:13 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,8 @@ EXEC_FILES = cleaning.c \
 			 exec/executor.c \
 			 exec/redirect.c \
 			 exec/heredocs.c \
+			 exec/heredocs_utils.c \
+			 exec/execute_ast.c \
 			 exec/external_commands.c \
 			 exec/external_commands_utils.c \
 			 signal/signal_set.c \

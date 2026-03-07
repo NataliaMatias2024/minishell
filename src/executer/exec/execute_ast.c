@@ -6,13 +6,13 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:58:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 15:19:35 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 12:38:04 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_ast(t_exec *exec, t_ast *root, int in_pipe)
+void	exec_ast(t_exec *exec, t_ast *root)
 {
 	if (!root)
 		return ;
