@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:46:12 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 02:08:39 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:18:19 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,18 @@ void	exec_external_command(t_exec *exec, char **cmd_args)
 	char	**envp;
 
 	pathname = create_path_array(exec->env_list, cmd_args);
-	if (!pathname) //comando n existe ou n tem permissao de execuçao
+	if (!pathname)
 	{
 		ft_putstr_fd("minishell: Command '", STDERR_FILENO);
 		ft_putstr_fd(cmd_args[0], STDERR_FILENO);
 		ft_putendl_fd("' not found", STDERR_FILENO);
 		free(pathname);
-		//127 é o codigo padrao do linux para comando n encontrado, como exec é chamado no processo filho
-		//podemos dar exit(127) direto, o processo pai recebe, processa e armazena esse valor.
 		exit(127);
 	}
 	envp = transform_env_list(exec->env_list);
 	execve(pathname, cmd_args, envp);
-	//ao funcionar as proximas linhas nao sao executas, o programa para aqui! e volta pro processo que chamou o exec
-	//no caso nossa main q estara em looping até algum sinal de interromper for recebido.
-	//ao achar o comando porem dar algum erro na execuçao, ai sim essas linhas entram no jogo
 	perror("minishell");
 	free(pathname);
 	free_split(envp);
-	exit(126); //assim como 127, 126 é um codigo padrao do linux. Usado quando o caminho existe porem o exec nao 
-	//consegue rodar, o moditivo especifico varia, mas será explicado pelo perror anterior.
+	exit(126);
 }

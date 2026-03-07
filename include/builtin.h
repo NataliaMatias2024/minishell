@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 04:11:07 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 22:01:44 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:28:55 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 # define BUILTIN_H
 
 # include "execution.h"
-//TODO: Apagar antes do envio
-//Macro definido pela limits.h, varia entre sistemas, porem é o valor mais comum
-//grep -r "PATH_MAX" /usr/include/linux/limits.h -> Ve o do seu sistema
 # define SIZE_PATH 4096
 
-/* FORWARD DECLARATION */
-/* Isso avisa o compilador: "Existe uma struct chamada s_executor que chamamos de t_exec". */
-/* Assim posso deixar os includes antes da struct no executin.h como a norminette exige */
 typedef struct s_executor	t_exec;
 
 int		is_builtin_command(t_exec *exec, char **args);

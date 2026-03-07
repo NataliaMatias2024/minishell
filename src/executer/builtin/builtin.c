@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 03:35:08 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 16:53:35 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:33:22 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	exec_builtin(t_exec *exec, char **args)
 {
 	int	status;
 
-	if (!exec->env_list|| !args)
+	if (!exec->env_list || !args)
 		return (1);
 	status = 0;
 	if (ft_strcmp(args[0], "pwd") == 0)

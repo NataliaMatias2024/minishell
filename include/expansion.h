@@ -6,16 +6,13 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 21:03:35 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 22:01:39 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:25:18 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-/* FORWARD DECLARATION */
-/* Isso avisa o compilador: "Existe uma struct chamada s_executor que chamamos de t_exec". */
-/* Assim posso deixar os includes antes da struct no executin.h como a norminette exige */
 typedef struct s_executor	t_exec;
 
 char	*get_name(char *str, int *i);

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 20:42:44 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/22 23:41:11 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:22:08 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*join_and_free(char *s1, char *s2)
 	char	*temp;
 
 	if (!s1)
-		return (ft_strdup(s2)); // Se s1 começar vazio, apenas duplica a segunda
+		return (ft_strdup(s2));
 	if (!s2)
-		return (s1); // Se não tem o que juntar, mantém a primeira
+		return (s1);
 	temp = ft_strjoin(s1, s2);
 	free(s1);
 	return (temp);

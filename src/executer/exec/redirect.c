@@ -6,51 +6,44 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 13:41:48 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 15:19:39 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:39:50 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	apply_all_redirections(t_exec *exec,  t_redir *node)
+int	apply_all_redirections(t_exec *exec, t_redir *node)
 {
 	int	status;
 
 	status = 0;
-	while (node) //percorre toda a lista de redirecs da linha digitada
+	while (node)
 	{
-		//chama a função correspondende e salva o retorno na variavel status
-		if (node->kind == REDIR_IN) // <
-			// printf ("Tipo < : 1\n");
+		if (node->kind == REDIR_IN)
 			status = handle_redir_in(node->file);
-		else if (node->kind == TK_OUT) // >
-			//printf ("Tipo > : 2\n");
+		else if (node->kind == TK_OUT)
 			status = handle_redir_output(node->file);
-			// printf ("Tipo << : 3\n");
-		else if (node->kind == TK_APPEND) // >>
+		else if (node->kind == TK_APPEND)
 			status = handle_append(node->file);
-		else if (node->kind == TK_HEREDOC) // <<
+		else if (node->kind == TK_HEREDOC)
 		{
-			// printf ("Tipo << : 4\n");
 			status = handle_redir_in(".heredoc_tmp");
-			unlink(".heredoc_tmp"); // Apaga logo após abrir e transferir arq
+			unlink(".heredoc_tmp");
 		}
-		// Se QUALQUER redirecionamento falhar, paramos por aqui
-        if (status != 0)
-            break ;
+		if (status != 0)
+			break ;
 		node = node->next;
 	}
-	exec->exit_status = status; //atualiza a variavel do exec ($?), com o retorno OU 1
+	exec->exit_status = status;
 	return (status);
 }
 
 int	handle_redir_in(char *filename)
 {
-	//< direciona o conteudo de um arquivo para a tela!, funcio como uma especie de cat arquivo.txt
 	int	fd;
 
 	fd = open(filename, O_RDONLY, 0644);
-	if (fd == -1) //na falha open retorna -1
+	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(filename);
@@ -68,23 +61,15 @@ int	handle_redir_in(char *filename)
 
 int	handle_redir_output(char *filename)
 {
-// > direciona  o output, ao inves de sair no terminal sai no arquivo especificado.
-//SE o arquivo n existir ele é criado SE existir seu conteudo é sobrescrito E truncado para tamanho 0
 	int	fd;
 
-//O_CREAT -> SE nome n existir cria um arq. padrao
-//O_TRUNC -> caso o arq exista trunca para tamnho 0
-//0644 -> permissao de ler e escrever para o cargo owner
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1) //na falha open retorna -1
+	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(filename);
 		return (1);
 	}
-	//dup2 faz uma cópia do fd antigo para o fd novo, ou seja,
-	// o fd gerado pelo open passa a substituir o fd STDOUT padrao.
-	//assim ao inves da saida ser o terminal d saida padrao passa a ser o do arquivo aberto.
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		perror("minishell: dup2");
@@ -97,18 +82,16 @@ int	handle_redir_output(char *filename)
 
 int	handle_append(char *filename)
 {
-//>>, direciona o output porem nao sobrecresve se ja tiver info no arquivo.
-//SE o arquivo n existir ele é criado SE existir o novo testo é colocado ao final do já existente
 	int	fd;
 
 	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd == -1) //na falha open retorna -1
+	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(filename);
 		return (1);
 	}
-	if(dup2(fd, STDOUT_FILENO) == -1)
+	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		perror("minishell: dup2");
 		close(fd);

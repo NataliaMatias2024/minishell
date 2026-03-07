@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 16:00:38 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 22:17:16 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:33:53 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,13 @@ void	free_clean_all(t_exec *exec)
 {
 	if (!exec)
 		return ;
-	//Se tiver lista de ambiente
 	if (exec->env_list)
 		deleting_list(&(exec->env_list));
-	//Se os fds existirem e tiverem fd salvos
 	if (exec->backup_stdin >= 0)
 		close(exec->backup_stdin);
 	if (exec->backup_stdout >= 0)
-    	close(exec->backup_stdout);
-	//limpa o historico do readline
+		close(exec->backup_stdout);
 	rl_clear_history();
-	//Se existir a arvore da free e limpa
 	if (exec->ast_root)
 		printf("limpando e liberando arvore\n");
 		//TODO: funçao de free do parser;
