@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 02:55:10 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 11:52:30 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		apply_all_redirections(t_exec *exec, t_redir *redir_list);
 
 int		check_delimiter(char *delimiter);
 char	*expand_heredoc(t_exec *exec, char *line);
+int		scan_ast_heredocs(t_exec *exec, t_ast *node);
 int		handle_heredoc(char *delimiter, t_exec *exec);
 int		check_and_run_heredoc(t_exec *exec, t_redir *redir);
 int		create_temp_and_exec(int expand, t_exec *exec, char *clean_quotes);
