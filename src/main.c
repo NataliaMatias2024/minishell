@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 03:15:00 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 17:00:00 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main(int argc, char **argv, char **envp)
 	exec.backup_stdout = dup(STDOUT_FILENO);
 	exec.ast_root = NULL;
 	set_signals_interactive();
-	
+
 	while (1)
 	{
 		line = readline("minishell> ");
@@ -45,17 +45,19 @@ int main(int argc, char **argv, char **envp)
 		{
 			add_history(line);
 			tklst = tokenize(line, 0);
-			
+
 			if (tklst && syntax_check(tklst))
 			{
-				//encontra ultimo nó para parsear
+				//expand para executar resto dos comandos
+				expand_variable(&exec, &tklst);
+				//encontra ultimo nó
 				end_node = tklst->head;
 				while (end_node && end_node->next)
 					end_node = end_node->next;
 
 				//Inicia arvore
 				root = build_ast(tklst->head, end_node);
-
+				//dar freee lista
 				if (root)
 				{
 					exec.ast_root = root; // Guarda na struct caso um built-in dê exit e precise dar free_clean_all
@@ -64,9 +66,9 @@ int main(int argc, char **argv, char **envp)
 					{
 						//Exec com recursao da arvore
 						exec_ast(&exec, root, 0);
-					}	
+					}
 					//Limpa arvore após executar tds os comandos
-					// free_ast(root); //TODO: Em andamento
+					free_ast(root);
 					exec.ast_root = NULL;
 				}
 			}

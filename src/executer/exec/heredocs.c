@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 23:39:06 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 13:38:19 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 15:26:27 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	handle_heredoc(char *delimiter, t_exec *exec)
 	pid = fork();
 	if (pid == 0)
 	{
-		set_signals_default();
+		set_signals_heredoc();
 		create_temp_and_exec(expand, exec, clean_quotes);
 		free (clean_quotes);
 		exit (0);

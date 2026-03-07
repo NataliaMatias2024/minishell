@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 16:00:38 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 03:33:53 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 16:58:42 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@ void	free_clean_all(t_exec *exec)
 		close(exec->backup_stdout);
 	rl_clear_history();
 	if (exec->ast_root)
-		printf("limpando e liberando arvore\n");
-		//TODO: funçao de free do parser;
+		free_ast(exec->ast_root);
 }

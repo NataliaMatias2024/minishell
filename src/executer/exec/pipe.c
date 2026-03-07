@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 10:52:54 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 12:23:57 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 16:51:39 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	update_exit_status(t_exec *exec);
 
-//TODO: Testar quando parser ficar pronto
 void	exec_pipe(t_exec *exec, t_ast *node)
 {
 	int		fds[2];

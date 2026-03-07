@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 21:06:07 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 03:43:48 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 16:51:18 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	clean_quotes(t_token *token);
 static char	*expand_lexeme(t_exec *exec, char *lexeme);
 
-//TODO: Ajustar para quando parser ficar pronto
 int	expand_variable(t_exec *exec, t_dlist **tklst)
 {
 	t_node			*node;
