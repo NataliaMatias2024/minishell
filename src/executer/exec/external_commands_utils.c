@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:03:40 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/28 21:23:59 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 03:18:03 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,14 @@ char	*create_path_array(t_env *env_list, char **cmd_args)
 	{
 		full_path = ft_strjoin(paths[i], "/");
 		exec_path = join_and_free(full_path, cmd_args[0]);
-		//acess X_OK teste se o arquivo existe e temos permissao de executar
-		if (access(exec_path, X_OK) == 0) //Retorna 0 se SIM e -1 se NAO
+		if (access(exec_path, X_OK) == 0)
 		{
-			//achamos o path que queremos, por isso temos que:
-			//liberar oq foi splitado e retornar apenas o path alvo
 			free_split(paths);
 			return (exec_path);
 		}
-		free(exec_path); //se n for o comando certo, damos free antes de testar o prox, assim n perde a ref
+		free(exec_path);
 	}
-	free_split(paths); //caso passe por tds os paths e nao ache o comando
+	free_split(paths);
 	return (NULL);
 }
 
@@ -109,7 +106,6 @@ static char	*create_env_array(char *variable, char *value)
 	char	*temp;
 	int		total_size;
 
-	//garantimos espaço para as 2 strings + espaço pro terminador nulo E por =  -> variavel=value
 	total_size = ft_strlen(variable) + ft_strlen(value) + 2;
 	temp = malloc (total_size * sizeof(char));
 	if (!temp)
