@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/21 17:43:42 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 11:16:53 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ int	main(int argc, char **argv)
 	ast_nd = build_ast(tklst->head, tklst->tail->prev);
 	ft_destroy_dlst(&tklst, free_tks);
 	printf("tokens frees\n");
-	print_ast(ast_nd,);
+	print_ast(ast_nd);
 	free_ast(ast_nd);
 	printf("ast freed\n");
 	return (0);
