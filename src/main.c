@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 21:51:41 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:39:34 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ int main(int argc, char **argv, char **envp)
 		line = readline("minishell> ");
 		if (!line) // Trata o Ctrl+D (EOF)
 			break ;
-
+		else if (g_signal == SIGINT)
+		{
+			exec.exit_status = 130; // Atualiza o status
+			g_signal = 0;            // Reseta a variável global para o próximo loop não bugar
+		}
 		if (*line && ft_is_space(line) != 0)
 		{
 			add_history(line);

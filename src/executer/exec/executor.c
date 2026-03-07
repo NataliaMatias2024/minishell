@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 22:07:27 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:30:31 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static	void	exec_fork(t_exec *exec, t_ast *node)
 		perror("minishell: fork fail");
 	else if (pid == 0) //processo filho
 	{
+		set_signals_default();
 		if (node->redir_lst && apply_all_redirections(exec, node->redir_lst))
 			//so entra no if se retornar alguma coisa diferente de zero, logo deu erro em algum redir
 			exit(1); //se tiver dentro de um pipe ele esta em um subprocesso, por isso da exit 1
@@ -96,6 +97,7 @@ static	void	exec_fork(t_exec *exec, t_ast *node)
 	}
 	else if (pid > 0)
 	{
+		set_signals_executing();
 		//para acessar o status usamos MACROS da biblioteca sys/wait.h, q traduz o valor preenchido pelo waitpid
 		waitpid(pid, &status, 0);
 		//SE o processo filho terminar via exit (saida padrao)
@@ -106,6 +108,7 @@ static	void	exec_fork(t_exec *exec, t_ast *node)
 	//SIGINT (Ctrl+C): Sinal nº 2. Resultado: $128 + 2 = 130 , o 128 é para isolar oq é status vindos d sinal e oq é vindo do codigo como um exit(2)
 			exit_code = 128 + WTERMSIG(status); // extrai o numero do sinal e soma com 128 (padrao do linux)
 		exec->exit_status = exit_code;
+		set_signals_interactive();
 		// printf("exit code (executor.c) = %d\n", exit_code);
 		// printf("exit code (exec->exit_status) = %d\n", exec->exit_status);
 	}

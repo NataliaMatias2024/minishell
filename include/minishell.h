@@ -6,17 +6,34 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/05 23:31:30 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:41:59 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdbool.h>
+# define _GNU_SOURCE
 
+//Bibliotecas Padrão do C
+# include <errno.h>
+# include <limits.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+
+//Bibliotecas do Sistema (POSIX)
+# include <fcntl.h>
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
+
+//Bibliotecas Externas (Readline)
+# include <readline/history.h>
+# include <readline/readline.h>
+
+// Bibliotecas Customizadas (libftx)
 # include "../lib/libftx/include/libft.h"
 
 /**
@@ -29,6 +46,7 @@
  *
  */
 # include "execution.h"
+extern volatile sig_atomic_t g_signal;
 
 
 /**

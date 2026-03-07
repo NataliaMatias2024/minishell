@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 10:52:54 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/04 22:09:44 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:32:08 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	exec_pipe(t_exec *exec, t_ast *node)
 	pid_left = fork();
 	if (pid_left == 0) //processo filho da direita
 	{
+		set_signals_default();
 		//Pega as informaçoes resultados do imput padrao e passa pelo STDOUT para a entrada do pipe a direita
 		//Por isso redirecionamos Standard Output (STDOUT) p a ponta de escrita do pipe, pois vamos escrever nele (fd[1])
 		dup2(fds[1], STDOUT_FILENO);
@@ -40,6 +41,7 @@ void	exec_pipe(t_exec *exec, t_ast *node)
 	pid_right = fork();
 	if (pid_right == 0) //processo filho da direita
 	{
+		set_signals_default();
 		// | comandos do fork da direita
 		//Recebe o resultado/texto da esq como se fosse um imput padrao, por isso redirecionnamos o fd d saida p o d entrada
 		//No pipe a ponta de leitura (fd[0]) é por onde o dado SAI do pipe e entra no processo.
@@ -55,6 +57,7 @@ void	exec_pipe(t_exec *exec, t_ast *node)
 	//MAS precisamos fechar os fds do pipe pois nao iremos usar mais
 	close(fds[0]);
 	close(fds[1]);
+	set_signals_executing();
 	//Tbm precisamos adicionar a espera e captura dos status dos processos filhos. 
 	// Esperamos o da esquerda para ele não virar zumbi (o processo termina mas o sistema n recebe o aviso)
 	waitpid(pid_left, NULL, 0); 
@@ -64,7 +67,8 @@ void	exec_pipe(t_exec *exec, t_ast *node)
 
 	// Antes de alimentar a variavel precisamos tratar o status recebido, transformando ele noTratamos o status da direita para pegar o valor real (0-255)
 	update_exit_status(exec); //TODO: SINAIS, TESTAR
-	printf("exit code (pipe.c) = %d\n", exec->exit_status);
+	set_signals_interactive();
+	//printf("exit code (pipe.c) = %d\n", exec->exit_status);
 }
 
 static void	update_exit_status(t_exec *exec)
