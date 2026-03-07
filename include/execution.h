@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 02:17:20 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:55:10 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "token.h"
 # include "builtin.h"
 # include "expansion.h"
-# include "signal.h"
+# include "signals.h"
 
 typedef struct s_ast	t_ast;
 typedef struct s_redir	t_redir;

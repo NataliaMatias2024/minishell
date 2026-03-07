@@ -1,10 +1,10 @@
-#include "minishell"
+#include "minishell.h"
 
 void	free_redir(t_redir *head)
 {
 	t_redir	*temp;
 
-	if (!rd_lst)
+	if (!head)
 		return ;
 	while (head)
 	{

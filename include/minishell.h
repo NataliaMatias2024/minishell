@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 02:41:59 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:52:10 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 // Bibliotecas Customizadas (libftx)
 # include "../lib/libftx/include/libft.h"
 
+// Variavél Global para lidar com os sinais
+extern volatile sig_atomic_t g_signal;
+
 /**
  * @brief Organização Modular dos Headers
  *
@@ -46,7 +49,7 @@
  *
  */
 # include "execution.h"
-extern volatile sig_atomic_t g_signal;
+
 
 
 /**

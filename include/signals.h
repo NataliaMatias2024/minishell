@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.h                                           :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 20:44:35 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 02:14:25 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:54:56 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-#define SIGNAL_H
+#ifndef SIGNALS_H
+#define SIGNALS_H
 
 void	set_signals_ignore(void);
 void	set_signals_default(void);

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:18:28 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/04 22:01:42 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 02:46:01 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,6 @@ typedef struct s_ast
 	char			**arg;
 	t_redir			*redir_lst;
 }	t_ast;
-
-t_ast	*build_ast(t_node *start, t_node *end);
-t_ast	*create_pipe_nd(t_node *pipe, t_node *start, t_node *end);
-t_ast	*create_cmd_nd(t_node *start, t_node *end);
 
 t_ast	*build_ast(t_node *start, t_node *end);
 t_ast	*create_pipe_nd(t_node *pipe, t_node *start, t_node *end);

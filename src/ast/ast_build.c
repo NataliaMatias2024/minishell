@@ -16,24 +16,23 @@ static t_node	*find_pipe(t_node *start, t_node *end)
 {
 	t_node	*curr;
 
-	curr = start;
+	curr = end;
 	while (curr)
 	{
 		if (((t_token *)curr->data)->kind == TK_PIPE)
 			return (curr);
-		if (curr == end)
+		if (curr == start)
 			break ;
-		curr = curr->next;
+		curr = curr->prev;
 	}
 	return (NULL);
 }
 
-//depois usa na main de forma recursiva
 t_ast	*build_ast(t_node *start, t_node *end)
 {
 	t_node	*pipe_nd;
 
-	if (!start)
+	if (!start || !end)
 		return (NULL);
 	pipe_nd = find_pipe(start, end);
 	if (pipe_nd)

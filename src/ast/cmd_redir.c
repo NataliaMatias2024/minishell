@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 
-static int	*is_redir(int kind)
+static int	is_redir(int kind)
 {
 	int	flag;
 
@@ -24,41 +24,19 @@ static int	*is_redir(int kind)
 	return (flag);
 }
 
-static t_redir	*create_rd(t_token *redir, t_node *name)
-{
-	t_redir	*rd_node;
-	t_token	*filename;
-
-	if (!name)
-		return (NULL);
-	filename = (t_token *)name->data;
-	rd_node = malloc(sizeof(t_redir));
-	if (!rd_node)
-		return (NULL);
-	rd_node->kind = redir->kind;
-	rd_node->file = ft_strdup(filename->lexeme);
-	if (!rd_node->file)
-	{
-		free(rd_node);
-		return (NULL);
-	}
-	rd_node->next = NULL;
-	return (rd_node);
-}
-
-static void	*add_node_back(t_redir **head, t_redir *to_add)
+static void	add_node_back(t_redir **head, t_redir *to_add)
 {
 	t_redir	*tmp;
 
 	if (!*head)
 	{
-		*head = new;
+		*head = to_add;
 		return ;
 	}
 	tmp = *head;
 	while(tmp->next)
 		tmp = tmp->next;
-	tmp->next = new;
+	tmp->next = to_add;
 }
 
 static t_redir	*create_rd(t_token *redir, t_node *name)
