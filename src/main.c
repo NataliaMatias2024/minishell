@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 00:13:38 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 15:08:08 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 
-	exec = init_t_exec(exec, envp);
+	exec.env_list = init_environment(envp);
+	exec.exit_status = 0;
+	exec.backup_stdin = dup(STDIN_FILENO);
+	exec.backup_stdout = dup(STDOUT_FILENO);
+	exec.ast_root = NULL;
+	exec.tklst = NULL;
 	set_signals_interactive();
 
 	while (1)
@@ -70,7 +75,10 @@ int main(int argc, char **argv, char **envp)
 			}
 			//Limpa tokens
 			if (tklst)
+			{
 				ft_destroy_dlst(&tklst, free_tks);
+				exec.tklst = NULL;
+			}
 		}
 		free(line);
 	}

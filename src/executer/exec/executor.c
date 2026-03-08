@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 21:47:21 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 15:07:44 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	execute_commands_handler(t_exec *exec, t_ast *node, int in_pipe)
 		dup2(exec->backup_stdin, STDIN_FILENO);
 		dup2(exec->backup_stdout, STDOUT_FILENO);
 		if (in_pipe)
+		{
+			free_clean_all(exec);
 			exit(exec->exit_status);
+		}
 		return (0);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 14:41:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 00:12:42 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 14:47:54 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	clear_child_process(t_exec *exec)
 			free_ast(exec->ast_root);
 		close(exec->backup_stdin);
 		close(exec->backup_stdout);
+		rl_clear_history();
 	}
 }
 

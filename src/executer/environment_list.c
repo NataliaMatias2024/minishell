@@ -6,12 +6,12 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 03:22:15 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 15:07:58 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+//TODO: Atualizar nivel (shlvl)
 t_env	*init_environment(char **envp)
 {
 	int		i;
