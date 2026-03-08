@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handlers.c                                         :+:      :+:    :+:   */
+/*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 14:41:57 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/01 19:26:27 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/03/08 16:41:26 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int pipe_check(t_node *node)
 	}
 	next = (t_token *)node->next->data;
 	if (((t_token *)node->prev->data)->kind != TK_WORD
-		|| ((t_token *)node->next->data)->kind != TK_WORD)
+		|| ((t_token *)node->next->data)->kind == TK_PIPE)
 	{
 		err_msg(next->lexeme);
 		return (0);
