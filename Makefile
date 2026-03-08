@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/03/08 16:40:49 by namatias         ###   ########.fr        #
+#    Updated: 2026/03/08 17:07:10 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 //TODO:tirar flag -g3
+CFLAGS = -Wall -Wextra -Werror -g3 #TODO:tirar flag -g3
 
 AST_DIR =		./ast/
 SRC_DIR =		./src/
