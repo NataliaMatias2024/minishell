@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 15:36:45 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 00:12:46 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_redir	t_redir;
 
 typedef struct s_executor
 {
+	t_dlist	*tklst;
 	t_env	*env_list;
 	t_ast	*ast_root;
 	int		exit_status;
@@ -41,8 +42,9 @@ char	*create_path_array(t_env *env_list, char **cmd_args);
 
 int		ft_is_space(char *line);
 void	free_split(char **splited);
-char	**tokens_to_argv(t_dlist *tklst);
+void	free_clean_all(t_exec *exec);
 char	*get_env_path(t_env **env, char *name);
+t_exec	init_t_exec(t_exec exec, char **envp);
 
 int		handle_append(char *filename);
 int		handle_redir_in(char *filename);

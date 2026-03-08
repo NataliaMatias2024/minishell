@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 16:51:35 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/01 16:51:49 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/03/07 21:37:20 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static int	is_redir(int kind)
 {
@@ -34,7 +33,7 @@ static void	add_node_back(t_redir **head, t_redir *to_add)
 		return ;
 	}
 	tmp = *head;
-	while(tmp->next)
+	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = to_add;
 }

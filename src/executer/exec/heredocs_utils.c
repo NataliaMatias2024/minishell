@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 23:20:38 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 13:38:15 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 00:12:48 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	create_temp_and_exec(int expand, t_exec *exec, char *clean_quotes)
 {
 	char	*line;
+	char	*aux;
 	int		fd;
 
 	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -34,7 +35,11 @@ int	create_temp_and_exec(int expand, t_exec *exec, char *clean_quotes)
 			break ;
 		}
 		if (expand == 1)
-			line = expand_heredoc(exec, line);
+		{
+			aux = expand_heredoc(exec, line);
+			free (line);
+			line = aux;
+		}
 		ft_putendl_fd(line, fd);
 		free(line);
 	}

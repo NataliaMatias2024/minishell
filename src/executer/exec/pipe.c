@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 10:52:54 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 16:51:39 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 23:42:34 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	exec_pipe(t_exec *exec, t_ast *node)
 		close(fds[0]);
 		close(fds[1]);
 		exec_ast(exec, node->left, 1);
+		free_clean_all(exec);
 		exit(exec->exit_status);
 	}
 	pid_right = fork();
@@ -40,6 +41,7 @@ void	exec_pipe(t_exec *exec, t_ast *node)
 		close(fds[0]);
 		close(fds[1]);
 		exec_ast(exec, node->right, 1);
+		free_clean_all(exec);
 		exit(exec->exit_status);
 	}
 	close(fds[0]);
@@ -47,7 +49,7 @@ void	exec_pipe(t_exec *exec, t_ast *node)
 	set_signals_executing();
 	waitpid(pid_left, NULL, 0);
 	waitpid(pid_right, &exec->exit_status, 0);
-	update_exit_status(exec); //TODO: SINAIS, TESTAR
+	update_exit_status(exec);
 	set_signals_interactive();
 }
 

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:46:12 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 03:18:19 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 23:44:04 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	exec_external_command(t_exec *exec, char **cmd_args)
 		ft_putstr_fd(cmd_args[0], STDERR_FILENO);
 		ft_putendl_fd("' not found", STDERR_FILENO);
 		free(pathname);
+		free_clean_all(exec);
 		exit(127);
 	}
 	envp = transform_env_list(exec->env_list);
@@ -31,5 +32,6 @@ void	exec_external_command(t_exec *exec, char **cmd_args)
 	perror("minishell");
 	free(pathname);
 	free_split(envp);
+	free_clean_all(exec);
 	exit(126);
 }

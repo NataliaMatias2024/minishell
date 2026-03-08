@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 04:11:07 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 03:28:55 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 22:35:58 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@ int		builtin_exit(t_exec *exec, char **args);
 int		builtin_env(t_exec *exec, char **args);
 int		builtin_pwd(t_exec *exec, char **args);
 int		builtin_cd(t_exec *exec, char **args);
-void	free_clean_all(t_exec *exec);
 
 #endif

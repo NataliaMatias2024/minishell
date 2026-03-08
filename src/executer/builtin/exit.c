@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 16:00:38 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 16:58:42 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 22:35:16 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,4 @@ static int	ft_is_valid(char *string)
 		i++;
 	}
 	return (1);
-}
-
-void	free_clean_all(t_exec *exec)
-{
-	if (!exec)
-		return ;
-	if (exec->env_list)
-		deleting_list(&(exec->env_list));
-	if (exec->backup_stdin >= 0)
-		close(exec->backup_stdin);
-	if (exec->backup_stdout >= 0)
-		close(exec->backup_stdout);
-	rl_clear_history();
-	if (exec->ast_root)
-		free_ast(exec->ast_root);
 }

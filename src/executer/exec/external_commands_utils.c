@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:03:40 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 03:18:03 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 01:02:06 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,28 @@ char	**transform_env_list(t_env *env_list)
 	int		size_env_list;
 	int		i;
 
-	size_env_list = list_size(env_list);
+	size_env_list = 0;
+	temp = env_list;
+	while (temp)
+	{
+		if (temp->value != NULL)
+			size_env_list++;
+		temp = temp->next;
+	}
 	envp = malloc ((size_env_list + 1) * sizeof(char *));
 	if (!envp)
 		return (NULL);
-	temp = env_list;
 	i = 0;
+	temp = env_list;
 	while (temp)
 	{
-		if (temp->variable)
+		if (temp->value != NULL)
 		{
 			envp[i] = create_env_array(temp->variable, temp->value);
 			if (!envp[i])
 				free_split(envp);
+			i++;
 		}
-		i++;
 		temp = temp->next;
 	}
 	envp[i] = NULL;
@@ -106,6 +113,8 @@ static char	*create_env_array(char *variable, char *value)
 	char	*temp;
 	int		total_size;
 
+	if (!value)
+        return (ft_strdup(variable));
 	total_size = ft_strlen(variable) + ft_strlen(value) + 2;
 	temp = malloc (total_size * sizeof(char));
 	if (!temp)

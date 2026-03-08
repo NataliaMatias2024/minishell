@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 15:35:27 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 21:47:21 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ int	execute_commands_handler(t_exec *exec, t_ast *node, int in_pipe)
 {
 	if (!exec || !node)
 		return (1);
-	// if (node->redir_lst)
-	// {
-	// 	if (check_and_run_heredoc(exec, node->redir_lst))
-	// 	{
-	// 		if (exec->exit_status != 130)
-	// 			exec->exit_status = 1;
-	// 		return (1);
-	// 	}
-	// }
 	if (is_builtin_command(exec, node->arg))
 	{
 		if (node->redir_lst && apply_all_redirections(exec, node->redir_lst))
@@ -46,7 +37,8 @@ int	execute_commands_handler(t_exec *exec, t_ast *node, int in_pipe)
 	{
 		if (in_pipe)
 		{
-			if (node->redir_lst && apply_all_redirections(exec, node->redir_lst))
+			if (node->redir_lst
+				&& apply_all_redirections(exec, node->redir_lst))
 				exit(1);
 			exec_external_command(exec, node->arg);
 		}
@@ -84,7 +76,5 @@ static	void	exec_fork(t_exec *exec, t_ast *node)
 			exit_code = 128 + WTERMSIG(status);
 		exec->exit_status = exit_code;
 		set_signals_interactive();
-		// printf("exit code (executor.c) = %d\n", exit_code);
-		// printf("exit code (exec->exit_status) = %d\n", exec->exit_status);
 	}
 }

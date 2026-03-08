@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:09:33 by namatias          #+#    #+#             */
-/*   Updated: 2026/02/19 03:36:22 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/07 22:32:34 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,4 @@ char	*get_env_path(t_env **env, char *name)
 		temp_env = temp_env->next;
 	}
 	return (NULL);
-}
-
-char	**tokens_to_argv(t_dlist *tklst)
-{
-	t_node	*node;
-	t_token	*token;
-	char	**args;
-	int		i;
-
-	args = ft_calloc(tklst->size + 1, sizeof(char *));
-	node = tklst->head;
-	i = 0;
-	while (node)
-	{
-		token = (t_token *)node->data;
-		if (token->kind == TK_WORD)
-		{
-			args[i] = ft_strdup(token->lexeme);
-			i++;
-		}
-		node = node->next;
-	}
-	return (args);
 }

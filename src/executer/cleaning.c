@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 14:41:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 16:50:28 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 00:12:42 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	deleting_list(t_env **head)
 
 void	clear_child_process(t_exec *exec)
 {
-	//limpar o historico do readline do processo filho
-	rl_clear_history();
 	if (exec)
 	{
 		if (exec->env_list)
@@ -68,4 +66,27 @@ void	clear_child_process(t_exec *exec)
 		close(exec->backup_stdin);
 		close(exec->backup_stdout);
 	}
+}
+
+void	free_clean_all(t_exec *exec)
+{
+	if (!exec)
+		return ;
+	if (exec->env_list)
+		deleting_list(&(exec->env_list));
+	if (exec->backup_stdin >= 0)
+		close(exec->backup_stdin);
+	if (exec->backup_stdout >= 0)
+		close(exec->backup_stdout);
+	if (exec->ast_root)
+	{
+		free_ast(exec->ast_root);
+		exec->ast_root = NULL;
+	}
+	if (exec->tklst)
+	{
+		ft_destroy_dlst(&exec->tklst, free_tks);
+		exec->tklst = NULL;
+	}
+	rl_clear_history();
 }

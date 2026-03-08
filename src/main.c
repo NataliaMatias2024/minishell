@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 17:00:00 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 00:13:38 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 
-	//Init inical da struct exec
-	exec.env_list = init_environment(envp);
-	exec.exit_status = 0;
-	exec.backup_stdin = dup(STDIN_FILENO);
-	exec.backup_stdout = dup(STDOUT_FILENO);
-	exec.ast_root = NULL;
+	exec = init_t_exec(exec, envp);
 	set_signals_interactive();
 
 	while (1)
@@ -45,6 +40,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			add_history(line);
 			tklst = tokenize(line, 0);
+			exec.tklst = tklst;
 
 			if (tklst && syntax_check(tklst))
 			{
