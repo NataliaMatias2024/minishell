@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 03:35:08 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 03:33:22 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/08 23:58:23 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_builtin_command(t_exec *exec, char **args)
 {
-	if (!exec || !exec->env_list)
+	if (!exec || !exec->env_list || !args[0])
 		return (0);
 	if (ft_strcmp(args[0], "pwd") == 0 || ft_strcmp(args[0], "exit") == 0
 		|| ft_strcmp(args[0], "cd") == 0 || ft_strcmp(args[0], "echo") == 0

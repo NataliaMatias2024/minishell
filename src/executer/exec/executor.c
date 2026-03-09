@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 15:07:44 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/09 19:26:03 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,28 @@ static	void	exec_fork(t_exec *exec, t_ast *node)
 	{
 		set_signals_default();
 		if (node->redir_lst && apply_all_redirections(exec, node->redir_lst))
+		{
+			printf("checa");
 			exit(1);
-		exec_external_command(exec, node->arg);
+		}
+		else
+		{
+			printf("pre checa");
+			exec_external_command(exec, node->arg);
+		}
 	}
 	else if (pid > 0)
 	{
+		//TODO retirar após teste
+		int i = 0;
+		printf("Arg do node:\n");
+		while (node->arg[i])
+		{
+			printf("%s", node->arg[i]);
+			i++;
+		}
+		printf("\n");
+
 		set_signals_executing();
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))

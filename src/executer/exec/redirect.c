@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 13:41:48 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 22:02:45 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/09 19:06:29 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	apply_all_redirections(t_exec *exec, t_redir *node)
 	status = 0;
 	while (node)
 	{
-		if (node->kind == REDIR_IN)
+		if (node->kind == TK_IN)
 			status = handle_redir_in(node->file);
 		else if (node->kind == TK_OUT)
 			status = handle_redir_output(node->file);
