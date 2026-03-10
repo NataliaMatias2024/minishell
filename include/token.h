@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 17:28:16 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/07 11:55:21 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:55:34 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
  * TK_OUT →	>
  * TK_HEREDOC →	<<
  * TK_APPEND →	>>
- *
- * t_token_handler → é um ponteiro para função que cria tokens,
+ * 
+ * t_token_handler → é um ponteiro para função que cria tokens, 
  * “endereço de uma função que retorna t_token *
  */
 
@@ -32,7 +32,6 @@ typedef enum e_tk_kind
 {
 	TK_WORD,
 	TK_PIPE,
-	REDIR_IN,
 	TK_IN,
 	TK_OUT,
 	TK_HEREDOC,

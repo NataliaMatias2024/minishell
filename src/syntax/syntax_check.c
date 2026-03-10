@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2026/03/09 19:39:00 by namatias         ###   ########.fr       */
+/*   Created: 2026/02/07 14:41:57 by mkitano           #+#    #+#             */
+/*   Updated: 2026/03/09 21:06:41 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -33,7 +32,6 @@ int	pipe_check(t_node *node)
 	}
 	next = (t_token *)node->next->data;
 	if (((t_token *)node->prev->data)->kind != TK_WORD
-		|| ((t_token *)node->next->data)->kind == TK_PIPE)
 		|| ((t_token *)node->next->data)->kind == TK_PIPE)
 	{
 		err_msg(next->lexeme);
@@ -83,7 +81,7 @@ int	syntax_check(t_dlist *tk_lst)
 			if (!pipe_check(node))
 				return (0);
 		}
-		else if (token->kind == REDIR_IN || token->kind == TK_OUT
+		else if (token->kind == TK_IN || token->kind == TK_OUT
 			|| token->kind == TK_APPEND || token->kind == TK_HEREDOC)
 		{
 			if (!redir_check(node))

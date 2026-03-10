@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:18:28 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/07 21:42:30 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:54:21 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,21 @@ typedef struct s_ast
 	t_node_type		type;
 	struct s_ast	*left;
 	struct s_ast	*right;
-// usado só se for ND_CMD
 	char			**arg;
 	t_redir			*redir_lst;
 }	t_ast;
 
 t_ast	*build_ast(t_node *start, t_node *end);
-t_ast	*create_pipe_nd(t_node *pipe, t_node *start, t_node *end);
 t_ast	*create_cmd_nd(t_node *start, t_node *end);
+t_ast	*create_pipe_nd(t_node *pipe, t_node *start, t_node *end);
 
 char	**fill_arg(t_node *start, t_node *end);
 t_redir	*extr_redir(t_node *start, t_node *end);
 
+void	free_cmd(t_ast *node);
 void	free_ast(t_ast *node);
 void	free_pipe(t_ast *node);
-void	free_cmd(t_ast *node);
-void	free_argv(char **argv);
+void 	free_argv(char **argv);
 void	free_redir(t_redir *head);
 
 #endif

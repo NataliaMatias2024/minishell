@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 14:41:57 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/09 19:13:14 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:52:19 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_token	*handler_redir(const char *input, int *i)
 	else if (input[*i] == '>')
 		token = new_token(TK_OUT, ft_strdup(">"));
 	else
-		//token = new_token(REDIR_IN, ft_strdup("<"));
 		token = new_token(TK_IN, ft_strdup("<"));
 	if (!token)
 		return (NULL);

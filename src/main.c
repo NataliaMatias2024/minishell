@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 16:51:39 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/09 23:26:50 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int main(int argc, char **argv, char **envp)
 						//Exec com recursao da arvore
 						exec_ast(&exec, root, 0);
 					}
+					unlink(".heredoc_tmp");
 					//Limpa arvore após executar tds os comandos
 					free_ast(root);
 					exec.ast_root = NULL;

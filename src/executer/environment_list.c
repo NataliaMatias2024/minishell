@@ -6,12 +6,12 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 12:41:01 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 15:07:58 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/09 23:27:01 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-//TODO: Atualizar nivel (shlvl)
+
 t_env	*init_environment(char **envp)
 {
 	int		i;
@@ -86,7 +86,14 @@ t_env	*create_environment_node(char *var, char *var_info)
 		return (NULL);
 	new_node->variable = ft_strdup(var);
 	if (var_info)
-		new_node->value = ft_strdup(var_info);
+	{
+		if (ft_strncmp(var, "SHLVL", 5) == 0)
+		{
+			new_node->value = ft_itoa(ft_atoi(var_info) + 1);
+		}
+		else
+			new_node->value = ft_strdup(var_info);
+	}
 	else
 		new_node->value = NULL;
 	new_node->next = NULL;

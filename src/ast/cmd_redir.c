@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 16:51:35 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/07 21:37:20 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/09 20:49:12 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	add_node_back(t_redir **head, t_redir *to_add)
 		return ;
 	}
 	tmp = *head;
-	while (tmp->next)
+	while(tmp->next)
 		tmp = tmp->next;
 	tmp->next = to_add;
 }
