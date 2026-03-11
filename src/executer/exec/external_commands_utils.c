@@ -6,17 +6,16 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 15:03:40 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 01:02:06 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 19:40:48 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char		*check_slash(char *cmd_args);
+static char		*check_slash(char *args);
 static t_env	*find_path_node(t_env *head, char *args);
-static char		*create_env_array(char *variable, char *value);
 
-char	*create_path_array(t_env *env_list, char **cmd_args)
+char	*create_path_array(t_env *env_list, char **args)
 {
 	t_env	*path_node;
 	char	**paths;
@@ -24,16 +23,16 @@ char	*create_path_array(t_env *env_list, char **cmd_args)
 	char	*full_path;
 	int		i;
 
-	exec_path = check_slash(cmd_args[0]);
+	exec_path = check_slash(args[0]);
 	path_node = find_path_node(env_list, "PATH");
-	if (exec_path || !path_node || !cmd_args[0])
+	if (exec_path || !path_node || !args[0])
 		return (exec_path);
 	paths = ft_split(path_node->value, ':');
 	i = -1;
 	while (paths && paths[++i])
 	{
 		full_path = ft_strjoin(paths[i], "/");
-		exec_path = join_and_free(full_path, cmd_args[0]);
+		exec_path = join_and_free(full_path, args[0]);
 		if (access(exec_path, X_OK) == 0)
 		{
 			free_split(paths);
@@ -45,14 +44,14 @@ char	*create_path_array(t_env *env_list, char **cmd_args)
 	return (NULL);
 }
 
-static char	*check_slash(char *cmd_args)
+static char	*check_slash(char *args)
 {
-	if (!cmd_args)
+	if (!args)
 		return (NULL);
-	if (ft_strrchr(cmd_args, '/'))
+	if (ft_strrchr(args, '/'))
 	{
-		if (access(cmd_args, X_OK) == 0)
-			return (ft_strdup(cmd_args));
+		if (access(args, X_OK) == 0)
+			return (ft_strdup(args));
 	}
 	return (NULL);
 }
@@ -73,48 +72,13 @@ static t_env	*find_path_node(t_env *head, char *args)
 	return (temp);
 }
 
-char	**transform_env_list(t_env *env_list)
-{
-	t_env	*temp;
-	char	**envp;
-	int		size_env_list;
-	int		i;
-
-	size_env_list = 0;
-	temp = env_list;
-	while (temp)
-	{
-		if (temp->value != NULL)
-			size_env_list++;
-		temp = temp->next;
-	}
-	envp = malloc ((size_env_list + 1) * sizeof(char *));
-	if (!envp)
-		return (NULL);
-	i = 0;
-	temp = env_list;
-	while (temp)
-	{
-		if (temp->value != NULL)
-		{
-			envp[i] = create_env_array(temp->variable, temp->value);
-			if (!envp[i])
-				free_split(envp);
-			i++;
-		}
-		temp = temp->next;
-	}
-	envp[i] = NULL;
-	return (envp);
-}
-
-static char	*create_env_array(char *variable, char *value)
+char	*create_env_array(char *variable, char *value)
 {
 	char	*temp;
 	int		total_size;
 
 	if (!value)
-        return (ft_strdup(variable));
+		return (ft_strdup(variable));
 	total_size = ft_strlen(variable) + ft_strlen(value) + 2;
 	temp = malloc (total_size * sizeof(char));
 	if (!temp)

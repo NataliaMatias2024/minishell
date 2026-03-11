@@ -6,11 +6,14 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 23:39:06 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/10 19:49:51 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:58:54 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int		handle_sign_heredoc(int status, t_exec *exec);
+static pid_t	set_heredoc_child(int exp, t_exec *exec, char *clean_q);
 
 int	handle_heredoc(char *delimiter, t_exec *exec)
 {
@@ -18,40 +21,54 @@ int	handle_heredoc(char *delimiter, t_exec *exec)
 	int		status;
 	int		expand;
 	char	*clean_quotes;
+	int		exit_code;
 
 	status = 0;
+	exit_code = 0;
 	set_signals_ignore();
 	expand = check_delimiter(delimiter);
 	clean_quotes = remove_quotes(delimiter);
+	pid = set_heredoc_child(expand, exec, clean_quotes);
+	waitpid(pid, &status, 0);
+	set_signals_interactive();
+	exit_code = handle_sign_heredoc(status, exec);
+	free(clean_quotes);
+	return (exit_code);
+}
+
+static pid_t	set_heredoc_child(int exp, t_exec *exec, char *clean_q)
+{
+	pid_t	pid;
+
 	pid = fork();
+	if (pid < 0)
+		perror("minishell: fork");
 	if (pid == 0)
 	{
 		set_signals_heredoc();
-		create_temp_and_exec(expand, exec, clean_quotes);
-		free (clean_quotes);
+		create_temp_and_exec(exp, exec, clean_q);
+		free (clean_q);
 		free_clean_all(exec);
 		if (g_signal == SIGINT)
 			exit (130);
 		exit (0);
 	}
-	waitpid(pid, &status, 0);
-	set_signals_interactive();
+	return (pid);
+}
+
+static int	handle_sign_heredoc(int status, t_exec *exec)
+{
 	if (WIFSIGNALED(status))
 	{
 		exec->exit_status = 128 + WTERMSIG(status);
-		free(clean_quotes);
 		return (1);
 	}
 	else if (WIFEXITED(status))
 	{
 		exec->exit_status = WEXITSTATUS(status);
 		if (exec->exit_status == 130)
-		{
-			free(clean_quotes);
 			return (1);
-		}
 	}
-	free(clean_quotes);
 	return (0);
 }
 

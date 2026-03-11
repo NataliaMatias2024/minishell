@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:50:36 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 15:15:01 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 10:41:43 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,3 @@ static t_env	*detach_node(t_env **head, t_env *target)
 	}
 	return (NULL);
 }
-

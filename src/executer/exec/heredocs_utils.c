@@ -6,16 +6,16 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 23:20:38 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/09 23:26:37 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:03:08 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	set_readline_looping(int fd, int exp, t_exec *exec, char *clean_q);
+
 int	create_temp_and_exec(int expand, t_exec *exec, char *clean_quotes)
 {
-	char	*line;
-	char	*aux;
 	int		fd;
 
 	fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -24,17 +24,27 @@ int	create_temp_and_exec(int expand, t_exec *exec, char *clean_quotes)
 		perror("minishell: heredoc");
 		exit (1);
 	}
+	set_readline_looping(fd, expand, exec, clean_quotes);
+	close (fd);
+	return (0);
+}
+
+static void	set_readline_looping(int fd, int exp, t_exec *exec, char *clean_q)
+{
+	char	*aux;
+	char	*line;
+
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strcmp(line, clean_quotes) == 0)
+		if (ft_strcmp(line, clean_q) == 0)
 		{
 			free(line);
 			break ;
 		}
-		if (expand == 1)
+		if (exp == 1)
 		{
 			aux = expand_heredoc(exec, line);
 			free (line);
@@ -43,8 +53,6 @@ int	create_temp_and_exec(int expand, t_exec *exec, char *clean_quotes)
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
-	close (fd);
-	return (0);
 }
 
 int	check_delimiter(char *delimiter)

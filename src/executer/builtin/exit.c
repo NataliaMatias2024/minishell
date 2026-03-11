@@ -6,14 +6,15 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 16:00:38 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/10 22:11:52 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 14:54:49 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_is_valid(char *string);
-static long long ft_atoll_check(char *str, long long *exit_flag);
+static int			ft_is_valid(char *string);
+static void			set_msg_error(char *args);
+static long long	ft_atoll_check(char *str, long long *exit_flag);
 
 int	builtin_exit(t_exec *exec, char **args)
 {
@@ -24,16 +25,13 @@ int	builtin_exit(t_exec *exec, char **args)
 	{
 		if (!ft_is_valid(args[1]) || (ft_atoll_check(args[1], &exit_flag) == 1))
 		{
-			ft_putendl_fd("exit", STDOUT_FILENO);
-			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-			ft_putstr_fd(args[1], STDERR_FILENO);
-			ft_putendl_fd("numeric argument too long", STDERR_FILENO);
+			set_msg_error(args[1]);
 			free_clean_all(exec);
 			exit(2);
 		}
 		else if (args[2])
 		{
-			ft_putendl_fd("exit: too many arguments.", STDERR_FILENO);
+			ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
 			return (1);
 		}
 		exit_flag = (exit_flag % 256);
@@ -64,11 +62,19 @@ static int	ft_is_valid(char *string)
 	return (1);
 }
 
-static long long ft_atoll_check(char *str, long long *number)
+static void	set_msg_error(char *args)
 {
-	int	i;
-	int	sign;
-	unsigned long long result;
+	ft_putendl_fd("exit", STDOUT_FILENO);
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd(args, STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+}
+
+static long long	ft_atoll_check(char *str, long long *number)
+{
+	int					i;
+	int					sign;
+	unsigned long long	result;
 
 	i = 0;
 	sign = 1;
@@ -84,9 +90,8 @@ static long long ft_atoll_check(char *str, long long *number)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = (result * 10) + (str[i] - '0');
-		if (sign == 1 && result > 9223372036854775807)
-			return (1);
-		if (sign == -1 && result > 9223372036854775808ULL)
+		if ((sign == 1 && result > 9223372036854775807ULL)
+			|| (sign == -1 && result > 9223372036854775808ULL))
 			return (1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 10:58:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 15:07:39 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:21:11 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	exec_ast(t_exec *exec, t_ast *root, int in_pipe)
 	if (root->type == ND_PIPE)
 		exec_pipe(exec, root);
 	else if (root->type == ND_CMD)
-		execute_commands_handler(exec, root, in_pipe);
+		exec_commands(exec, root, in_pipe);
 }
