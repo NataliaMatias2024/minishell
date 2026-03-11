@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 14:41:02 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/09 23:47:27 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/10 20:06:54 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,6 @@ void	deleting_list(t_env **head)
 	*head = NULL;
 }
 
-void	clear_child_process(t_exec *exec)
-{
-	if (exec)
-	{
-		if (exec->env_list)
-			deleting_list(&(exec->env_list));
-		if (exec->ast_root)
-			free_ast(exec->ast_root);
-		close(exec->backup_stdin);
-		close(exec->backup_stdout);
-		rl_clear_history();
-	}
-}
-
 void	free_clean_all(t_exec *exec)
 {
 	if (!exec)
@@ -76,9 +62,15 @@ void	free_clean_all(t_exec *exec)
 	if (exec->env_list)
 		deleting_list(&(exec->env_list));
 	if (exec->backup_stdin >= 0)
+	{
 		close(exec->backup_stdin);
+		exec->backup_stdin = -1;
+	}
 	if (exec->backup_stdout >= 0)
+	{
 		close(exec->backup_stdout);
+		exec->backup_stdout = -1;
+	}
 	if (exec->ast_root)
 	{
 		free_ast(exec->ast_root);

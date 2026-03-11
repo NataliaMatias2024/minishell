@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 18:06:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 23:04:17 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:30:11 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	set_signals_interactive(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
+	struct sigaction	sa_tstp;
 
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
@@ -25,12 +26,17 @@ void	set_signals_interactive(void)
 	sa_quit.sa_flags = 0;
 	sa_quit.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa_quit, NULL);
+	sigemptyset(&sa_tstp.sa_mask);
+	sa_tstp.sa_flags = 0;
+	sa_tstp.sa_handler = SIG_IGN;
+	sigaction(SIGTSTP, &sa_tstp, NULL);
 }
 
 void	set_signals_executing(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
+	struct sigaction	sa_tstp;
 
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
@@ -40,12 +46,17 @@ void	set_signals_executing(void)
 	sa_quit.sa_flags = 0;
 	sa_quit.sa_handler = handle_signals_executing;
 	sigaction(SIGQUIT, &sa_quit, NULL);
+	sigemptyset(&sa_tstp.sa_mask);
+	sa_tstp.sa_flags = 0;
+	sa_tstp.sa_handler = SIG_IGN;
+	sigaction(SIGTSTP, &sa_tstp, NULL);
 }
 
 void	set_signals_default(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
+	struct sigaction	sa_tstp;
 
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
@@ -55,12 +66,17 @@ void	set_signals_default(void)
 	sa_quit.sa_flags = 0;
 	sa_quit.sa_handler = SIG_DFL;
 	sigaction(SIGQUIT, &sa_quit, NULL);
+	sigemptyset(&sa_tstp.sa_mask);
+	sa_tstp.sa_flags = 0;
+	sa_tstp.sa_handler = SIG_IGN;
+	sigaction(SIGTSTP, &sa_tstp, NULL);
 }
 
 void	set_signals_ignore(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
+	struct sigaction	sa_tstp;
 
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
@@ -70,6 +86,10 @@ void	set_signals_ignore(void)
 	sa_quit.sa_flags = 0;
 	sa_quit.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa_quit, NULL);
+	sigemptyset(&sa_tstp.sa_mask);
+	sa_tstp.sa_flags = 0;
+	sa_tstp.sa_handler = SIG_IGN;
+	sigaction(SIGTSTP, &sa_tstp, NULL);
 }
 
 void	set_signals_heredoc(void)
@@ -80,7 +100,7 @@ void	set_signals_heredoc(void)
 
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
-	sa_int.sa_handler = SIG_DFL;
+	sa_int.sa_handler = handle_signals_heredoc;
 	sigaction(SIGINT, &sa_int, NULL);
 	sigemptyset(&sa_quit.sa_mask);
 	sa_quit.sa_flags = 0;

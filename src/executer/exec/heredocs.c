@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 23:39:06 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/09 23:26:39 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:49:51 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	handle_heredoc(char *delimiter, t_exec *exec)
 	int		expand;
 	char	*clean_quotes;
 
+	status = 0;
 	set_signals_ignore();
 	expand = check_delimiter(delimiter);
 	clean_quotes = remove_quotes(delimiter);
@@ -29,6 +30,8 @@ int	handle_heredoc(char *delimiter, t_exec *exec)
 		create_temp_and_exec(expand, exec, clean_quotes);
 		free (clean_quotes);
 		free_clean_all(exec);
+		if (g_signal == SIGINT)
+			exit (130);
 		exit (0);
 	}
 	waitpid(pid, &status, 0);
@@ -36,13 +39,18 @@ int	handle_heredoc(char *delimiter, t_exec *exec)
 	if (WIFSIGNALED(status))
 	{
 		exec->exit_status = 128 + WTERMSIG(status);
-		if (WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
 		free(clean_quotes);
 		return (1);
 	}
 	else if (WIFEXITED(status))
+	{
 		exec->exit_status = WEXITSTATUS(status);
+		if (exec->exit_status == 130)
+		{
+			free(clean_quotes);
+			return (1);
+		}
+	}
 	free(clean_quotes);
 	return (0);
 }
@@ -55,7 +63,7 @@ int	check_and_run_heredoc(t_exec *exec, t_redir *redir)
 		{
 			if (handle_heredoc(redir->file, exec))
 			{
-				if (exec->exit_status == 130)
+				if (exec->exit_status > 128)
 					unlink(".heredoc_tmp");
 				else
 					exec->exit_status = 1;

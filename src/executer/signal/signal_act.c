@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 02:10:09 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/08 23:01:37 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/10 18:43:37 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,15 @@ void	handle_signals_executing(int signal)
 	else if (signal == SIGINT)
 	{
 		write(STDOUT_FILENO, "\n", 1);
+	}
+}
+
+void	handle_signals_heredoc(int signal)
+{
+	g_signal = signal;
+	if (signal == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		close(STDIN_FILENO);
 	}
 }

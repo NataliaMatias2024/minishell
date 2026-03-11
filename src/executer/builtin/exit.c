@@ -6,25 +6,28 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 16:00:38 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/07 22:35:16 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/10 22:11:52 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	ft_is_valid(char *string);
+static long long ft_atoll_check(char *str, long long *exit_flag);
 
 int	builtin_exit(t_exec *exec, char **args)
 {
-	int	exit_flag;
+	long long	exit_flag;
 
 	exit_flag = 0;
 	if (args[1])
 	{
-		if (!ft_is_valid(args[1]))
+		if (!ft_is_valid(args[1]) || (ft_atoll_check(args[1], &exit_flag) == 1))
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
-			ft_putendl_fd("exit: numeric argument required.", STDERR_FILENO);
+			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd(args[1], STDERR_FILENO);
+			ft_putendl_fd("numeric argument too long", STDERR_FILENO);
 			free_clean_all(exec);
 			exit(2);
 		}
@@ -33,11 +36,13 @@ int	builtin_exit(t_exec *exec, char **args)
 			ft_putendl_fd("exit: too many arguments.", STDERR_FILENO);
 			return (1);
 		}
-		exit_flag = (ft_atoi(args[1]) % 256);
+		exit_flag = (exit_flag % 256);
+		if (exit_flag < 0)
+			exit_flag += 256;
 	}
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	free_clean_all(exec);
-	exit(exit_flag % 256);
+	exit((int)exit_flag);
 	return (0);
 }
 
@@ -57,4 +62,34 @@ static int	ft_is_valid(char *string)
 		i++;
 	}
 	return (1);
+}
+
+static long long ft_atoll_check(char *str, long long *number)
+{
+	int	i;
+	int	sign;
+	unsigned long long result;
+
+	i = 0;
+	sign = 1;
+	result = 0;
+	while ((str[i] >= '\t' && str[i] <= '\r') || (str[i] == ' '))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = (result * 10) + (str[i] - '0');
+		if (sign == 1 && result > 9223372036854775807)
+			return (1);
+		if (sign == -1 && result > 9223372036854775808ULL)
+			return (1);
+		i++;
+	}
+	*number = (long long)result * sign;
+	return (0);
 }
