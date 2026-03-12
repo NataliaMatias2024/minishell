@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:13:52 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/11 21:46:22 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/12 16:13:32 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include "builtin.h"
 # include "expansion.h"
 # include "signals.h"
-
-typedef struct s_ast	t_ast;
-typedef struct s_redir	t_redir;
 
 typedef struct s_executor
 {

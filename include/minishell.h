@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:15:03 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/11 22:11:47 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/12 16:23:58 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,19 @@
 # include <readline/readline.h>
 
 // ==========================================
+//           FORWARD DECLARATIONS
+// ==========================================
+typedef struct s_ast			t_ast;
+typedef struct s_environment	t_env;
+typedef struct s_node			t_node;
+typedef struct s_dlist			t_dlist;
+typedef struct s_token			t_token;
+
+// ==========================================
 //             PROJECT HEADERS
 // ==========================================
-# include "ast.h"
 # include "token.h"
+# include "ast.h"
 # include "execution.h"
 # include "../lib/libftx/include/libft.h"
 

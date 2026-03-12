@@ -6,14 +6,12 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:18:28 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/11 10:38:08 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/12 16:23:38 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
-
-# include "minishell.h"
 
 typedef enum e_node_type
 {
