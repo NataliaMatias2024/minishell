@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by nmatias, mkitano.*
+_This project has been created as part of the 42 curriculum by nmatias, mkitano._
 
 # Minishell
 
@@ -17,13 +17,13 @@ The program displays a prompt, reads user input, parses the command line, and ex
 
 Through this project we explore concepts such as:
 
-* process creation (`fork`)
-* program execution (`execve`)
-* file descriptors
-* pipes and redirections
-* environment variables
-* signal handling
-* memory management
+- process creation (`fork`)
+- program execution (`execve`)
+- file descriptors
+- pipes and redirections
+- environment variables
+- signal handling
+- memory management
 
 The internal flow of the program follows this general pipeline:
 
@@ -39,12 +39,12 @@ The lexer reads the raw input string and splits it into **tokens**, which repres
 
 Tokens may include:
 
-* commands
-* arguments
-* pipes (`|`)
-* redirections (`<`, `>`, `>>`, `<<`)
-* environment variables
-* quoted strings
+- commands
+- arguments
+- pipes (`|`)
+- redirections (`<`, `>`, `>>`, `<<`)
+- environment variables
+- quoted strings
 
 Example input:
 
@@ -92,10 +92,10 @@ Once the command structure is built, the executor runs the commands according to
 
 Execution typically involves system calls such as:
 
-* `fork` to create child processes
-* `pipe` to connect commands
-* `dup2` to handle file descriptor redirections
-* `execve` to exec
+- `fork` to create child processes
+- `pipe` to connect commands
+- `dup2` to handle file descriptor redirections
+- `execve` to exec
 
 ---
 
@@ -108,11 +108,14 @@ minishell/
 ├── srcs/            # Source code
 │   ├── lexer/
 │   ├── parser/
-│   ├── executor/
-│   ├── builtins/
-│   └── signals/
-│
-├── libft/           # Custom C utility library
+│   ├── signals/
+│   └── executor/
+│       ├── builtin/
+│       ├── exec/
+│       ├── expansion/
+│       ├── heredoc/
+│       └── signal/
+├── lib/             # Custom C utility library
 ├── Makefile
 └── README.md
 ```
@@ -161,17 +164,20 @@ minishell$ ls -l | grep minishell
 
 References used during the development of this project:
 
-* GNU Bash documentation
-* Linux manual pages (`man execve`, `man fork`, `man pipe`, `man dup2`)
-* The Linux Programming Interface — Michael Kerrisk
-* Playlist https://github.com/lbento/minishell.git
-* Shell Program https://www.youtube.com/watch?v=ubt-UjcQUYg&t=498s
-* Playlist Data Structures https://www.youtube.com/playlist?list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P
+- GNU Bash documentation
+- Linux manual pages (`man execve`, `man fork`, `man pipe`, `man dup2`)
+- The Linux Programming Interface — Michael Kerrisk
+- Playlist https://github.com/lbento/minishell.git
+- Shell Program https://www.youtube.com/watch?v=ubt-UjcQUYg&t=498s
+- Playlist Data Structures https://www.youtube.com/playlist?list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P
+- https://www.gnu.org/software/bash/manual/bash.html
+- https://www.codequoi.com/en/creating-and-killing-child-processes-in-c/#a-hierarchy-of-processes
+- https://aosabook.org/en/v1/bash.html
+- https://www.austintripp.ca/blog/2019/07/18/bash-quotes/
 
 ### AI Usage
 
 AI tools were used to:
 
-* clarify system call behavior
-* review conceptual explanations
-
+- clarify system call behavior
+- review conceptual explanations
