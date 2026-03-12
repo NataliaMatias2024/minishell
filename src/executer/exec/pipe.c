@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 10:52:54 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/11 14:36:17 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 21:18:53 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exec_pipe(t_exec *exec, t_ast *node)
 	pid_right = handle_forks(fds, exec, node, 0);
 	close(fds[0]);
 	close(fds[1]);
-	set_signals_executing();
+	set_signals_ignore();
 	if (pid_left > 0)
 		waitpid(pid_left, NULL, 0);
 	if (pid_right > 0)
@@ -80,6 +80,12 @@ static void	update_exit_status(t_exec *exec)
 	if (WIFEXITED(status))
 		exit_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
+	{
 		exit_code = 128 + WTERMSIG(status);
+		if (WTERMSIG(status) == SIGINT)
+			write(STDOUT_FILENO, "\n", 1);
+		else if (WTERMSIG(status) == SIGQUIT)
+			ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
+	}
 	exec->exit_status = exit_code;
 }

@@ -6,14 +6,14 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:46:12 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/11 19:34:03 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 22:05:19 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	int	size_env_list(t_env *env_list);
-char	**transform_env_list(t_env *env_list);
+static int	size_env_list(t_env *env_list);
+char		**transform_env_list(t_env *env_list);
 
 void	exec_external_command(t_exec *exec, char **cmd_args)
 {

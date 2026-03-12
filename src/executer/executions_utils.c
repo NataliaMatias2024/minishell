@@ -6,13 +6,12 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 03:09:33 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/09 23:26:43 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 22:22:32 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//TODO: Verificar oq esta sendo realmente usado e deletar oq n precisar!
 int	ft_is_space(char *line)
 {
 	int	i;

@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/03/10 22:14:03 by namatias         ###   ########.fr        #
+#    Updated: 2026/03/11 22:22:22 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,7 @@ LIB_DIR =		./lib/libftx/
 SYNTAX_FILES = 	syntax_check.c \
 				syntax_utils.c \
 
-EXEC_FILES = cleaning.c \
-			 builtin/cd.c \
+EXEC_FILES = builtin/cd.c \
 			 builtin/env.c \
 			 builtin/pwd.c \
 			 builtin/exit.c \
@@ -45,16 +44,15 @@ EXEC_FILES = cleaning.c \
 			 expansion/expansion.c \
 			 expansion/expansion_utils.c \
 			 exec/pipe.c \
-			 exec/executor.c \
 			 exec/redirect.c \
-			 exec/heredocs.c \
-			 exec/heredocs_utils.c \
+			 exec/executor.c \
 			 exec/execute_ast.c \
 			 exec/external_commands.c \
 			 exec/external_commands_utils.c \
+			 heredoc/heredocs.c \
+			 heredoc/heredocs_utils.c \
 			 signal/signal_set.c \
 			 signal/signal_act.c \
-			 init/init.c
 
 TOKEN_FILES = token.c \
 			  handlers.c \
@@ -67,6 +65,8 @@ AST_FILES =	cmd_arg.c \
 			create_node.c \
 
 SRC_FILES = main.c \
+			cleaning.c \
+			main_utils.c \
 			$(addprefix $(AST_DIR), $(AST_FILES)) \
             $(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
 			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES)) \
@@ -122,11 +122,6 @@ fclean: clean
 
 re: fclean all
 
-# TODO: Limpar comentarios
-#--suppressions=readline.supp -> faz uma supressao no relatorio do valgrind de acordo com as regras do arquivo readline.supp
-#--leak-check=full --show-leak-kinds=all  -> mostram todos os tipos de leaks de forma detalhada
-#--track-origins=yes  -> mostra variaveis nao inicializadas e diz sua localizaçao
-#./$(NAME) -> se refere ao executavel e mantem o makefile responsivo com menos ajustes necessários caso mudemos o nome
 val: all
 	valgrind -q --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:18:28 by mkitano           #+#    #+#             */
-/*   Updated: 2026/03/09 20:54:21 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 10:38:08 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_redir	*extr_redir(t_node *start, t_node *end);
 void	free_cmd(t_ast *node);
 void	free_ast(t_ast *node);
 void	free_pipe(t_ast *node);
-void 	free_argv(char **argv);
+void	free_argv(char **argv);
 void	free_redir(t_redir *head);
 
 #endif

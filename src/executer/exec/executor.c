@@ -6,16 +6,15 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/11 19:33:16 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/11 22:04:54 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-static	void	exec_fork(t_exec *exec, t_ast *node);
+static void		exec_fork(t_exec *exec, t_ast *node);
 static pid_t	set_and_exec_for(t_exec *exec, t_ast *node);
-static	int		set_builtin_check(t_exec *exec, t_ast *node, int in_pipe);
+static int		set_builtin_check(t_exec *exec, t_ast *node, int in_pipe);
 
 int	exec_commands(t_exec *exec, t_ast *node, int in_pipe)
 {
@@ -71,15 +70,20 @@ static	void	exec_fork(t_exec *exec, t_ast *node)
 	pid = set_and_exec_for(exec, node);
 	if (pid > 0)
 	{
-		set_signals_executing();
+		set_signals_ignore();
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
+		{
 			exit_code = 128 + WTERMSIG(status);
-		exec->exit_status = exit_code;
-		set_signals_interactive();
+			if (WTERMSIG(status) == SIGINT)
+				write(STDOUT_FILENO, "\n", 1);
+			else if (WTERMSIG(status) == SIGQUIT)
+				ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
+		}
 	}
+	exec->exit_status = exit_code;
 }
 
 static pid_t	set_and_exec_for(t_exec *exec, t_ast *node)
