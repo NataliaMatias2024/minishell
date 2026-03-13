@@ -39,6 +39,7 @@ typedef struct s_environment	t_env;
 typedef struct s_node			t_node;
 typedef struct s_dlist			t_dlist;
 typedef struct s_token			t_token;
+typedef struct s_redir			t_redir;
 
 // ==========================================
 //             PROJECT HEADERS
@@ -56,27 +57,5 @@ typedef struct s_token			t_token;
 ** It is updated inside the signal handler when a signal is received.
 */
 extern volatile sig_atomic_t	g_signal;
-
-// ==========================================
-//               STRUCTURES
-// ==========================================
-typedef struct s_redir			t_redir;
-
-typedef struct s_nodem
-{
-	t_node_type		kind;
-	struct s_node	*left;
-	struct s_node	*right;
-	char			**arg;
-	t_redir			redir_kind;
-}					t_nodem;
-
-// ==========================================
-//               PROTOTYPES
-// ==========================================
-int		syntax_check(t_dlist *tk_lst);
-int		pipe_check(t_node *node);
-int		redir_check(t_node *node);
-void	err_msg(char *lex);
 
 #endif

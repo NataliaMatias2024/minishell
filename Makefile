@@ -104,10 +104,12 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
+	@echo "[\033[0;32mOK\033[0m] $(NAME) COMPILED!"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "[\033[0;32mOK\033[0m] COMPILED $<"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIB_DIR) --silent
@@ -115,10 +117,12 @@ $(LIBFT):
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make clean -C $(LIB_DIR) --silent
+	@echo "[\033[0;32mOK\033[0m] FILES CLEAR!"
 
 fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) fclean -C $(LIB_DIR) --silent
+	@echo "[\033[0;32mOK\033[0m] ALL CLEAR!"
 
 re: fclean all
 

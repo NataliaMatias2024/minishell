@@ -13,21 +13,6 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
-/*
- * @brief Tipos tokens
- *
- * TK_WORD → palavras normais (ls, echo, oi)
- * TK_PIPE → operador |
- * TK_EOF → fim da lista de tokens (end of file)
- * TK_IN →	<
- * TK_OUT →	>
- * TK_HEREDOC →	<<
- * TK_APPEND →	>>
- * 
- * t_token_handler → é um ponteiro para função que cria tokens, 
- * “endereço de uma função que retorna t_token *
- */
-
 typedef enum e_tk_kind
 {
 	TK_WORD,
