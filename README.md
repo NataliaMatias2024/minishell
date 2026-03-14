@@ -1,79 +1,182 @@
-# Minishell - @42SP
+_This project has been created as part of the 42 curriculum by nmatias, mkitano._
 
-## 📖 About the Project
-Minishell is a project at **42 São Paulo** that consists of recreating the functioning of a terminal. The goal is to develop a shell in C that handles command execution, pipes, redirections, and signals, requiring advanced memory management.
+# Minishell
 
----
+Minishell is a project from the 42 curriculum that consists of recreating a simplified version of a Unix shell.
+The objective is to understand how command interpreters work internally by implementing parsing, process management, pipes, redirections, and environment variable handling.
 
-## 🛠️ Features
-* **Prompt:** Displays a functional prompt waiting for user input. 🟡 Under Development
-* **Command Execution:** Search and launch executables based on the `PATH`. 🟡 Under Development
-* **Built-ins:** `echo`, `cd`, `pwd`, `export`, `unset`, `env`, and `exit`. 🟡 Under Development
-* **Redirections:** `<`, `>`, `>>`, and `<<` (heredoc). 🟡 Under Development
-* **Pipes:** `|` operator to connect commands. 🟡 Under Development
-* **Environment Variables:** Expansion of `$` and `$?`. 🟡 Under Development
-* **Signals:** Proper handling of `Ctrl-C`, `Ctrl-D`, and `Ctrl-\`. ⚪ Planned
+The project is written entirely in **C** and follows the strict coding standards required by the 42 school.
 
 ---
 
-## 🚀 Getting Started
+# Description
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/NataliaMatias2024/minishell.git](git@github.com:NataliaMatias2024/minishell.git)
-   ```
+Minishell replicates the fundamental behavior of **bash** in an interactive environment.
 
-2. Compile the project:
-   ```bash
-   make
-   ```
+The program displays a prompt, reads user input, parses the command line, and executes commands using system calls. The objective of the project is to understand how a shell interprets and executes commands internally.
 
-3. Run Minishell:
-   ```bash
-   ./minishell
-   ```
+Through this project we explore concepts such as:
 
----
+- process creation (`fork`)
+- program execution (`execve`)
+- file descriptors
+- pipes and redirections
+- environment variables
+- signal handling
+- memory management
 
-## 📂 Project Structure
+The internal flow of the program follows this general pipeline:
 
-* **srcs/:** Source files (.c) organized by modules (parsing, execution, built-ins).
-* **includes/:** Header files (.h).
-* **libft/:** Custom C library with utility functions.
-* **.gitignore:** Configuration to keep the repository clean from binaries and system noise.
+```
+input → lexer → parser → AST → executor
+```
 
 ---
 
-## 👥 Authors
+## Lexer (Tokenization)
 
-* **Natalia Matias** - Student at 42 São Paulo.
-* **Magali Midori** - Student at 42 São Paulo.
+The lexer reads the raw input string and splits it into **tokens**, which represent meaningful elements of the command line.
+
+Tokens may include:
+
+- commands
+- arguments
+- pipes (`|`)
+- redirections (`<`, `>`, `>>`, `<<`)
+- environment variables
+- quoted strings
+
+Example input:
+
+```
+echo hello | grep h > file.txt
+```
+
+Tokenized representation:
+
+```
+[echo] [hello] [|] [grep] [h] [>] [file.txt]
+```
+
+This step transforms the raw string into a structured sequence that can be interpreted by the parser.
 
 ---
 
-## 🔄 Development Workflow
+## Parser
 
-To ensure code quality and avoid merge conflicts, we follow a Feature Branch workflow:
+After tokenization, the parser analyzes the token sequence and builds a structured representation of the command line.
 
-1. Sync: Always start by pulling the latest changes **from main**.
-	 ```bash
-	 git checkout main
-	 git pull
-	 ```
+In many minishell implementations, this structure can be represented as a **binary tree** or command nodes, where operators define the relationship between commands.
 
-2. Branch: Create a branch for each feature:
-	```bash
-	git checkout -b feat/feature-name
-	```
+Example command:
 
-3. Add, Commit and Push: Use descriptive messages in English for commits.
-	```bash
-	git add .
-	git commit -m "type: message" (Ex: doc: add initial readme)
-	git push origin type/type-name
-	```
+```
+echo hello | grep h
+```
 
-4. PR: Open a Pull Request on GitHub to merge the feature into main.
+Conceptual representation:
 
-5. Review: Review code for memory management and logic before merging.
+```
+       PIPE
+      /    \
+   echo    grep
+```
+
+The parser also associates **redirections** with their corresponding commands and prepares the data structures that will later be used during execution.
+
+---
+
+## Execution
+
+Once the command structure is built, the executor runs the commands according to their relationships.
+
+Execution typically involves system calls such as:
+
+- `fork` to create child processes
+- `pipe` to connect commands
+- `dup2` to handle file descriptor redirections
+- `execve` to exec
+
+---
+
+# Project Structure
+
+```
+minishell/
+│
+├── includes/        # Header files
+├── srcs/            # Source code
+│   ├── lexer/
+│   ├── parser/
+│   ├── signals/
+│   └── executor/
+│       ├── builtin/
+│       ├── exec/
+│       ├── expansion/
+│       ├── heredoc/
+│       └── signal/
+├── lib/             # Custom C utility library
+├── Makefile
+└── README.md
+```
+
+---
+
+# Instructions
+
+## Clone the repository
+
+```bash
+git clone https://github.com/mkitano/minishell.git
+cd minishell
+```
+
+## Compile the project
+
+```bash
+make
+```
+
+## Run minishell
+
+```bash
+./minishell
+```
+
+---
+
+# Example Usage
+
+```
+minishell$ echo Hello
+Hello
+
+minishell$ export NAME=42
+minishell$ echo $NAME
+42
+
+minishell$ ls -l | grep minishell
+```
+
+---
+
+# Resources
+
+References used during the development of this project:
+
+- GNU Bash documentation https://www.gnu.org/software/bash/manual/bash.html
+- Linux manual pages (`man execve`, `man fork`, `man pipe`, `man dup2`)
+- The Linux Programming Interface — Michael Kerrisk
+- Playlist https://github.com/lbento/minishell.git
+- Shell Program https://www.youtube.com/watch?v=ubt-UjcQUYg&t=498s
+- Playlist Data Structures https://www.youtube.com/playlist?list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P
+- Creating and Killing Child Processes https://www.codequoi.com/en/creating-and-killing-child-processes-in-c/#a-hierarchy-of-processes
+- The Architecture of Open Source Applications (Bash) https://aosabook.org/en/v1/bash.html
+- Everything You Need to Know About Quotes in Bash https://www.austintripp.ca/blog/2019/07/18/bash-quotes/
+
+### AI Usage
+
+AI tools were used to:
+
+- clarify system call behavior
+- review conceptual explanations

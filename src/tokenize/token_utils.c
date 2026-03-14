@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/21 15:15:20 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/11 21:09:37 by namatias         ###   ########.fr       */
+/*   Created: 2026/02/07 14:41:57 by mkitano           #+#    #+#             */
+/*   Updated: 2026/03/09 20:52:46 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+t_token	*new_token(t_tk_kind kind, char *lexeme)
 {
-	t_exec	exec;
-	char	*line;
+	t_token	*token;
 
-	(void)argv;
-	(void)argc;
-	line = NULL;
-	init_shell(&exec, envp);
-	exec_readline_looping(line, &exec);
-	ft_putendl_fd("exit", STDOUT_FILENO);
-	free_clean_all(&exec);
-	return (exec.exit_status);
+	if (!lexeme)
+		return (NULL);
+	token = ft_calloc(1, sizeof(t_token));
+	if (!token)
+	{
+		free(lexeme);
+		return (NULL);
+	}
+	token->kind = kind;
+	token->lexeme = lexeme;
+	return (token);
+}
+
+void	free_tks(void *data)
+{
+	t_token	*token;
+
+	if (!data)
+		return ;
+	token = (t_token *) data;
+	if (token->lexeme)
+		free(token->lexeme);
+	free (token);
 }

@@ -21,7 +21,7 @@ ARFLAGS := crs
 
 CCFLAGS := -Wall -Wextra -Werror
 DEPFLAGS := -MMD -MP
-CPPFLAGS := -I include -I src/core -I src/gnl -I src/printf
+CPPFLAGS := -I include -I src/core -I src/gnl -I src/printf -I src/linked_list
 
 RM = rm
 RMFLAGS = -rf
@@ -61,6 +61,7 @@ CORE = ft_isalpha.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 	ft_strcmp.c \
+	ft_isspace.c \
 
 GNL = get_next_line.c
 
@@ -73,15 +74,28 @@ PRINTF = ft_printf.c \
 	ft_putstr.c \
 	ft_strchr.c
 
+LK_LST = get_node_at.c \
+	insert_node_at.c \
+	list_init.c \
+	node_delete_and_clear.c \
+	node_detach.c \
+	node_new.c \
+	node_push_back.c \
+	node_push_front.c \
+	lst_push_back.c \
+	lst_push_front.c \
+
 CORE_SRCS = $(addprefix $(SRC_DIR)/core/, $(CORE))
 GNL_SRCS = $(addprefix $(SRC_DIR)/gnl/, $(GNL))
 PRINTF_SRCS = $(addprefix $(SRC_DIR)/printf/, $(PRINTF))
+LK_LST_SRCS = $(addprefix $(SRC_DIR)/linked_list/, $(LK_LST))
 
 CORE_OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(CORE_SRCS))
 GNL_OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(GNL_SRCS))
 PRINTF_OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(PRINTF_SRCS))
+LK_LST_OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(LK_LST_SRCS))
 
-OBJECTS_ALL = $(CORE_OBJS) $(GNL_OBJS) $(PRINTF_OBJS)
+OBJECTS_ALL = $(CORE_OBJS) $(GNL_OBJS) $(PRINTF_OBJS) $(LK_LST_OBJS)
 DEPS = $(OBJECTS_ALL:.o=.d)
 
 all : $(NAME)

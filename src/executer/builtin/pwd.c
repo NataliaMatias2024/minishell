@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/27 16:15:49 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/15 03:12:45 by namatias         ###   ########.fr       */
+/*   Created: 2026/01/24 11:50:32 by namatias          #+#    #+#             */
+/*   Updated: 2026/03/04 16:57:44 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	builtin_pwd(t_exec *exec, char **args)
 {
-	size_t	i;
+	char	pwd[SIZE_PATH];
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (i < n && s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+	(void)args;
+	(void)exec;
+	if (getcwd(pwd, SIZE_PATH))
 	{
-		i++;
-	}
-	if (i == n)
+		ft_putendl_fd(pwd, STDOUT_FILENO);
 		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	else
+		ft_putendl_fd("pwd: error retrieving current directory", STDERR_FILENO);
+	return (1);
 }

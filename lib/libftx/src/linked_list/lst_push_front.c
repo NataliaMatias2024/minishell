@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   lst_push_front.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/27 16:15:49 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/15 03:12:45 by namatias         ###   ########.fr       */
+/*   Created: 2026/02/13 17:26:53 by mkitano           #+#    #+#             */
+/*   Updated: 2026/02/19 02:23:33 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "linked_list.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_lst_push_front(t_dlist *lst, void *content)
 {
-	size_t	i;
+	t_node	*node;
 
-	i = 0;
-	if (n == 0)
+	if (!lst)
 		return (0);
-	while (i < n && s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-	{
-		i++;
-	}
-	if (i == n)
+	node = ft_new_node(content);
+	if (!node)
 		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (ft_push_node_front(lst, node));
 }

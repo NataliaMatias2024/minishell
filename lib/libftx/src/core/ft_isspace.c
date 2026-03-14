@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   teste_exec.c                                       :+:      :+:    :+:   */
+/*  ft_isspace.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/21 17:39:58 by namatias          #+#    #+#             */
-/*   Updated: 2026/01/21 17:48:40 by namatias         ###   ########.fr       */
+/*   Created: 2025/12/07 16:19:07 by mkitano           #+#    #+#             */
+/*   Updated: 2025/12/07 17:47:38 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	teste_valida(char *string)
+bool	ft_isspace(char c)
 {
-	int	i = 0;
-
-	while (string[i])
-		i++;
-
-	return (i);
+	if ((c >= '\t' && c <= '\r') || (c == ' '))
+		return (true);
+	return (false);
 }

@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/21 15:05:34 by namatias          #+#    #+#              #
-#    Updated: 2026/01/21 18:00:22 by namatias         ###   ########.fr        #
+#    Updated: 2026/03/11 22:22:22 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,22 +17,60 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
+AST_DIR =		./ast/
 SRC_DIR =		./src/
 OBJ_DIR =		./obj/
-LIB_DIR =		./lib/libftx/
+SYNTAX_DIR =	./syntax/
 INCLUDE_DIR =	./include/
-PARSING_DIR =	./parsing/
-EXEC_DIR =		./execution/
+EXEC_DIR =		./executer/
+TOKEN_DIR =		./tokenize/
+LIB_DIR =		./lib/libftx/
 
-PARSING_FILES = teste_parsing.c \
+SYNTAX_FILES = 	syntax_check.c \
+				syntax_utils.c \
 
-EXEC_FILES = teste_exec.c \
+EXEC_FILES = builtin/cd.c \
+			 builtin/env.c \
+			 builtin/pwd.c \
+			 builtin/exit.c \
+			 builtin/echo.c \
+			 builtin/unset.c \
+			 builtin/export.c \
+			 builtin/builtin.c \
+			 environment_list.c \
+			 executions_utils.c \
+			 expansion/expansion.c \
+			 expansion/expansion_utils.c \
+			 exec/pipe.c \
+			 exec/redirect.c \
+			 exec/executor.c \
+			 exec/execute_ast.c \
+			 exec/external_commands.c \
+			 exec/external_commands_utils.c \
+			 heredoc/heredocs.c \
+			 heredoc/heredocs_utils.c \
+			 signal/signal_set.c \
+			 signal/signal_act.c \
+
+TOKEN_FILES = token.c \
+			  handlers.c \
+			  token_utils.c \
+
+AST_FILES =	cmd_arg.c \
+			free_ast.c \
+			cmd_redir.c \
+ 			ast_build.c \
+			create_node.c \
 
 SRC_FILES = main.c \
-			$(addprefix $(PARSING_DIR), $(PARSING_FILES)) \
-            $(addprefix $(EXEC_DIR), $(EXEC_FILES))
+			cleaning.c \
+			main_utils.c \
+			$(addprefix $(AST_DIR), $(AST_FILES)) \
+            $(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
+			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES)) \
+			$(addprefix $(SYNTAX_DIR), $(SYNTAX_FILES)) \
 
 FILES_O = $(SRC_FILES:.c=.o)
 
@@ -40,7 +78,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(FILES_O))
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 ################################################################################
-#                                    LIBRRIES                                  #
+#                   	          LIBRARIES        		                       #
 ################################################################################
 
 LIBFT = $(LIB_DIR)libft.a
@@ -50,7 +88,7 @@ LDFLAGS = -L $(LIB_DIR) -lft -lreadline
 INCLUDES = -I $(INCLUDE_DIR) -I $(LIB_DIR)include
 
 ################################################################################
-#                                   Colors                                     #
+#                                   COLORS                                     #
 ################################################################################
 
 RED = \033[0;31m
@@ -59,17 +97,19 @@ YELLOW = \033[0;33m
 RESET = \033[0m
 
 ################################################################################
-#                             Funções / Functions                              #
+#                          		   FUNCTIONS	                               #
 ################################################################################
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
+	@echo "[\033[0;32mOK\033[0m] $(NAME) COMPILED!"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "[\033[0;32mOK\033[0m] COMPILED $<"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIB_DIR) --silent
@@ -77,11 +117,16 @@ $(LIBFT):
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make clean -C $(LIB_DIR) --silent
+	@echo "[\033[0;32mOK\033[0m] FILES CLEAR!"
 
 fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) fclean -C $(LIB_DIR) --silent
+	@echo "[\033[0;32mOK\033[0m] ALL CLEAR!"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+val: all
+	valgrind -q --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME)
+
+.PHONY: all clean fclean re val

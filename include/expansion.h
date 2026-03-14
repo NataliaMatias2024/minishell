@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/27 16:15:49 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/15 03:12:45 by namatias         ###   ########.fr       */
+/*   Created: 2026/02/16 21:03:35 by namatias          #+#    #+#             */
+/*   Updated: 2026/03/07 03:25:18 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef EXPANSION_H
+# define EXPANSION_H
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
+typedef struct s_executor	t_exec;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (i < n && s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-	{
-		i++;
-	}
-	if (i == n)
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
+char	*get_name(char *str, int *i);
+char	*remove_quotes(char *lexeme);
+char	*join_and_free(char *s1, char *s2);
+int		quote_state(char lexeme, int current_state);
+int		expand_variable(t_exec *exec, t_dlist **tklst);
+char	*handle_dollar(t_exec *exec, char *lexeme, int *i, char *analyzed);
+
+#endif

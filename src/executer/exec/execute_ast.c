@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/27 16:15:49 by mkitano           #+#    #+#             */
-/*   Updated: 2026/02/15 03:12:45 by namatias         ###   ########.fr       */
+/*   Created: 2026/03/04 10:58:02 by namatias          #+#    #+#             */
+/*   Updated: 2026/03/11 15:21:11 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	exec_ast(t_exec *exec, t_ast *root, int in_pipe)
 {
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (i < n && s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-	{
-		i++;
-	}
-	if (i == n)
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	if (!root)
+		return ;
+	if (root->type == ND_PIPE)
+		exec_pipe(exec, root);
+	else if (root->type == ND_CMD)
+		exec_commands(exec, root, in_pipe);
 }
