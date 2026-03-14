@@ -1,4 +1,4 @@
-_This project has been created as part of the 42 curriculum by nmatias, mkitano._
+_This project has been created as part of the 42 curriculum by namatias, mkitano._
 
 # Minishell
 
@@ -167,7 +167,6 @@ References used during the development of this project:
 - GNU Bash documentation https://www.gnu.org/software/bash/manual/bash.html
 - Linux manual pages (`man execve`, `man fork`, `man pipe`, `man dup2`)
 - The Linux Programming Interface — Michael Kerrisk
-- Playlist https://github.com/lbento/minishell.git
 - Shell Program https://www.youtube.com/watch?v=ubt-UjcQUYg&t=498s
 - Playlist Data Structures https://www.youtube.com/playlist?list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P
 - Creating and Killing Child Processes https://www.codequoi.com/en/creating-and-killing-child-processes-in-c/#a-hierarchy-of-processes
