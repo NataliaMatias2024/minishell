@@ -164,16 +164,15 @@ minishell$ ls -l | grep minishell
 
 References used during the development of this project:
 
-- GNU Bash documentation
+- GNU Bash documentation https://www.gnu.org/software/bash/manual/bash.html
 - Linux manual pages (`man execve`, `man fork`, `man pipe`, `man dup2`)
 - The Linux Programming Interface — Michael Kerrisk
 - Playlist https://github.com/lbento/minishell.git
 - Shell Program https://www.youtube.com/watch?v=ubt-UjcQUYg&t=498s
 - Playlist Data Structures https://www.youtube.com/playlist?list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P
-- https://www.gnu.org/software/bash/manual/bash.html
-- https://www.codequoi.com/en/creating-and-killing-child-processes-in-c/#a-hierarchy-of-processes
-- https://aosabook.org/en/v1/bash.html
-- https://www.austintripp.ca/blog/2019/07/18/bash-quotes/
+- Creating and Killing Child Processes https://www.codequoi.com/en/creating-and-killing-child-processes-in-c/#a-hierarchy-of-processes
+- The Architecture of Open Source Applications (Bash) https://aosabook.org/en/v1/bash.html
+- Everything You Need to Know About Quotes in Bash https://www.austintripp.ca/blog/2019/07/18/bash-quotes/
 
 ### AI Usage
 
