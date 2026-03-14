@@ -6,14 +6,14 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 22:29:53 by namatias          #+#    #+#             */
-/*   Updated: 2026/03/11 22:04:54 by namatias         ###   ########.fr       */
+/*   Updated: 2026/03/14 09:51:40 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void		exec_fork(t_exec *exec, t_ast *node);
-static pid_t	set_and_exec_for(t_exec *exec, t_ast *node);
+static pid_t	set_and_exec_fork(t_exec *exec, t_ast *node);
 static int		set_builtin_check(t_exec *exec, t_ast *node, int in_pipe);
 
 int	exec_commands(t_exec *exec, t_ast *node, int in_pipe)
@@ -67,7 +67,7 @@ static	void	exec_fork(t_exec *exec, t_ast *node)
 
 	status = 0;
 	exit_code = 0;
-	pid = set_and_exec_for(exec, node);
+	pid = set_and_exec_fork(exec, node);
 	if (pid > 0)
 	{
 		set_signals_ignore();
@@ -86,7 +86,7 @@ static	void	exec_fork(t_exec *exec, t_ast *node)
 	exec->exit_status = exit_code;
 }
 
-static pid_t	set_and_exec_for(t_exec *exec, t_ast *node)
+static pid_t	set_and_exec_fork(t_exec *exec, t_ast *node)
 {
 	pid_t	pid;
 
